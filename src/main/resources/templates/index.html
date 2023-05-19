@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href = "@{/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap.min.js}" defer></script>
+    <title>Home Page</title>
+</head>
+<body>
+<h1>Home Page</h1>
+<br>
+<a th:href="@{/form}" style="font-size:20px">Link to form</a>
+<img th:src="@{images/guarantee.png}" id="guarantee-image" alt="customer guarantee">
+</body>
+</html>

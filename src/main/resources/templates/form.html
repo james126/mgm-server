@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href = "@{/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap.min.js}" defer></script>
+    <title>Form Page</title>
+</head>
+<body>
+<h1>Form Page</h1>
+<br>
+<form action="/form" method="post">
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="firstName"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lastName">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
