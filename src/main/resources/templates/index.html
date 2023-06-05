@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:href = "@{/bootstrap.min.css}" rel="stylesheet">
-    <script th:src="@{/bootstrap.min.js}" defer></script>
-    <title>Home Page</title>
-</head>
+
+<!-- Insert head -->
+<head th:replace="~{shared/head :: head}"></head>
+<!-- Insert header -->
+<header th:insert="~{shared/header :: header}"
+        th:with="class0=${'navbar fixed-top navbar-expand-md navbar-dark fixed-top bg-dark'},
+        class1=${'nav-item active'},
+        class2=${'nav-item'},
+        class3=${'nav-item'},
+        class4=${'nav-item'}"></header>
+
+<!-- Current page content -->
 <body>
-<h1>Home Page</h1>
-<br>
-<a th:href="@{/form}" style="font-size:20px">Link to form</a>
-<img th:src="@{images/guarantee.png}" id="guarantee-image" alt="customer guarantee">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One -->
+            <div class="carousel-item active" id="first-image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Mr Grass Master</h3>
+                    <p>East Auckland garden maintenance specialists</p>
+                </div>
+            </div>
+            <!-- Slide Two -->
+            <div class="carousel-item" id="second-image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>We're here to help</h3>
+                    <p>get your outdoor areas looking great</p>
+                </div>
+            </div>
+            <!-- Slide Three -->
+            <div class="carousel-item" id="third-image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Giving you more time</h3>
+                    <p>to enjoy doing what you love most</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 </body>
-</html>

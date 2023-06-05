@@ -23,14 +23,24 @@ public class MainController {
         logger = LoggerFactory.getLogger("console");
     }
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
 
-    @GetMapping("/form")
+    @GetMapping("/services")
+    public String services() {
+        return "services";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
     public String form() {
-        return "form";
+        return "contact";
     }
 
     @PostMapping("/form")

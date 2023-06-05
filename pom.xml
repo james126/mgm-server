@@ -64,6 +64,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--Automatic restart for development-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

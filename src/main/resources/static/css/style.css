@@ -1,0 +1,214 @@
+/* BOOTSTRAP  ******************************************************************
+nav and footer */
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+		font-size: 3.5rem;
+    }
+}
+
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.footer {
+  background-color: #f5f5f5;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+/******************************************************************************/
+
+/* MY STYLE ********************************************************************
+background image*/
+body{
+    width:100%;
+	background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/grass4.png");
+}
+
+/* Footer */
+#footer-text{
+    font-size:12px;
+}
+/******************************************************************************/
+
+/* INDEX PAGE ******************************************************************
+carousel */
+.carousel-item {
+   height: 100vh;
+   min-height: 300px;
+   background: no-repeat center center scroll;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+}
+  /*---Firefox Bug Fix --*/
+   .carousel-item {
+   transition: -webkit-transform 0.5s ease;
+   transition: transform 0.5s ease;
+   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+   -webkit-backface-visibility: visible;
+   backface-visibility: visible;
+}
+
+#first-image{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/one.jpg");
+}
+#second-image{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/two.jpg");
+}
+#third-image{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/three.jpg");
+}
+
+.carousel-caption {
+   position: absolute;
+   height:30%;
+   width:50%;
+   right: 25%;
+   left:25%;
+   bottom: 10%;
+   top: 50%;
+   z-index: 10;
+   padding-top: 5%;
+   padding-bottom: 5%;
+   color: #fff;
+   text-align: center;
+}
+/******************************************************************************/
+
+/* SERVICES PAGE **************************************************************/
+#services-title{
+    font-weight:400 !important;
+}
+
+ /* images too bright so reduced opacity */
+#lawnmower{
+    opacity:0.85;
+}
+#rubbish-removal{
+    opacity:0.875;
+}
+
+#outer-jumbotron{
+    margin-bottom:1.5rem; /* applies to services.html, about.html, contact.html - fixed footer overways additional jumbotron margin*/
+}
+
+#jumbotron-title{
+    display: inline;
+    font-weight:400;
+}
+
+#services-hr{
+    margin-bottom: 0.5rem !important; /*reduce distance between line and cards below*/
+}
+
+.services-outer-jumbotron{
+    background: rgba(233, 236, 239, .85);
+    padding:1rem 1rem 0.5rem 1rem !important; /*top left bottom right*/
+    margin-top:1.5rem;
+}
+/******************************************************************************/
+
+/* ABOUT PAGE *****************************************************************/
+#jumbotron-title{ /* applies to services.html, about.html, contact.html*/
+    display:inline;
+    font-weight:400;
+    text-align: center;
+}
+
+.about-outer-jumbotron{
+    background: rgba(233, 236, 239, .85);
+    padding:1rem 1rem 2rem 1rem !important; /*top left bottom right*/
+    margin-top:1.5rem;
+}
+
+#guarantee-image{
+    display: block;
+    width:10% !important;
+    float:right;
+    margin-left:1rem;
+}
+
+/***** Testimonials section *****/
+#testimonial-container{
+    background: rgba(233, 236, 239, .5);
+    width:calc(100% - 31px);
+    padding:2rem 6rem 2rem 6rem !important; /*top left bottom right*/
+    margin:2rem 15px 0px 15px;
+}
+
+#opening-quote-icon{
+    display:inline;
+    width:2rem;
+    padding-top:1px;
+}
+
+#testimonial-text p:first-child{
+    padding:0px 0px 0px 0px !important;
+    margin:0px 8px 8px 8px !important;
+    text-align:justify;
+}
+#testimonial-text p:nth-child(2){
+    margin:0px 8px 0px 8px !important;
+    text-align:left !important;
+}
+/******************************************************************************/
+
+/* CONTACT PAGE ***************************************************************/
+.contact-outer-jumbotron{
+    background: rgba(233, 236, 239, .85);
+    padding:1rem 1rem 1rem 1rem !important; /*top left bottom right*/
+    margin-top:1.5rem;
+}
+
+#main-title{
+    font-weight:500 !important;
+    text-shadow: #6c757d 1.5px 1.5px 1.5px;
+}
+
+.submitted-text{
+    padding:0rem 15rem 0rem 15rem !important; /*top left bottom right*/
+}
+/******************************************************************************/
+.card{
+    background: rgba(233, 236, 239, .5);
+}
+
+.custom_footer{
+    position:absolute;
+    bottom:0rem;
+    width: 100%;
+}
+.dashed-border{
+    border-style: dashed;
+    border-color: red;
+    border-width: 1px;
+}
+
+.dashed-border-blue{
+    border-style: dashed;
+    border-color: blue;
+    border-width: 1px;
+}
+
+.dashed-border-orange{
+    border-style: dashed;
+    border-color: orange;
+    border-width: 1px;
+}

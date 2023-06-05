@@ -1,0 +1,26 @@
+<!-- Navbar fixed collapsable -->
+<header th:fragment="header">
+    <nav th:class="${class0}">
+        <span class="navbar-brand">
+            <img th:src="@{images/man.png}" width="35" class="d-inline-block align-top" alt="">
+            MGM
+        </span>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li th:class="${class1}">
+                    <a class="nav-link" href="/index.html" data-th-href="@{/index}">Home</a>
+                </li>
+                <li th:class="${class2}">
+                    <a class="nav-link" href="/services.html" data-th-href="@{/services}">Services</a>
+                </li>
+                <li th:class="${class3}">
+                    <a class="nav-link" href="/about.html" data-th-href="@{/about}">About</a>
+                </li>
+                <li th:class="${class4}">
+                    <a class="nav-link" href="/contact.html" data-th-href="@{/contact}">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

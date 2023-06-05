@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Insert head -->
+<head th:replace="~{shared/head :: head}"></head>
+<body class='d-flex flex-column h-100'>
+    <!-- Insert header -->
+    <header th:insert="~{shared/header :: header}"
+            th:with="class0=${'navbar sticky-top navbar-expand-md navbar-dark fixed-top bg-dark'},
+        class1=${'nav-item'},
+        class2=${'nav-item'},
+        class3=${'nav-item active'},
+        class4=${'nav-item'}"></header>
+
+    <!-- Page content -->
+    <!-- outer jumbotron -->
+    <div class="container d-inline-flex flex-column">
+        <div class="jumbotron about-outer-jumbotron" id="outer-jumbotron">
+            <div class="container">
+                <h1 class="text-center" id="main-title">About Mr Grass Master </h1>
+                <p class="text-center lead">Delivering high quality services at a competitive price</p>
+                <hr class="my-4">
+                <img th:src="@{images/guarantee.png}" id="guarantee-image" alt="customer guarantee">
+                <p class="text-justify">
+                    We service all suburbs in and around south east Auckland. We're so confident you'll be happy with our services that all
+                    work
+                    done comes with a
+                    100% customer satisfaction guarantee. For regular services if you have a current price we can probably beat it!<br>
+                </p>
+            </div>
+
+            <!-- testimonials -->
+            <div class="jumbotron d-flex justify-content-center" id="testimonial-container">
+                <div class="d-inline-flex">
+                    <img th:src="@{images/quote1.png}" alt="opening quote icon" class="d-flex align-self-start img-fluid"
+                         id="opening-quote-icon">
+                </div>
+                <div class="d-inline-flex">
+                    <div class="d-inline-flex flex-column" id="testimonial-text">
+                        <p class="lead d-flex align-self-center">Aston and Mark did an great job cleaning up my overgrown lawn which hadn't
+                            been
+                            mowed for months.</p>
+                        <p class="d-flex align-self-left">Billy Brown - Dannemora, Auckland</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Insert footer -->
+<nav th:insert="~{shared/footer :: footer}" th:with="class=${'navbar fixed-bottom navbar-expand-sm navbar-light bg-light py-0'}"></nav>
