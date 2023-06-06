@@ -1,26 +1,26 @@
 package main.controller;
 
-import main.entity.Form;
-import main.service.FormService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import main.model.Contact;
+import main.model.Enquiry;
+import main.service.EnquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Optional;
+import java.util.Objects;
 
 @Controller
 public class MainController {
-    private final Logger logger;
-    private final FormService formService;
+    private final EnquiryService enquiryService;
 
     @Autowired
-    public MainController(FormService formService) {
-        this.formService = formService;
-        logger = LoggerFactory.getLogger("console");
+    public MainController(EnquiryService enquiryService) {
+        this.enquiryService = enquiryService;
     }
 
     @GetMapping("/index")
@@ -39,20 +39,19 @@ public class MainController {
     }
 
     @GetMapping("/contact")
-    public String form() {
+    public String contact() {
         return "contact";
     }
 
-    @PostMapping("/form")
-    public String form(Form form, Model model) {
-        logger.info("Received - firstName: {}, lastName: {}", form.getFirstName(), form.getLastName());
-        Optional<Form> result = formService.insertForm(form);
-
-        if (result.isPresent()){
-            model.addAttribute(result.get());
-            return "confirm";
-        }
-
+    @GetMapping("/form")
+    public String form() {
         return "form";
+    }
+
+    @ResponseBody
+    @PostMapping("/form")
+    public ResponseEntity<?> form(@RequestBody Enquiry form) {
+        Contact result = enquiryService.insertEnquiry(form);
+        return Objects.nonNull(result) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
