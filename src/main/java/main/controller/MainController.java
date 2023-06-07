@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -51,7 +51,7 @@ public class MainController {
     @ResponseBody
     @PostMapping("/form")
     public ResponseEntity<?> form(@RequestBody Enquiry form) {
-        Contact result = enquiryService.insertEnquiry(form);
-        return Objects.nonNull(result) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        Optional<Contact> result = enquiryService.insertEnquiry(form);
+        return result.isPresent() ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

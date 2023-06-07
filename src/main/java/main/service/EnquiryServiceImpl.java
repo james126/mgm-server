@@ -9,15 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
-public class EnquiryServiceImplementation implements EnquiryService {
+public class EnquiryServiceImpl implements EnquiryService {
 
     private final ContactRepository contactRepository;
 
     @Autowired
-    public EnquiryServiceImplementation(ContactRepository contactRepository) {
+    public EnquiryServiceImpl(ContactRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
 
@@ -31,7 +32,7 @@ public class EnquiryServiceImplementation implements EnquiryService {
     }
 
     @Override
-    public Contact insertEnquiry(Enquiry form){
+    public Optional<Contact> insertEnquiry(Enquiry form){
         Contact c = new Contact();
         c.setFirst_name(form.getFirst_name());
         c.setLast_name(form.getLast_name());
@@ -41,7 +42,6 @@ public class EnquiryServiceImplementation implements EnquiryService {
         c.setAddress_line2(form.getAddress_line1());
         c.setMessage(form.getMessage());
         c.setUpdate_datetime(new Date(1,1,1));
-        return contactRepository.save(c);
+        return Optional.of(contactRepository.saveAndFlush(c));
     }
-
 }

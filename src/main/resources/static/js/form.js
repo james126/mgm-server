@@ -32,22 +32,24 @@ function submitForm(event) {
 }
 
 /**
- * When server response is OK, disable input fields and display confirmation message
+ * When server response is OK, disable form elements and display confirmation message
  */
 function confirmSubmission() {
-    //disable all input elements
-    const fields = document.getElementsByTagName('input');
-    const array = Array.from(fields);
-    Array.from(fields).forEach(element => element.disabled = true);
+    //disable form elements
+    const input = document.getElementsByTagName('input');
+    const array = Array.from(input);
+    Array.from(input).forEach(element => element.disabled = true);
+
+    document.getElementById('textarea').disabled = true;
 
     //display confirmation message
     const paragraph = document.createElement("p");
-    paragraph.classList.add('text-center', 'lead', 'submitted-text');
+    paragraph.classList.add('text-center', 'lead', 'submitted-text', 'font-weight-bold');
     paragraph.innerText = 'Thanks, we will be in touch shortly!';
 
     const brk = document.createElement("br");
     paragraph.appendChild(brk);
 
     const horizontal = document.getElementsByTagName("hr");
-    document.body.insertBefore(paragraph, form);
+    form.insertBefore(paragraph, form.children[0]);
 }
