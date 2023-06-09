@@ -1,5 +1,0 @@
-10:33:54.158 DEBUG [main] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@506aa618) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@4b6b5352)
-10:51:07.107 DEBUG [main] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@6d815fb7) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@51af8049)
-10:51:55.482 DEBUG [main] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1b47b7f5) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@506aa618)
-10:54:07.771 DEBUG [main] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@1b47b7f5) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@506aa618)
-10:57:45.111 DEBUG [main] - addDescriptor(6, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@506aa618) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@4b6b5352)

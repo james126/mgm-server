@@ -1,29 +1,34 @@
-package main.service;
+package mgm.service;
 
-import main.model.Contact;
-import main.model.Enquiry;
-import main.repository.ContactRepository;
+import mgm.model.dto.Enquiry;
+import mgm.model.entity.Contact;
+import mgm.model.mapper.ContactMapper;
+import mgm.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class EnquiryServiceImpl implements EnquiryService {
-
+@EnableConfigurationProperties(DateTime.class)
+public class EnquiryServiceImpl extends ContactMapper implements EnquiryService {
     private final ContactRepository contactRepository;
+    private final DateTime dateTime;
 
     @Autowired
-    public EnquiryServiceImpl(ContactRepository contactRepository) {
+    public EnquiryServiceImpl(ContactRepository contactRepository, DateTime zone) {
         this.contactRepository = contactRepository;
+        this.dateTime = zone;
     }
 
     @Override
     public void deleteById(Integer id) {
+        contactRepository.deleteById(id);
+        contactRepository.flush();
     }
 
     @Override
@@ -33,15 +38,8 @@ public class EnquiryServiceImpl implements EnquiryService {
 
     @Override
     public Optional<Contact> insertEnquiry(Enquiry form){
-        Contact c = new Contact();
-        c.setFirst_name(form.getFirst_name());
-        c.setLast_name(form.getLast_name());
-        c.setEmail(form.getEmail());
-        c.setPhone(form.getPhone());
-        c.setAddress_line1(form.getAddress_line1());
-        c.setAddress_line2(form.getAddress_line1());
-        c.setMessage(form.getMessage());
-        c.setUpdate_datetime(new Date(1,1,1));
+        Contact c = mapEnquiry(form);
+        c.setUpdate_datetime(dateTime.getDate());
         return Optional.of(contactRepository.saveAndFlush(c));
     }
 }

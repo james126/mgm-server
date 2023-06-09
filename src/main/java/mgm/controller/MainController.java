@@ -1,8 +1,8 @@
-package main.controller;
+package mgm.controller;
 
-import main.model.Contact;
-import main.model.Enquiry;
-import main.service.EnquiryService;
+import mgm.model.entity.Contact;
+import mgm.model.dto.Enquiry;
+import mgm.service.EnquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package main.service;
+package mgm.service;
 
-import main.model.Contact;
-import main.model.Enquiry;
+import mgm.model.entity.Contact;
+import mgm.model.dto.Enquiry;
 
 import java.util.List;
 import java.util.Optional;

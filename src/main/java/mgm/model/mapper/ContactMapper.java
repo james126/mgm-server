@@ -1,5 +1,7 @@
-package main.model;
+package mgm.model.mapper;
 
+import mgm.model.dto.Enquiry;
+import mgm.model.entity.Contact;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -19,6 +21,18 @@ public class ContactMapper implements RowMapper<Contact> {
         c.setAddress_line2(rs.getString("address_line2"));
         c.setMessage(rs.getString("message"));
         c.setUpdate_datetime(rs.getDate("update_dateTime"));
+        return c;
+    }
+
+    public Contact mapEnquiry(Enquiry form){
+        Contact c = new Contact();
+        c.setFirst_name(form.getFirst_name());
+        c.setLast_name(form.getLast_name());
+        c.setEmail(form.getEmail());
+        c.setPhone(form.getPhone());
+        c.setAddress_line1(form.getAddress_line1());
+        c.setAddress_line2(form.getAddress_line1());
+        c.setMessage(form.getMessage());
         return c;
     }
 }

@@ -41,6 +41,7 @@ function confirmSubmission() {
     Array.from(input).forEach(element => element.disabled = true);
 
     document.getElementById('textarea').disabled = true;
+    document.getElementById('submit-button').disabled = true;
 
     //display confirmation message
     const paragraph = document.createElement("p");

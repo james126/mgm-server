@@ -1,4 +1,4 @@
-package main.model;
+package mgm.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

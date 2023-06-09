@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        password: password
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+    jpa:
+        show-sql: true
+
+date:
+    zone: 'Pacific/Auckland'

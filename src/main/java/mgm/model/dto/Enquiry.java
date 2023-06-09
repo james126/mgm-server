@@ -1,4 +1,4 @@
-package main.model;
+package mgm.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
