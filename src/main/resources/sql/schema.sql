@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS contact (
    address_line1 VARCHAR(50) NOT NULL,
    address_line2 VARCHAR(50) NOT NULL,
    message TEXT NOT NULL, --variable unlimited length
-   update_date_time TIMESTAMP
+   update_datetime TIMESTAMP
 );

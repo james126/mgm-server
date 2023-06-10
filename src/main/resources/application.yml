@@ -1,13 +1,14 @@
 server:
     port: 5000
 
-#spring:
-#    datasource:
-#        password: password
+spring:
+    datasource:
+        url: jdbc:postgresql://awseb-e-kpwydzbynn-stack-awsebrdsdatabase-cnzuh4otatuv.ch5uitkaqwlh.ap-southeast-2.rds.amazonaws.com:5432/ebdb
 #        url: jdbc:postgresql://localhost:5432/postgres
-#        username: postgres
-#    jpa:
-#        show-sql: true
+        username: postgres
+        password: password
+    jpa:
+        show-sql: false
 
 date:
     zone: 'Pacific/Auckland'
