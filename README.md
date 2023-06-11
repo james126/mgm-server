@@ -2,6 +2,8 @@
 Spring Boot web app hosted on AWS Elastic Beanstalk<br>
 PostgreSQL database hosted on AWS RDS<br>
 http://m-g-m.ap-southeast-2.elasticbeanstalk.com/<br>
+Thymeleaf template engine<br>
+Bootstrap CSS styling<br>
 
 <b>Future Improvements</b><br>
 Server side validation<br>
