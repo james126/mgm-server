@@ -18,4 +18,4 @@ http://m-g-m.ap-southeast-2.elasticbeanstalk.com/<br>
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/contact1.png" width="100%" height="100%">
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/contact2.png" width="100%" height="100%"><br>
 Verying record has been writted to database<br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/dbquery.png"width="100%" height="100%">
+<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/dbquery.png" width="100%" height="100%">
