@@ -1,4 +1,5 @@
 # Mr Grass Master
+<b>Description</b><br>
 Spring Boot web app hosted on AWS Elastic Beanstalk<br>
 PostgreSQL database hosted on AWS RDS<br>
 http://m-g-m.ap-southeast-2.elasticbeanstalk.com<br>
@@ -9,6 +10,8 @@ Bootstrap CSS styling<br>
 Server side validation<br>
 Login functionality and authentication<br>
 Make mobile responsive<br>
+Custom domain name<br>
+Signed SSL certificate<br>
 
 <b>Index pages - carousel</b><br>
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="100%" height="100%">
