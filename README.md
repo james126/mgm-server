@@ -8,6 +8,7 @@ Bootstrap CSS styling<br>
 <b>Future Improvements</b><br>
 Server side validation<br>
 Login functionality and authentication<br>
+Make mobile responsive<br>
 
 <b>Index pages - carousel</b><br>
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="100%" height="100%">
