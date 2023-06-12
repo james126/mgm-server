@@ -31,7 +31,7 @@ public class ContactMapper implements RowMapper<Contact> {
         c.setEmail(form.getEmail());
         c.setPhone(form.getPhone());
         c.setAddress_line1(form.getAddress_line1());
-        c.setAddress_line2(form.getAddress_line1());
+        c.setAddress_line2(form.getAddress_line2());
         c.setMessage(form.getMessage());
         return c;
     }
