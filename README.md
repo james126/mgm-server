@@ -1,5 +1,6 @@
 # Mr Grass Master
 <b>Description</b><br>
+Refactored a PHP project I previously made to use Java
 Spring Boot web app hosted on AWS Elastic Beanstalk<br>
 PostgreSQL database hosted on AWS RDS<br>
 http://m-g-m.ap-southeast-2.elasticbeanstalk.com<br>
