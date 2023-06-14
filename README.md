@@ -2,7 +2,7 @@
 <b>Description</b><br>
 Refactored and enhanced a PHP project I previously made to use Java<br>
 <br>
-Spring Boot web app hosted on AWS Elastic Beanstalk<br>
+Spring Boot web app on AWS Elastic Beanstalk<br>
 PostgreSQL database on AWS RDS<br>
 http://m-g-m.ap-southeast-2.elasticbeanstalk.com<br>
 Thymeleaf template engine<br>
