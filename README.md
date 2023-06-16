@@ -1,19 +1,19 @@
 # Mr Grass Master
 <b>Description</b><br>
-Refactored and enhanced a PHP project I previously made to use Java<br>
-<br>
-Spring Boot web app on AWS Elastic Beanstalk<br>
-PostgreSQL database on AWS RDS<br>
-http://m-g-m.ap-southeast-2.elasticbeanstalk.com<br>
-Thymeleaf template engine<br>
-Bootstrap CSS styling<br>
+I refactored and enhanced one of my old PHP projects to use Java instead. It's currently not mobile responsive.<br>
+<ul>
+<li>Spring Boot web app on AWS Elastic Beanstalk</li>
+<li>PostgreSQL database on AWS RDS</li>
+<li>http://m-g-m.ap-southeast-2.elasticbeanstalk.com</li>
+<li>Thymeleaf template engine</li>
+<li>Bootstrap CSS styling</li>
+</ul>
+
 
 <b>Future Improvements</b><br>
+More unit/integration testing<br>
 Server side validation<br>
 Login functionality and authentication<br>
-Make mobile responsive<br>
-Custom domain name<br>
-Signed SSL certificate<br>
 
 <b>Index pages - carousel</b><br>
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="100%" height="100%">
