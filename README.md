@@ -1,6 +1,7 @@
 # Mr Grass Master
 <b>Description</b><br>
-I refactored and enhanced one of my old PHP projects to use Java instead. It's currently not mobile responsive.<br>
+I refactored and enhanced one of my old PHP projects to use Java instead.<br>
+It's currently not mobile responsive.<br>
 <ul>
 <li>Spring Boot web app on AWS Elastic Beanstalk</li>
 <li>PostgreSQL database on AWS RDS</li>
