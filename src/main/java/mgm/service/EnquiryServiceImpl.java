@@ -31,9 +31,8 @@ public class EnquiryServiceImpl extends ContactMapper implements EnquiryService 
         contactRepository.flush();
     }
 
-    @Override
-    public List<Contact> selectEnquiries() {
-        return contactRepository.selectEnquiries();
+    public List<Contact> getAllEnquiries() {
+        return contactRepository.findAll();
     }
 
     @Override

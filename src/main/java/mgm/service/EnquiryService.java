@@ -1,16 +1,13 @@
 package mgm.service;
 
-import mgm.model.entity.Contact;
 import mgm.model.dto.Enquiry;
+import mgm.model.entity.Contact;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface EnquiryService {
 
     Optional<Contact> insertEnquiry(Enquiry form);
 
-    List<Contact> selectEnquiries();
-
-    void deleteById(Integer id);
+    public void deleteById(Integer id);
 }
