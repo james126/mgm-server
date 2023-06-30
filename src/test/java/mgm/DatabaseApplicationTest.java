@@ -3,6 +3,7 @@ package mgm;
 import mgm.model.dto.Enquiry;
 import mgm.model.entity.Contact;
 import mgm.service.EnquiryServiceImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class DatabaseApplicationTest {
     @Autowired
     private EnquiryServiceImpl enquiryService;
 
-    private List<Contact> expectedContactList = new ArrayList<>();
+    private final List<Contact> expectedContactList = new ArrayList<>();
     private final List<Enquiry> enquiryList = new ArrayList<>();
 
     @BeforeEach
@@ -36,6 +37,13 @@ public class DatabaseApplicationTest {
         enquiryList.addAll(contactBuilder.getEnquiryList());
         enquiryList.forEach(enquiry -> {
             enquiryService.insertEnquiry(enquiry);
+        });
+    }
+
+    @AfterEach
+    public void tearDown(){
+        expectedContactList.forEach(contact -> {
+            enquiryService.deleteById(contact.getId());
         });
     }
 
