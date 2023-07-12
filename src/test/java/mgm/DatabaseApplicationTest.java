@@ -20,21 +20,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Import(EnquiryContactBuilder.class)
-@ActiveProfiles(value = "test")
+@ActiveProfiles(value = "test") //Maven profile
 public class DatabaseApplicationTest {
-    @Autowired
-    private EnquiryContactBuilder contactBuilder;
 
     @Autowired
     private EnquiryServiceImpl enquiryService;
 
+    @Autowired
     private final List<Contact> expectedContactList = new ArrayList<>();
+
+    @Autowired
     private final List<Enquiry> enquiryList = new ArrayList<>();
 
     @BeforeEach
     public void setUp(){
-        expectedContactList.addAll(contactBuilder.getContactList());
-        enquiryList.addAll(contactBuilder.getEnquiryList());
         enquiryList.forEach(enquiry -> {
             enquiryService.insertEnquiry(enquiry);
         });

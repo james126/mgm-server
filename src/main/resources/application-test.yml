@@ -1,0 +1,14 @@
+server:
+  port: 5000
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb;INIT=RUNSCRIPT FROM 'src/test/resources/schema.sql';
+    username: sa
+    password: password
+  sql:
+    init:
+      mode: always
+
+date:
+  zone: 'Pacific/Auckland'

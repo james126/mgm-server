@@ -2,7 +2,7 @@ package mgm.controller;
 
 import mgm.model.dto.Enquiry;
 import mgm.model.entity.Contact;
-import mgm.service.EnquiryService;
+import mgm.service.EnquiryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,10 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-    private final EnquiryService enquiryService;
+    private final EnquiryServiceImpl enquiryService;
 
     @Autowired
-    public MainController(EnquiryService enquiryService) {
+    public MainController(EnquiryServiceImpl enquiryService) {
         this.enquiryService = enquiryService;
     }
 

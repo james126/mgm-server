@@ -5,7 +5,8 @@ import mgm.model.entity.Contact;
 import mgm.service.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.context.TestComponent;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@TestComponent
+@TestConfiguration
 @EnableConfigurationProperties(DateTime.class)
 public class EnquiryContactBuilder{
     @Autowired
@@ -73,11 +74,13 @@ public class EnquiryContactBuilder{
         return c;
     }
 
-    public List<Contact> getContactList(){
+    @Bean
+    List<Contact> getContactList(){
         return contactList;
     }
 
-    public List<Enquiry> getEnquiryList(){
+    @Bean
+    List<Enquiry> getEnquiryList(){
         return enquiryList;
     }
 }
