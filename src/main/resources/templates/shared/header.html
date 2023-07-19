@@ -2,7 +2,7 @@
 <header th:fragment="header">
     <nav th:class="${class0}">
         <span class="navbar-brand">
-            <img th:src="@{images/man.png}" width="35" class="d-inline-block align-top" alt="">
+            <img th:src="@{image/man.png}" width="35" class="d-inline-block align-top" alt="">
             MGM
         </span>
 
@@ -24,3 +24,25 @@
         </div>
     </nav>
 </header>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+    <div class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <img th:src="@{image/man.png}" class="d-inline-block align-top logo" alt="">
+        <h2 class="m-0"><i class="text-primary me-2"></i>MGM</h2>
+    </div>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="#home" class="nav-item nav-link active">Home</a>
+            <a href="#about" class="nav-item nav-link">About</a>
+            <a href="#services" class="nav-item nav-link">Services</a>
+            <a href="#contact" class="nav-item nav-link">Contact</a>
+            <a href="login.html" class="nav-item nav-link">Login</a>
+        </div>
+        <a href="#contact" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i class="fa fa-arrow-right ms-3"></i></a>
+    </div>
+</nav>
+<!-- Navbar End -->
