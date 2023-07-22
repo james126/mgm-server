@@ -21,15 +21,15 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header my-5 mt-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Make some money</h1>
+            <h1 class="display-4 text-white animated slideInDown mb-4">Your Invoices</h1>
         </div>
     </div>
     <!-- Page Header End -->
 
     <!-- Form Start -->
     <div class="container">
-        <h6 class="text-primary text-uppercase mb-2">Invoice</h6>
-        <p>Submit customer invoices</p>
+        <h6 class="text-primary text-uppercase mb-2">Invoices</h6>
+        <p>It's time to pay</p>
         <div class="row clearfix">
             <div class="col-md-12">
                 <table class="table table-bordered table-hover" id="tab_logic">
@@ -55,12 +55,7 @@
                 </table>
             </div>
         </div>
-        <div class="row clearfix d-flex justify-content-end">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button id="add_row" type="button" class="btn btn-outline-warning ml-2 align-self-end">Add Row</button>
-                <button id='delete_row' type="button"  class="btn btn-outline-warning ml-2 align-self-end">Delete Row</button>
-            </div>
-        </div>
+
         <div class="row clearfix mt-2 d-flex flex-row-reverse">
             <div class="col-md-4 mt-2">
                 <table class="table table-bordered table-hover" id="table-total">
@@ -88,15 +83,8 @@
                 </table>
             </div>
         </div>
-        <div class="row clearfix d-flex justify-content-end">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button id="submit-button" type="button" class="btn btn-outline-warning ml-2 align-self-end">Submit</button>
-            </div>
-        </div>
     </div>
     <!-- Form End -->
-
-
 
 
     <!-- Insert footer -->
@@ -113,6 +101,5 @@
 
     <!-- Custom Javascript -->
     <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/invoice.js}"></script>
 </body>
 </html>

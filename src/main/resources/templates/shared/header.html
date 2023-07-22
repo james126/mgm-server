@@ -9,11 +9,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="#home" data-th-href="${href1}" class="nav-item nav-link active">Home</a>
+            <a href="#home" data-th-href="${href1}" class="nav-item nav-link" th:classappend="${home_active}">Home</a>
             <a href="#about" data-th-href="${href2}" class="nav-item nav-link">About</a>
             <a href="#services" data-th-href="${href3}" class="nav-item nav-link">Services</a>
             <a href="#contact" data-th-href="${href4}" class="nav-item nav-link">Contact</a>
-            <a href="login.html" data-th-href="${href5}" class="nav-item nav-link">Login</a>
+            <a href="login.html" data-th-href="${href5}" class="nav-item nav-link" th:classappend="${login_active}" th:text="${login_text}"></a>
         </div>
         <a href="#contact" data-th-href="${href6}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i class="fa fa-arrow-right ms-3"></i></a>
     </div>

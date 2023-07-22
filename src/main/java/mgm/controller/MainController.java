@@ -47,6 +47,14 @@ public class MainController {
         return "account " + authentication.getName();
     }
 
+    /**
+     * TODO: delete
+     */
+    @GetMapping("/account1")
+    public String account1() {
+        return "account1";
+    }
+
     @GetMapping("/admin")
     public String admin() {
         //SecurityContextHolder - only available in the Thread processing the request

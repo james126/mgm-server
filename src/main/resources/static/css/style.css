@@ -1,19 +1,38 @@
 /********** Custom CSS **********/
 
+/* Admin page start*/
+#add_row, #delete_row {
+    margin-left: 1rem !important;
+}
+
+#admin {
+    position: relative;
+    margin: 0;
+    min-height: calc(100vh - 4.5rem); /* 4.5 is height of footer */
+}
+
+#dynamic-footer {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+}
+
 #contact-us-now {
     color: #757575 !important;
 }
+/* Admin page end*/
 
 /* Login page header */
 .page-header {
     width:100%;
-    background: linear-gradient(rgba(255, 255, 255, .7), rgba(255, 255, 255, .7)), url("../image/grass4.png") repeat;
+    background: linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)), url("../image/grass4.png") repeat;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
 }
 
-/* Services/Contact background */
-.courses {
-    width:100%;
-    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .8), rgba(255, 255, 255, .7), rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)), url("../image/grass4.png") repeat;
+#footer {
+    position: relative;
+    bottom: 0;
 }
 
 /* Navbar icon */
@@ -26,6 +45,13 @@
     margin-bottom: 4.5rem !important;
 }
 
+/* Index page start */
+/* Services/Contact background */
+.courses {
+    width:100%;
+    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .8), rgba(255, 255, 255, .7), rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)), url("../image/grass4.png") repeat;
+}
+
 /* Guarantee image */
 #guarantee {
     background-color: transparent !important;
@@ -35,7 +61,7 @@
 #contact {
     padding-top: 8rem !important;
 }
-
+/* Index page end*/
 
 /********** Template CSS **********/
 :root {

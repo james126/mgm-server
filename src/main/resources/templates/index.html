@@ -15,7 +15,7 @@
 
 
     <!-- Insert header -->
-    <nav th:insert="~{shared/header :: header}" th:with="href1='#home', href2='#about', href3='#services', href4='#contact', href5='/login', href6='#contact'"></nav>
+    <nav th:insert="~{shared/header :: header}" th:with="href1='#home', href2='#about', href3='#services', href4='#contact', href5='/login', href6='#contact', home_active='active', login_ative='', login_text='Login'"></nav>
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
@@ -495,7 +495,7 @@
 
 
     <!-- Insert footer -->
-    <div th:insert="~{shared/footer :: div}"></div>
+    <footer th:insert="~{shared/footer :: footer}"></footer>
 
 
     <!-- JavaScript Libraries -->

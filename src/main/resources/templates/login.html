@@ -15,28 +15,25 @@
 
 
     <!-- Insert header -->
-    <nav th:insert="~{shared/header :: header}" th:with="href1='/index#home', href2='/index#about', href3='#/indexservices', href4='#/index#contact', href5='#login', href6='/index#contact'"></nav>
+    <nav th:insert="~{shared/header :: header}" th:with="href1='/index#home', href2='/index#about', href3='#/indexservices', href4='#/index#contact', href5='#login', href6='/index#contact', home_active='', login_ative='active', login_text='Login'"></nav>
 
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Registered Account Holders</h1>
+            <h1 class="display-4 text-white animated slideInDown mb-4">Login</h1>
         </div>
     </div>
     <!-- Page Header End -->
 
-    <!-- Services Start -->
+    <!-- Form Start -->
     <div class="container-xxl mb-5" id="services">
         <div class="container">
-
-
-            <!-- Contact Start -->
             <div class="row justify-content-center mb-5">
                 <div class="col-lg-8 mb-0 wow fadeInUp mb-5" data-wow-delay="0.1s">
                     <div class="bg-primary text-center p-5">
                         <h1 class="mb-4">Login to your account</h1>
-                        <p class="mb-4">Not registered? <a th:href="@{/index#contact}" id="contact-us-now"><u>Contact us now</u></a></p>
+                        <p class="mb-4">No account? <a th:href="@{/index#contact}" id="contact-us-now"><u>Contact us now</u></a></p>
                         <!-- forms -->
                         <!-- 'novalidate' disables browser validate check (bootstrap to validate)
                               action = where form data is submitted
@@ -67,11 +64,11 @@
             </div>
         </div>
     </div>
-    <!-- Contact End -->
+    <!-- Form End -->
 
 
     <!-- Insert footer -->
-    <div th:insert="~{shared/footer :: div}"></div>
+    <footer th:insert="~{shared/footer :: footer}"></footer>
 
 
     <!-- JavaScript Libraries -->

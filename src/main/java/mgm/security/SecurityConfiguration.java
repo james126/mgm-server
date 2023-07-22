@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import javax.sql.DataSource;
 
@@ -44,25 +45,27 @@ public class SecurityConfiguration {
                     request.requestMatchers("/").permitAll();
                     request.requestMatchers("/index").permitAll();
                     request.requestMatchers("/login").permitAll();
+                    request.requestMatchers("/admin").permitAll();
+                    request.requestMatchers("/account1").permitAll();
                     request.requestMatchers("/css/**").permitAll();
                     request.requestMatchers("/js/**").permitAll();
                     request.requestMatchers("/lib/**").permitAll();
                     request.requestMatchers("/image/**").permitAll();
                     request.anyRequest().authenticated();
                 })
-//                .formLogin(form -> form.loginPage("/login").permitAll())
-//                .formLogin(congfigurer -> {
-//                    congfigurer.loginPage("/custom-login-page")
-//                            .passwordParameter("pw")
-//                            .usernameParameter("user")
-//                            .authenticationDetailsSource(new WebAuthenticationDetailsSource());
-//                })
-                .formLogin(congfigurer -> {})
-                    .apply(new RobotLoginConfigurer())
-                    .password("beep-boop")
-                    .password("boop-beep")
-                    .and()
-                .authenticationProvider(new DanielAuthenticationProvider()) //for custom authentications, use a provider not filter
+                .formLogin(form -> form.loginPage("/login").permitAll())
+                .formLogin(congfigurer -> {
+                    congfigurer.loginPage("/custom-login-page")
+                            .passwordParameter("pw")
+                            .usernameParameter("user")
+                            .authenticationDetailsSource(new WebAuthenticationDetailsSource());
+                })
+//                .formLogin(congfigurer -> {})
+//                    .apply(new RobotLoginConfigurer())
+//                    .password("beep-boop")
+//                    .password("boop-beep")
+//                    .and()
+//                .authenticationProvider(new DanielAuthenticationProvider()) //for custom authentications, use a provider not filter
                 .build();
 
         //https://github.com/spring-projects/spring-security/blob/6.1.2/config/src/main/java/org/springframework/security/config/annotation/web/builders/FilterOrderRegistration.java
