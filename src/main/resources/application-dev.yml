@@ -1,13 +1,31 @@
 server:
-    port: 5000
+    port: 8080
 
 spring:
     datasource:
-#        url: jdbc:postgresql://awseb-e-kpwydzbynn-stack-awsebrdsdatabase-cnzuh4otatuv.ch5uitkaqwlh.ap-southeast-2.rds.amazonaws.com:5432/ebdb
-        url: jdbc:postgresql://localhost:5432/postgres
-        username: postgres
+#        url: jdbc:postgresql://localhost:5432/postgres
+#        username: postgres
+#        password: password
+        url: jdbc:h2:mem:test;
+        driverClassName: org.h2.Driver
+        username: sa
         password: password
+
     jpa:
         show-sql: false
+        hibernate:
+            ddl-auto: create
+
+    sql:
+        init:
+            mode: always
+
+#logging.level:
+#    org.springframework.security: TRACE
+
+logging:
+    file:
+        path: "src/logs"
+
 date:
     zone: 'Pacific/Auckland'

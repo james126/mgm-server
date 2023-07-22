@@ -7,13 +7,13 @@
 /* Login page header */
 .page-header {
     width:100%;
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url(image/grass4.png) repeat;
+    background: linear-gradient(rgba(255, 255, 255, .7), rgba(255, 255, 255, .7)), url("../image/grass4.png") repeat;
 }
 
 /* Services/Contact background */
 .courses {
     width:100%;
-    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .8), rgba(255, 255, 255, .7), rgba(255, 255, 255, .6), rgba(255, 255, 255, .5)), url(image/grass4.png) repeat;
+    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .8), rgba(255, 255, 255, .7), rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)), url("../image/grass4.png") repeat;
 }
 
 /* Navbar icon */

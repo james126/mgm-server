@@ -1,0 +1,4 @@
+11:52:09.445 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+11:52:09.446 INFO  [http-nio-8080-exec-2] - LOGIN FAILURE [UsernamePasswordAuthenticationToken] - user1
+12:03:42.041 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - daniel
+14:26:39.653 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
