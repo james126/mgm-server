@@ -1,26 +1,28 @@
 /********** Custom CSS **********/
-
-/* Admin page start*/
-#add_row, #delete_row {
-    margin-left: 1rem !important;
-}
-
-#admin {
+#page-container {
     position: relative;
-    margin: 0;
-    min-height: calc(100vh - 4.5rem); /* 4.5 is height of footer */
+    min-height: 100vh;
 }
 
-#dynamic-footer {
+/* Admin page - Contact Enquiry */
+#contact-enquiry {
+    margin-bottom: 6rem;
+}
+
+#content-wrap {
+    padding-bottom: 4.5rem;    /* Footer height */
+}
+
+#footer {
     position: absolute;
     bottom: 0;
-    transform: translateY(100%);
+    width: 100%;
+    height: 4.5rem;            /* Footer height */
 }
 
 #contact-us-now {
     color: #757575 !important;
 }
-/* Admin page end*/
 
 /* Login page header */
 .page-header {
@@ -28,11 +30,6 @@
     background: linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)), url("../image/grass4.png") repeat;
     padding-top: 3rem;
     padding-bottom: 2rem;
-}
-
-#footer {
-    position: relative;
-    bottom: 0;
 }
 
 /* Navbar icon */
