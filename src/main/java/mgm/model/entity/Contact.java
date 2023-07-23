@@ -4,11 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,13 +20,13 @@ public class Contact implements Persistable<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String first_name;
-    private String last_name;
-    private String email;
-    private String phone;
-    private String address_line1;
-    private String address_line2;
-    private String message;
-    private Date update_datetime;
+//    private String last_name;
+//    private String email;
+//    private String phone;
+//    private String address_line1;
+//    private String address_line2;
+//    private String message;
+//    private Date update_datetime;
 
     @Override
     public Integer getId() {

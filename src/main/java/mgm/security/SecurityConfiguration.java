@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,119 +12,112 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import javax.sql.DataSource;
 
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
-//1:40
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
-    public ApplicationListener<AuthenticationSuccessEvent> successListener(){
-        return event -> {
-            var auth = event.getAuthentication();
-            LoggerFactory.getLogger("SecurityConfiguration").info("LOGIN SUCCESSFUL [{}] - {}", auth.getClass().getSimpleName(),
-                    auth.getName());
-        };
-    }
-
-    //entry point for spring security
-    @Order(1)
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        var configurer = new LoginConfigurer();
 
-        return http.authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/").permitAll();
-                    request.requestMatchers("/index").permitAll();
-                    request.requestMatchers("/login").permitAll();
-                    request.requestMatchers("/admin").permitAll();
-                    request.requestMatchers("/account1").permitAll();
-                    request.requestMatchers("/css/**").permitAll();
-                    request.requestMatchers("/js/**").permitAll();
-                    request.requestMatchers("/lib/**").permitAll();
-                    request.requestMatchers("/image/**").permitAll();
-                    request.anyRequest().authenticated();
-                })
-                .formLogin(form -> form.loginPage("/login").permitAll())
-                .formLogin(congfigurer -> {
-                    congfigurer.loginPage("/custom-login-page")
-                            .passwordParameter("pw")
-                            .usernameParameter("user")
-                            .authenticationDetailsSource(new WebAuthenticationDetailsSource());
-                })
-//                .formLogin(congfigurer -> {})
-//                    .apply(new RobotLoginConfigurer())
-//                    .password("beep-boop")
-//                    .password("boop-beep")
-//                    .and()
-//                .authenticationProvider(new DanielAuthenticationProvider()) //for custom authentications, use a provider not filter
-                .build();
+            return http. authorizeHttpRequests((request) -> {
+                        request.requestMatchers("/").permitAll();
+                        request.requestMatchers("/index").permitAll();
+                        request.requestMatchers("/login").permitAll();
+                        request.requestMatchers("/css/**").permitAll();
+                        request.requestMatchers("/js/**").permitAll();
+                        request.requestMatchers("/lib/**").permitAll();
+                        request.requestMatchers("/image/**").permitAll();
+                        request.requestMatchers("/entity/**").permitAll();
+                        request.requestMatchers("/admin").hasRole("ADMIN");
+                        request.requestMatchers("/account").hasRole("USER");
+                        request.requestMatchers("/form").permitAll();
+                    })
 
-        //https://github.com/spring-projects/spring-security/blob/6.1.2/config/src/main/java/org/springframework/security/config/annotation/web/builders/FilterOrderRegistration.java
-        //shows Spring filter order
+//                    .authenticationProvider(new LoginAuthenticationProvider(new ArrayList<>()))
+                    .formLogin(configure -> {
+                                configure.loginPage("/login");
+                                configure.loginProcessingUrl("/login");
+                        configure.successHandler(new MySimpleUrlAuthenticationSuccessHandler());
+                            }).logout().logoutSuccessUrl("/index").and().build();
+
     }
 
-    @Order(2)
     @Bean
     public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
         return http.build();
     }
 
-
-    @Bean("security")
+    @Bean
     public DataSource appDataSource() {
-        //        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        //        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
-        //        dataSourceBuilder.username("postgres");
-        //        dataSourceBuilder.password("password");
-        //        return dataSourceBuilder.build();
+//        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+//        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
+//        dataSourceBuilder.username("postgres");
+//        dataSourceBuilder.password("password");
+//        return dataSourceBuilder.build();
 
-        return new EmbeddedDatabaseBuilder()
-                .setType(H2)
-                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                .build();
+                return new EmbeddedDatabaseBuilder()
+                        .setType(H2)
+                        .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
+                        .build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        var userDetailsService = new InMemoryUserDetailsManager();
-
+    public UserDetailsService userDetailsService(DataSource dataSource) {
         UserDetails user = User.builder()
                 .username("user1")
-                .password("password")
+                .password("$2a$10$wUtdYp0GXHF5xXdICpmgDuP5kdxCILDTE9X1MJoUAFjZWsco5LeEm")
                 .disabled(false)
-                .authorities("USER")
+                .authorities("ROLE_ADMIN")
                 .build();
 
-        userDetailsService.createUser(user);
+        UserDetails user2 = User.builder()
+                .username("user2")
+                .password("$2a$10$wUtdYp0GXHF5xXdICpmgDuP5kdxCILDTE9X1MJoUAFjZWsco5LeEm")
+                .disabled(false)
+                .authorities("ROLE_USER")
+                .build();
 
-        return userDetailsService;
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+        users.createUser(user);
+        users.createUser(user2);
+        return users;
     }
 
-
-//    @Bean
-//    UserDetailsManager users(DataSource dataSource) {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
-//                .disabled(false)
-//                .authorities("USER", "ADMIN")
-//                .build();
-//        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-//        users.createUser(admin);
-//        return users;
-//    }
+    //    @Bean
+    //    UserDetailsManager users(DataSource dataSource) {
+    //        UserDetails admin = User.builder()
+    //                .username("admin")
+    //                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
+    //                .disabled(false)
+    //                .authorities("USER", "ADMIN")
+    //                .build();
+    //        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+    //        users.createUser(admin);
+    //        return users;
+    //    }
 
     @SuppressWarnings("deprecation")
     @Bean
-    public NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ApplicationListener<AuthenticationSuccessEvent> successListener() {
+        return event -> {
+            var auth = event.getAuthentication();
+            LoggerFactory.getLogger("SecurityConfiguration").info("LOGIN SUCCESSFUL [{}] - {}", auth.getClass().getSimpleName(),
+                    auth.getName());
+        };
     }
 }

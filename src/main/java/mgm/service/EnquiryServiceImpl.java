@@ -37,8 +37,9 @@ public class EnquiryServiceImpl extends ContactMapper implements EnquiryService 
 
     @Override
     public Optional<Contact> insertEnquiry(Enquiry form){
-        Contact c = mapEnquiry(form);
-        c.setUpdate_datetime(dateTime.getDate());
-        return Optional.of(contactRepository.saveAndFlush(c));
+//        Contact c = mapEnquiry(form);
+//        c.setUpdate_datetime(dateTime.getDate());
+//        return Optional.of(contactRepository.saveAndFlush(c));
+        return Optional.empty();
     }
 }

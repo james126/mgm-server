@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 
 public class CustomFilter extends OncePerRequestFilter {
 
@@ -27,19 +26,22 @@ public class CustomFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        System.out.println("FILTER");
+
+
         HttpServletRequest req = (HttpServletRequest) request;
         //System.out.println("CustomFilter : " + req);
 
         //0 Should we execute filter?
-        if (!Collections.list(request.getHeaderNames()).contains(HEADER_NAME)){
-            filterChain.doFilter(request, response); //finishes filter chain
-            return;
-        }
+//        if (!Collections.list(request.getHeaderNames()).contains(HEADER_NAME)){
+//            filterChain.doFilter(request, response); //finishes filter chain
+//            return;
+//        }
 
         //1 Authentication Decision
         try {
             var password = request.getHeader(HEADER_NAME);
-            var authRequest = RobotAuthentication.unauthenticated(password);
+            var authRequest = LoginAuthentication.unauthenticated(password);
             var authentication = authenticationManager.authenticate(authRequest);
             var newContext = SecurityContextHolder.createEmptyContext();
             //newContext.setAuthentication(UsernamePasswordAuthenticationToken.authenticated());

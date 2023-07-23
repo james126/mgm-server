@@ -1,4 +1,68 @@
-11:52:09.445 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
-11:52:09.446 INFO  [http-nio-8080-exec-2] - LOGIN FAILURE [UsernamePasswordAuthenticationToken] - user1
-12:03:42.041 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - daniel
-14:26:39.653 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+09:38:17.116 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+09:41:50.757 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+09:43:37.989 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+09:59:20.663 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+10:00:13.971 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+10:13:21.900 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+13:17:51.152 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:08:11.632 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:34.082 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:34.082 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:34.083 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.086 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.086 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.086 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.086 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.086 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.087 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.115 INFO  [http-nio-8080-exec-10] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.115 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.115 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.116 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.120 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.122 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.128 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.131 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.133 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.137 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.137 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.140 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.141 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.153 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.154 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.154 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.155 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.156 INFO  [http-nio-8080-exec-10] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.157 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.164 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.210 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:09:38.275 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.089 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.393 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.396 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.397 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.398 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.401 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.403 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.419 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.420 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.420 INFO  [http-nio-8080-exec-10] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.421 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.423 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.425 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.432 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.435 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.437 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.438 INFO  [http-nio-8080-exec-10] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.438 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.443 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.445 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.449 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.454 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.453 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.454 INFO  [http-nio-8080-exec-6] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.455 INFO  [http-nio-8080-exec-10] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.456 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.457 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.471 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot
+14:10:26.497 INFO  [http-nio-8080-exec-9] - LOGIN SUCCESSFUL [LoginAuthentication] - Ms Robot

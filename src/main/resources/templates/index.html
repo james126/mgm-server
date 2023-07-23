@@ -18,7 +18,7 @@
 
             <!-- Insert header -->
             <nav th:insert="~{shared/header :: header}"
-                 th:with="href1='#home', href2='#about', href3='#services', href4='#contact', href5='/login', href6='#contact', home_active='active', login_ative='', login_text='Login'"></nav>
+                 th:with="href1='#home', href2='#about', href3='#services', href4='#contact', href5='/login', href6='#contact', tref7='Get Started', home_active='active', login_ative='', login_text='Login'"></nav>
 
             <!-- Carousel Start -->
             <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
@@ -331,93 +331,99 @@
                         <div class="col-lg-8 mb-0 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="bg-primary text-center p-5">
                                 <h1 class="mb-4">Contact Us Now</h1>
+                                <form action="#" th:action="@{/form}" th:object="${contact}" method=post>
+                                    <tr>
+                                        <input type="text" th:field="*{first_name}" placeholder="" />
+                                    </tr>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Logout</button>
+                                </form>
                                 <!-- forms -->
                                 <!-- 'novalidate' disables browser validate check (bootstrap to validate)
                                       action = where form data is submitted
                                       method = post data to web server -->
-                                <form class="needs-validation" id="contact-form" novalidate>
-                                    <div class="row g-3">
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="first_name" name="first_name"
-                                                       placeholder="First Name" maxlength="50" required>
-                                                <label for="first_name">First Name</label>
-                                                <div class="invalid-feedback">Please enter first name</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="last_name" name="last_name"
-                                                       placeholder="First Name" maxlength="50" required>
-                                                <label for="first_name">Last Name</label>
-                                                <div class="invalid-feedback">Please enter last name</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="email" class="form-control border-0" id="email" placeholder="Email"
-                                                       maxlength="50" required>
-                                                <label for="email">Your Email</label>
-                                                <div class="invalid-feedback">Please enter email</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="tel" class="form-control border-0" id="phone" placeholder="Phone"
-                                                       maxlength="50" required>
-                                                <label for="phone">Phone</label>
-                                                <div class="invalid-feedback">Please enter phone</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="address_line1"
-                                                       placeholder="Address Line 1" maxlength="60" required>
-                                                <label for="address_line1">Number and road</label>
-                                                <div class="invalid-feedback">Please enter number and road</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="address_line2"
-                                                       placeholder="Address Line 2" maxlength="60" required>
-                                                <label for="address_line2">Suburb</label>
-                                                <div class="invalid-feedback">Please enter suburb</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="city" placeholder="City" disabled>
-                                                <label for="city">Auckland</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="country" placeholder="Country"
-                                                       disabled>
-                                                <label for="country">New Zealand</label>
-                                            </div>
-                                        </div>
+<!--                                <form class="needs-validation" id="contact-form" th:action="@{/form}" novalidate method=post>-->
+<!--                                    <div class="row g-3">-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="first_name" name="first_name"-->
+<!--                                                       placeholder="First Name" maxlength="50" required>-->
+<!--                                                <label for="first_name">First Name</label>-->
+<!--                                                <div class="invalid-feedback">Please enter first name</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="last_name" name="last_name"-->
+<!--                                                       placeholder="First Name" maxlength="50" required>-->
+<!--                                                <label for="first_name">Last Name</label>-->
+<!--                                                <div class="invalid-feedback">Please enter last name</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="email" class="form-control border-0" id="email" placeholder="Email"-->
+<!--                                                       maxlength="50" required>-->
+<!--                                                <label for="email">Your Email</label>-->
+<!--                                                <div class="invalid-feedback">Please enter email</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="tel" class="form-control border-0" id="phone" placeholder="Phone"-->
+<!--                                                       maxlength="50" required>-->
+<!--                                                <label for="phone">Phone</label>-->
+<!--                                                <div class="invalid-feedback">Please enter phone</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="address_line1"-->
+<!--                                                       placeholder="Address Line 1" maxlength="60" required>-->
+<!--                                                <label for="address_line1">Number and road</label>-->
+<!--                                                <div class="invalid-feedback">Please enter number and road</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="address_line2"-->
+<!--                                                       placeholder="Address Line 2" maxlength="60" required>-->
+<!--                                                <label for="address_line2">Suburb</label>-->
+<!--                                                <div class="invalid-feedback">Please enter suburb</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="city" placeholder="City" disabled>-->
+<!--                                                <label for="city">Auckland</label>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <div class="form-floating">-->
+<!--                                                <input type="text" class="form-control border-0" id="country" placeholder="Country"-->
+<!--                                                       disabled>-->
+<!--                                                <label for="country">New Zealand</label>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
 
 
-                                        <div class="col-12">
-                                            <div class="form-floating">
-                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="message"
-                                                  name="message"
-                                                  style="height: 100px" maxlength="400" required></textarea>
-                                                <label for="message">Message</label>
-                                                <div class="invalid-feedback">
-                                                    Please enter a message
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-dark w-100 py-3" type="submit" onsubmit="submitForm()" id="submit-button"
-                                                    role="button">Submit
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+<!--                                        <div class="col-12">-->
+<!--                                            <div class="form-floating">-->
+<!--                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="message"-->
+<!--                                                  name="message"-->
+<!--                                                  style="height: 100px" maxlength="400" required></textarea>-->
+<!--                                                <label for="message">Message</label>-->
+<!--                                                <div class="invalid-feedback">-->
+<!--                                                    Please enter a message-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-12">-->
+<!--                                            <button class="btn btn-dark w-100 py-3" type="submit" id="submit-button" role="button">Submit-->
+<!--&lt;!&ndash;                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"&ndash;&gt;-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,13 @@ spring:
     url: jdbc:postgresql://awseb-e-kpwydzbynn-stack-awsebrdsdatabase-cnzuh4otatuv.ch5uitkaqwlh.ap-southeast-2.rds.amazonaws.com:5432/ebdb
     username: postgres
     password: password
+
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing: false
+
   jpa:
     show-sql: false
+
 date:
   zone: 'Pacific/Auckland'

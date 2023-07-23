@@ -8,14 +8,16 @@
 
 <body id="login">
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End -->
 
 
     <!-- Insert header -->
-    <nav th:insert="~{shared/header :: header}" th:with="href1='/index#home', href2='/index#about', href3='#/indexservices', href4='#/index#contact', href5='#login', href6='/index#contact', home_active='', login_ative='active', login_text='Login'"></nav>
+    <nav th:insert="~{shared/header :: header}"
+         th:with="href1='/index#home', href2='/index#about', href3='/index#services', href4='/index#contact', href5='#login', href6='/index#contact', tref7='Get Started', home_active='', login_ative='active', login_text='Login'"></nav>
 
 
     <!-- Page Header Start -->
@@ -38,24 +40,27 @@
                         <!-- 'novalidate' disables browser validate check (bootstrap to validate)
                               action = where form data is submitted
                               method = post data to web server -->
-                        <form class="needs-validation" id="contact-form" novalidate>
+                        <form class="needs-validation" id="contact-form" method="post" novalidate>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control border-0" id="email" placeholder="Email" maxlength="50" required>
-                                        <label for="email">Your Email</label>
-                                        <div class="invalid-feedback">Please enter email</div>
+                                        <input type="text" class="form-control border-0" id="username" name="username"
+                                               placeholder="Username" maxlength="50" required>
+                                        <label for="username">UserName</label>
+                                        <div class="invalid-feedback">Please enter username</div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="password" name="password" placeholder="Password" maxlength="50" required>
+                                        <input type="text" class="form-control border-0" id="password" name="password"
+                                               placeholder="Password" maxlength="50" required>
                                         <label for="password">Password</label>
                                         <div class="invalid-feedback">Please enter password</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-dark w-100 py-3" type="submit" onsubmit="submitForm()" id="submit-button" role="button">Submit</button>
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <button class="btn btn-dark w-100 py-3" type="submit" id="submit-button" role="button">Submit</button>
                                 </div>
                             </div>
                         </form>

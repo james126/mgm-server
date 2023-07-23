@@ -1,4 +1,8 @@
 /********** Custom CSS **********/
+#admin-header {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.575), rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.625)), url("../image/grass4.png") repeat;
+}
+
 #page-container {
     position: relative;
     min-height: 100vh;

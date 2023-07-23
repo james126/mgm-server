@@ -8,24 +8,24 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class RobotAuthentication implements Authentication {
+public class LoginAuthentication implements Authentication {
 
     private final List<GrantedAuthority> authorities;
-    private final boolean iaAuthenticated;
+    private final boolean isAuthenticated;
     private final String password;
 
-    public RobotAuthentication(List<GrantedAuthority> authorities, String password) {
+    public LoginAuthentication(List<GrantedAuthority> authorities, String password) {
         this.authorities = authorities;
-        this.iaAuthenticated = password == null; //when you don't pass a password you're authenticated
+        this.isAuthenticated = password == null; //when you don't pass a password you're authenticated
         this.password = password;
     }
 
-    public static RobotAuthentication unauthenticated(String password){
-        return new RobotAuthentication(Collections.EMPTY_LIST, password);
+    public static LoginAuthentication unauthenticated(String password){
+        return new LoginAuthentication(Collections.EMPTY_LIST, password);
     }
 
-    public static RobotAuthentication authenticated(){
-        return new RobotAuthentication(AuthorityUtils.createAuthorityList("ROLE_robot"), null);
+    public static LoginAuthentication authenticated(){
+        return new LoginAuthentication(AuthorityUtils.createAuthorityList("ROLE_robot"), null);
     }
 
 
@@ -46,7 +46,7 @@ public class RobotAuthentication implements Authentication {
     }
 
     @Override public boolean isAuthenticated() {
-        return iaAuthenticated;
+        return isAuthenticated;
     }
 
     @Override public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {

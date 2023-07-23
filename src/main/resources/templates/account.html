@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Insert head -->
+<head th:replace="~{shared/head :: head}"></head>
+
+
+<body id="admin">
+  <div id="page-container">
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+      <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Insert header -->
+    <nav th:insert="~{shared/header :: header}"
+         th:with="href1='/index#home', href2='/index#about', href3='/index#services', href4='/index#contact', href5='#login', href6='/index#contact', home_active='', login_active=' active', login_text='Logged In'"></nav>
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header my-5 mt-0 wow fadeIn" data-wow-delay="0.1s">
+      <div class="container text-center">
+        <h1 class="display-4 text-white animated slideInDown mb-4">Admin</h1>
+      </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    Account
+    <form th:action="@{/logout}" method=post>
+<!--      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+      <button type="submit" class="btn btn-sm btn-outline-secondary">Logout</button>
+    </form>
+
+
+    <!-- Insert footer -->
+    <footer th:insert="~{shared/footer :: footer}"></footer>
+
+
+    <!-- JavaScript Libraries -->
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/lib/wow/wow.min.js}"></script>
+    <script th:src="@{/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/lib/waypoints/waypoints.min.js}"></script>
+    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+    <!-- Custom Javascript -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/invoice.js}"></script>
+  </div>
+</body>
+</html>

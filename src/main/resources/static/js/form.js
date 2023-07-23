@@ -15,12 +15,13 @@ if (form != null){
         } else {
             const formData = new FormData(event.target);
             const formObj = Object.fromEntries(formData.entries());
-            const url = window.location.toString().substring(0,(window.location.toString().length)-8) + "/form"
+            //const url = window.location.toString().substring(0,(window.location.toString().length)-8) + "/form"
+            const url = window.location.toString() + "form";
 
             fetch(url, {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
                 },
                 method: 'POST',
                 body: JSON.stringify(formObj)
