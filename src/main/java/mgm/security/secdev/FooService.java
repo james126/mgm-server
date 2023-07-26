@@ -1,4 +1,4 @@
-package mgm.security;
+package mgm.security.secdev;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;

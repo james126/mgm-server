@@ -24,8 +24,8 @@ spring:
         servlet:
             produce-partial-output-while-processing: false
 
-#logging.level:
-#    org.springframework.security: TRACE
+logging.level:
+    org.springframework.security: TRACE
 
 logging:
     file:

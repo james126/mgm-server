@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
 <!-- Insert head -->
@@ -18,135 +18,128 @@
 
         <!-- Insert header -->
         <nav th:insert="~{shared/header-logged-in :: header}"
-             th:with="href1='/index#home', href2='/index#about', href3='/index#services', href4='/index#contact', href5='#login', tref7='Log Out', home_active='', login_active=' active', login_text='Logged In'"></nav>
+             th:with="href1='/index#home', href2='/index#about', href3='/index#services', href4='/index#contact', href5='#login', tref7='Log Out', home_active='', login_active='active', login_text='Logged In'"></nav>
 
 
         <!-- Page Header Start -->
         <div class="container-fluid page-header my-5 mt-0 wow fadeIn" id="admin-header" data-wow-delay="0.1s">
             <div class="container text-center">
-                <h1 class="display-4 text-white animated slideInDown mb-4">Admin</h1>
+                <h1 class="display-4 text-white animated slideInDown mb-4"><span sec:authentication="name"></span></h1>
             </div>
         </div>
         <!-- Page Header End -->
 
         <div id="content-wrap">
             <!-- Services Start -->
-                <div class="container">
-                    <!-- Form Start -->
-                    <div class="row justify-content-center mb-5">
+            <div class="container">
+                <!-- Form Start -->
+                <div class="row justify-content-center mb-5">
 
-                        <div class="col-lg-8 mb-0 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-8 mb-0 wow fadeInUp" data-wow-delay="0.1s">
 
-                            <div class="text-left wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                                <h6 class="text-primary text-uppercase">Contact Enquiries</h6>
-                                <p class="mb-4">View and delete enquiries</p>
-                            </div>
+                        <div class="text-left wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                            <h6 class="text-primary text-uppercase">Contact Enquiries</h6>
+                            <p class="mb-4">View and delete enquiries</p>
+                        </div>
 
-                            <div class="bg-primary text-center p-5">
-                                <h1 class="mb-4">Contact</h1>
-                                <!-- forms -->
-                                <!-- 'novalidate' disables browser validate check (bootstrap to validate)
-                                      action = where form data is submitted
-                                      method = post data to web server -->
-                                <form class="needs-validation" id="contact-form" novalidate>
-                                    <div class="row g-3">
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="first_name" name="first_name"
-                                                       placeholder="First Name" maxlength="50" required>
-                                                <label for="first_name">First Name</label>
-                                                <div class="invalid-feedback">Please enter first name</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="last_name" name="last_name"
-                                                       placeholder="First Name" maxlength="50" required>
-                                                <label for="first_name">Last Name</label>
-                                                <div class="invalid-feedback">Please enter last name</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="email" class="form-control border-0" id="email" placeholder="Email"
-                                                       maxlength="50" required>
-                                                <label for="email">Your Email</label>
-                                                <div class="invalid-feedback">Please enter email</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="tel" class="form-control border-0" id="phone" placeholder="Phone"
-                                                       maxlength="50" required>
-                                                <label for="phone">Phone</label>
-                                                <div class="invalid-feedback">Please enter phone</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="address_line1"
-                                                       placeholder="Address Line 1" maxlength="60" required>
-                                                <label for="address_line1">Number and road</label>
-                                                <div class="invalid-feedback">Please enter number and road</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="address_line2"
-                                                       placeholder="Address Line 2" maxlength="60" required>
-                                                <label for="address_line2">Suburb</label>
-                                                <div class="invalid-feedback">Please enter suburb</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="city" placeholder="City" disabled>
-                                                <label for="city">Auckland</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="country" placeholder="Country"
-                                                       disabled>
-                                                <label for="country">New Zealand</label>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-12">
-                                            <div class="form-floating">
-                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="message"
-                                                  name="message"
-                                                  style="height: 100px" maxlength="400" required></textarea>
-                                                <label for="message">Message</label>
-                                                <div class="invalid-feedback">
-                                                    Please enter a message
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <button class="btn btn-dark w-100 py-3" type="submit" onsubmit="submitForm()" id="submit-button"
-                                                        role="button">View
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-floating">
-                                                <button class="btn btn-dark w-100 py-3" type="submit" onsubmit="submitForm()" id=""
-                                                        role="button">Delete
-                                                </button>
-                                            </div>
+                        <div class="bg-primary text-center p-5">
+                            <h1 class="mb-4">Contact</h1>
+                            <!-- forms -->
+                            <!-- 'novalidate' disables browser validate check (bootstrap to validate)
+                                  action = where form data is submitted
+                                  method = post data to web server -->
+                            <form class="needs-validation" id="contact-form" novalidate
+                                  th:action="@{/view(id=${id})}" method="post"
+                                  th:object="${contact}" >
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="first_name" name="first_name"
+                                                   placeholder="First Name" th:field="*{first_name}" disabled>
+                                            <label for="first_name">First Name</label>
+                                            <div class="invalid-feedback">Please enter first name</div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="last_name" name="last_name"
+                                                   placeholder="Last Name" th:field="*{last_name}" disabled>
+                                            <label for="last_name">Last Name</label>
+                                            <div class="invalid-feedback">Please enter last name</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control border-0" id="email" placeholder="Email"
+                                                   th:field="*{email}" disabled>
+                                            <label for="email">Your Email</label>
+                                            <div class="invalid-feedback">Please enter email</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control border-0" id="phone" placeholder="Phone"
+                                                   th:field="*{phone}" disabled>
+                                            <label for="phone">Phone</label>
+                                            <div class="invalid-feedback">Please enter phone</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="address_line1"
+                                                   placeholder="Address Line 1" th:field="*{address_line1}" disabled>
+                                            <label for="address_line1">Number and road</label>
+                                            <div class="invalid-feedback">Please enter number and road</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="address_line2"
+                                                   placeholder="Address Line 2" th:field="*{address_line2}" disabled>
+                                            <label for="address_line2">Suburb</label>
+                                            <div class="invalid-feedback">Please enter suburb</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="city" placeholder="City" disabled>
+                                            <label for="city">Auckland</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="country" placeholder="Country"
+                                                   disabled>
+                                            <label for="country">New Zealand</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="message"
+                                                  name="message" th:field="*{message}" disabled></textarea>
+                                            <label for="message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <button class="btn btn-dark w-100 py-3" type="submit" role="button">View next</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <button class="btn btn-dark w-100 py-3" type="submit" value="Delete" th:formaction="@{/delete(id=${id})}"
+                                                    role="button">Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Contact End -->
+        </div>
+        <!-- Contact End -->
 
 
         <!-- Insert footer -->

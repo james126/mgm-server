@@ -1,5 +1,6 @@
 package mgm.security;
 
+import mgm.security.secdev.RobotLoginConfigurer;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +28,9 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        var configurer = new LoginConfigurer();
+//            return http.authorizeHttpRequests().anyRequest().permitAll().and().build();
 
-            return http. authorizeHttpRequests((request) -> {
+            return http.authorizeHttpRequests((request) -> {
                         request.requestMatchers("/").permitAll();
                         request.requestMatchers("/index").permitAll();
                         request.requestMatchers("/login").permitAll();
@@ -39,17 +40,17 @@ public class SecurityConfiguration {
                         request.requestMatchers("/image/**").permitAll();
                         request.requestMatchers("/entity/**").permitAll();
                         request.requestMatchers("/admin").hasRole("ADMIN");
-                        request.requestMatchers("/account").hasRole("USER");
-                        request.requestMatchers("/form").permitAll();
+                        request.requestMatchers("/view").hasRole("ADMIN");
+                        request.requestMatchers("/delete").hasRole("ADMIN");
                     })
-
-//                    .authenticationProvider(new LoginAuthenticationProvider(new ArrayList<>()))
                     .formLogin(configure -> {
                                 configure.loginPage("/login");
                                 configure.loginProcessingUrl("/login");
-                        configure.successHandler(new MySimpleUrlAuthenticationSuccessHandler());
-                            }).logout().logoutSuccessUrl("/index").and().build();
-
+                                configure.successHandler(new LoginSuccessHandler());
+                    })
+                    .logout().logoutSuccessUrl("/index")
+                    .and().apply(new RobotLoginConfigurer())
+                    .and().build();
     }
 
     @Bean
@@ -65,15 +66,15 @@ public class SecurityConfiguration {
 //        dataSourceBuilder.password("password");
 //        return dataSourceBuilder.build();
 
-                return new EmbeddedDatabaseBuilder()
-                        .setType(H2)
-                        .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                        .build();
+        return new EmbeddedDatabaseBuilder()
+                .setType(H2)
+                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
+                .build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-        UserDetails user = User.builder()
+        UserDetails user1 = User.builder()
                 .username("user1")
                 .password("$2a$10$wUtdYp0GXHF5xXdICpmgDuP5kdxCILDTE9X1MJoUAFjZWsco5LeEm")
                 .disabled(false)
@@ -88,23 +89,10 @@ public class SecurityConfiguration {
                 .build();
 
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        users.createUser(user);
+        users.createUser(user1);
         users.createUser(user2);
         return users;
     }
-
-    //    @Bean
-    //    UserDetailsManager users(DataSource dataSource) {
-    //        UserDetails admin = User.builder()
-    //                .username("admin")
-    //                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
-    //                .disabled(false)
-    //                .authorities("USER", "ADMIN")
-    //                .build();
-    //        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-    //        users.createUser(admin);
-    //        return users;
-    //    }
 
     @SuppressWarnings("deprecation")
     @Bean

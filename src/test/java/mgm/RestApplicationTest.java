@@ -1,8 +1,7 @@
 package mgm;
 
-import mgm.model.dto.Enquiry;
 import mgm.model.entity.Contact;
-import mgm.service.EnquiryServiceImpl;
+import mgm.service.ContactServiceImpl;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +14,15 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.*;
 
-import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-@Import(EnquiryContactBuilder.class)
+@Import(ContactBuilder.class)
 public class RestApplicationTest {
-    @Autowired
-    private final List<Enquiry> enquiryList = new ArrayList<>();
 
     @Autowired
     private final List<Contact> contactList = new ArrayList<>();
@@ -34,7 +31,7 @@ public class RestApplicationTest {
     private MockMvc mvc;
 
     @MockBean
-    EnquiryServiceImpl service;
+    ContactServiceImpl service;
 
     @Test
     void testGetIndex() throws Exception {
@@ -45,77 +42,47 @@ public class RestApplicationTest {
     }
 
     @Test
-    void testGetServices() throws Exception {
-        mvc.perform(get("/services"))
+    void testGetLogin() throws Exception {
+        mvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))
-                .andExpect(view().name("services"));
-    }
-
-    @Test
-    void testGetAbout() throws Exception {
-        mvc.perform(get("/about"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))
-                .andExpect(view().name("about"));
-    }
-
-    @Test
-    void testGetContact() throws Exception {
-        mvc.perform(get("/contact"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))
-                .andExpect(view().name("contact"));
+                .andExpect(view().name("login"));
     }
 
     @Test
     void testPostFormStatusOk() throws Exception {
-        Enquiry enquiry = getEnquiry();
-
-        when(service.insertEnquiry(enquiry)).thenReturn(Optional.of(contactList.get(0)));
+        Contact contact = getContact();
         mvc.perform(post("http://localhost:5000/form")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(getEnquiryJsonString(enquiry)))
+                        .with(csrf())
+                        .content(getEnquiryJsonString(contact)))
                 .andExpect(status().is(200));
-
-        verify(service, times(1)).insertEnquiry(enquiry);
     }
 
     @Test
-    void testPostFormStatusInvalidRequest() throws Exception {
+    void testPostFormWithoutCsrf() throws Exception {
+        Contact contact = getContact();
         mvc.perform(post("http://localhost:5000/form")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andExpect(status().is(400));
+                        .content(getEnquiryJsonString(contact)))
+                .andExpect(status().is(403));
     }
 
-    @Test
-    void testPostFormStatusInternalServerError() throws Exception {
-        Enquiry enquiry = getEnquiry();
-
-        when(service.insertEnquiry(enquiry)).thenReturn(Optional.empty());
-        mvc.perform(post("http://localhost:5000/form")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(getEnquiryJsonString(enquiry)))
-                .andExpect(status().is(500));
-
-        verify(service, times(1)).insertEnquiry(enquiry);
-    }
-
-    public Enquiry getEnquiry() {
+    public Contact getContact() {
         Random rand = new Random();
-        return enquiryList.get(rand.nextInt(enquiryList.size()));
+        return contactList.get(rand.nextInt(contactList.size()));
     }
 
-    public String getEnquiryJsonString(Enquiry enquiry) {
+    public String getEnquiryJsonString(Contact contact) {
         Map<String, String> map = new HashMap<>();
-        map.put("first_name", enquiry.getFirst_name());
-        map.put("last_name", enquiry.getLast_name());
-        map.put("email", enquiry.getEmail());
-        map.put("phone", enquiry.getPhone());
-        map.put("address_line1", enquiry.getAddress_line1());
-        map.put("address_line2", enquiry.getAddress_line2());
-        map.put("message", enquiry.getMessage());
+        //map.put("id", String.valueOf(contact.getId()));
+        map.put("first_name", contact.getFirst_name());
+        map.put("last_name", contact.getLast_name());
+        map.put("email", contact.getEmail());
+        map.put("phone", contact.getPhone());
+        map.put("address_line1", contact.getAddress_line1());
+        map.put("address_line2", contact.getAddress_line2());
+        map.put("message", contact.getMessage());
         return new JSONObject(map).toString();
     }
 }

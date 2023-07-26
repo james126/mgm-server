@@ -13,25 +13,13 @@ public class ContactMapper implements RowMapper<Contact> {
         Contact c = new Contact();
         c.setId(rs.getInt("id"));
         c.setFirst_name(rs.getString("first_name"));
-//        c.setLast_name(rs.getString("last_name"));
-//        c.setEmail(rs.getString("email"));
-//        c.setPhone(rs.getString("phone"));
-//        c.setAddress_line1(rs.getString("address_line1"));
-//        c.setAddress_line2(rs.getString("address_line2"));
-//        c.setMessage(rs.getString("message"));
-//        c.setUpdate_datetime(rs.getDate("update_dateTime"));
+        c.setLast_name(rs.getString("last_name"));
+        c.setEmail(rs.getString("email"));
+        c.setPhone(rs.getString("phone"));
+        c.setAddress_line1(rs.getString("address_line1"));
+        c.setAddress_line2(rs.getString("address_line2"));
+        c.setMessage(rs.getString("message"));
+        c.setUpdate_datetime(rs.getDate("update_dateTime"));
         return c;
     }
-
-//    public Contact mapEnquiry(Enquiry form){
-//        Contact c = new Contact();
-//        c.setFirst_name(form.getFirst_name());
-//        c.setLast_name(form.getLast_name());
-//        c.setEmail(form.getEmail());
-//        c.setPhone(form.getPhone());
-//        c.setAddress_line1(form.getAddress_line1());
-//        c.setAddress_line2(form.getAddress_line2());
-//        c.setMessage(form.getMessage());
-//        return c;
-//    }
 }

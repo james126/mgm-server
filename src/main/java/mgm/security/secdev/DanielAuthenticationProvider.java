@@ -1,4 +1,4 @@
-package mgm.security;
+package mgm.security.secdev;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

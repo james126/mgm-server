@@ -1,24 +1,22 @@
 package mgm.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
+import mgm.controller.mock.ContactBuilder;
 import mgm.model.entity.Contact;
-import mgm.service.EnquiryServiceImpl;
+import mgm.service.ContactServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 public class MainController {
-    private final EnquiryServiceImpl enquiryService;
+    private final ContactServiceImpl contactService;
 
     @Autowired
-    public MainController(EnquiryServiceImpl enquiryService) {
-        this.enquiryService = enquiryService;
+    public MainController(ContactServiceImpl enquiryService, ContactBuilder builder) {
+        this.contactService = enquiryService;
     }
 
     @GetMapping("/")
@@ -28,9 +26,25 @@ public class MainController {
     }
 
     @GetMapping("/index")
-    public String index(final HttpServletRequest request, Model model) {
+    public String index(Model model) {
         model.addAttribute("contact", new Contact());
-        System.out.println(request.getRequestURI());
+        return "index";
+    }
+
+    //    @ResponseBody
+    //    @GetMapping("/account")
+    //    public String account(Authentication authentication) {
+    //        authentication.getPrincipal(); //user identity (name, email) - returns an object (Google login has lots of details)
+    //        authentication.getAuthorities(); //permissions (roles)
+    //        authentication.getName(); //password
+    //        authentication.getDetails(); //ip
+    //        return "account " + authentication.getName();
+    //    }
+
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String contactForm(@ModelAttribute Contact form, Model model) {
+        model.addAttribute("contact", new Contact());
+        contactService.insertContact(form);
         return "index";
     }
 
@@ -39,28 +53,57 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/account")
-    public String account(Authentication authentication) {
-        authentication.getPrincipal(); //user identity (name, email) - returns an object (Google login has lots of details)
-        authentication.getAuthorities(); //permissions (roles)
-        authentication.getCredentials(); //password
-        authentication.getDetails(); //ip
-        return "account";
-    }
-
     @GetMapping("/admin")
-    public String admin(Authentication authentication) {
-        //SecurityContextHolder - only available in the Thread processing the request
-        //var authentication = SecurityContextHolder.getContext().getAuthentication();
+    public String adminGet(Model model) {
+        Optional<Contact> result = contactService.findByMinId();
+        if (result.isPresent()) {
+            model.addAttribute("contact", result);
+            model.addAttribute("id", result.get().getId());
+        }
+
         return "admin";
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String form(@ModelAttribute Contact contact, Model model) {
-        model.addAttribute("contact", new Contact());
-        //Optional<Contact> result = enquiryService.insertEnquiry(form);
-        //return result.isPresent() ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        System.out.println(contact);
-        return "index";
+    @RequestMapping(value = "/view", method = RequestMethod.POST)
+    public String viewContact(Model model, @RequestParam(name = "id", defaultValue = "0") int id) {
+        Optional<Contact> result = contactService.findById(id + 1);
+        if (result.isPresent()) {
+           model.addAttribute("contact", result);
+           model.addAttribute("id", result.get().getId());
+        }
+
+        if (result.isEmpty()){
+            result = contactService.findByMinId();
+            if (result.isPresent()) {
+                model.addAttribute("contact", result);
+                model.addAttribute("id", result.get().getId());
+            }
+        }
+
+        return "admin";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteContact(Model model, @RequestParam(name = "id") int id) {
+        Optional<Contact> result = contactService.findById(id + 1);
+        if (result.isPresent()) {
+            model.addAttribute("contact", result);
+            model.addAttribute("id", result.get().getId());
+        }
+
+        if (result.isEmpty()){
+            result = contactService.findByMinId();
+            if (result.isPresent()) {
+                model.addAttribute("contact", result);
+                model.addAttribute("id", result.get().getId());
+            }
+        }
+
+        return "admin";
+    }
+
+    @GetMapping("/account")
+    public String account() {
+        return "account";
     }
 }

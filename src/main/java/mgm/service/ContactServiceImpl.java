@@ -1,6 +1,5 @@
 package mgm.service;
 
-import mgm.model.dto.Enquiry;
 import mgm.model.entity.Contact;
 import mgm.model.mapper.ContactMapper;
 import mgm.repository.ContactRepository;
@@ -15,12 +14,12 @@ import java.util.Optional;
 @Service
 @Transactional
 @EnableConfigurationProperties(DateTime.class)
-public class EnquiryServiceImpl extends ContactMapper implements EnquiryService {
+public class ContactServiceImpl extends ContactMapper implements ContactService {
     private final ContactRepository contactRepository;
     private final DateTime dateTime;
 
     @Autowired
-    public EnquiryServiceImpl(ContactRepository contactRepository, DateTime zone) {
+    public ContactServiceImpl(ContactRepository contactRepository, DateTime zone) {
         this.contactRepository = contactRepository;
         this.dateTime = zone;
     }
@@ -31,15 +30,23 @@ public class EnquiryServiceImpl extends ContactMapper implements EnquiryService 
         contactRepository.flush();
     }
 
-    public List<Contact> getAllEnquiries() {
-        return contactRepository.findAll();
+    public Optional<Contact> findById(Integer id){
+        return contactRepository.findById(id);
     }
 
     @Override
-    public Optional<Contact> insertEnquiry(Enquiry form){
-//        Contact c = mapEnquiry(form);
-//        c.setUpdate_datetime(dateTime.getDate());
-//        return Optional.of(contactRepository.saveAndFlush(c));
-        return Optional.empty();
+    public Optional<Contact> findByMinId(){
+        return contactRepository.findByMinId();
     }
+
+    public List<Contact> getAllContacts() {
+        return contactRepository.findAll();
+    }
+
+    public void insertContact(Contact form){
+        form.setUpdate_datetime(dateTime.getDate());
+        contactRepository.saveAndFlush(form);
+    }
+
+
 }
