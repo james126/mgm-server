@@ -21,8 +21,8 @@
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] - %msg%n</pattern>
         </encoder>
-
     </appender>
+
     <Logger name="SecurityConfiguration" level="INFO">
         <appender-ref ref="ROLLING_FILE"/>
     </Logger>

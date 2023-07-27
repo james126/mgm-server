@@ -3,6 +3,7 @@ package mgm.service;
 import mgm.model.entity.Contact;
 import mgm.model.mapper.ContactMapper;
 import mgm.repository.ContactRepository;
+import mgm.service.sanitise.StringSanitiser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,20 @@ import java.util.Optional;
 public class ContactServiceImpl extends ContactMapper implements ContactService {
     private final ContactRepository contactRepository;
     private final DateTime dateTime;
+    private final StringSanitiser sanitiser;
 
     @Autowired
-    public ContactServiceImpl(ContactRepository contactRepository, DateTime zone) {
+    public ContactServiceImpl(ContactRepository contactRepository, DateTime zone, StringSanitiser sanitiser) {
         this.contactRepository = contactRepository;
         this.dateTime = zone;
+        this.sanitiser = sanitiser;
+    }
+
+    @Override
+    public void insertContact(Contact form){
+        form.setUpdate_datetime(dateTime.getDate());
+        Contact clean = sanitiser.sanitise(form);
+        contactRepository.saveAndFlush(clean);
     }
 
     @Override
@@ -30,6 +40,7 @@ public class ContactServiceImpl extends ContactMapper implements ContactService 
         contactRepository.flush();
     }
 
+    @Override
     public Optional<Contact> findById(Integer id){
         return contactRepository.findById(id);
     }
@@ -39,14 +50,8 @@ public class ContactServiceImpl extends ContactMapper implements ContactService 
         return contactRepository.findByMinId();
     }
 
+    @Override
     public List<Contact> getAllContacts() {
         return contactRepository.findAll();
     }
-
-    public void insertContact(Contact form){
-        form.setUpdate_datetime(dateTime.getDate());
-        contactRepository.saveAndFlush(form);
-    }
-
-
 }

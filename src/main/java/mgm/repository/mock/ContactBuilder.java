@@ -1,4 +1,4 @@
-package mgm.controller.mock;
+package mgm.repository.mock;
 
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;

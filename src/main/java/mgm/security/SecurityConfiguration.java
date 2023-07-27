@@ -1,11 +1,17 @@
 package mgm.security;
 
-import mgm.security.secdev.RobotLoginConfigurer;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationListener;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,54 +28,57 @@ import javax.sql.DataSource;
 
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
+@ConfigurationProperties(prefix = "spring.datasource")
+@ConfigurationPropertiesScan
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    private final boolean useEmbeddedDatabase = true;
+
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//            return http.authorizeHttpRequests().anyRequest().permitAll().and().build();
-
-            return http.authorizeHttpRequests((request) -> {
-                        request.requestMatchers("/").permitAll();
-                        request.requestMatchers("/index").permitAll();
-                        request.requestMatchers("/login").permitAll();
-                        request.requestMatchers("/css/**").permitAll();
-                        request.requestMatchers("/js/**").permitAll();
-                        request.requestMatchers("/lib/**").permitAll();
-                        request.requestMatchers("/image/**").permitAll();
-                        request.requestMatchers("/entity/**").permitAll();
-                        request.requestMatchers("/admin").hasRole("ADMIN");
-                        request.requestMatchers("/view").hasRole("ADMIN");
-                        request.requestMatchers("/delete").hasRole("ADMIN");
-                    })
-                    .formLogin(configure -> {
-                                configure.loginPage("/login");
-                                configure.loginProcessingUrl("/login");
-                                configure.successHandler(new LoginSuccessHandler());
-                    })
-                    .logout().logoutSuccessUrl("/index")
-                    .and().apply(new RobotLoginConfigurer())
-                    .and().build();
+        return http.authorizeHttpRequests((request) -> {
+                    request.requestMatchers("/","/index","/form").permitAll();
+                    request.requestMatchers("/login","/invalid").permitAll();
+                    request.requestMatchers("/css/**","/js/**","/lib/**","/image/**").permitAll();
+                    request.requestMatchers("/entity/**").permitAll();
+                    request.requestMatchers("/admin","/view","delete").hasRole("ADMIN");
+                })
+                .formLogin(configure -> {
+                    configure.loginPage("/login");
+                    configure.loginProcessingUrl("/login");
+                    configure.successHandler(new LoginSuccessHandler());
+                    configure.failureForwardUrl("/invalid");
+                })
+                .logout().logoutSuccessUrl("/index")
+                .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler()
+                )
+                .and().build();
+                 //.apply(new RobotLoginConfigurer())
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
-        return http.build();
-    }
 
     @Bean
     public DataSource appDataSource() {
-//        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
-//        dataSourceBuilder.username("postgres");
-//        dataSourceBuilder.password("password");
-//        return dataSourceBuilder.build();
-
-        return new EmbeddedDatabaseBuilder()
-                .setType(H2)
-                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                .build();
+        if (useEmbeddedDatabase) {
+            return new EmbeddedDatabaseBuilder()
+                    .setType(H2)
+                    .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
+                    .build();
+        } else {
+            DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+            dataSourceBuilder.url(url);
+            dataSourceBuilder.username(username);
+            dataSourceBuilder.password(password);
+            return dataSourceBuilder.build();
+        }
     }
 
     @Bean
@@ -101,11 +110,16 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public ApplicationListener<AuthenticationSuccessEvent> successListener() {
-        return event -> {
-            var auth = event.getAuthentication();
+    public AuthenticationEventPublisher authenticationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
+    }
+
+    @EventListener
+    public void onSuccess(AuthenticationSuccessEvent success) {
+        if (useEmbeddedDatabase) {
+            var auth = success.getAuthentication();
             LoggerFactory.getLogger("SecurityConfiguration").info("LOGIN SUCCESSFUL [{}] - {}", auth.getClass().getSimpleName(),
                     auth.getName());
-        };
+        }
     }
 }

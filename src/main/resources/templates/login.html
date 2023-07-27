@@ -23,7 +23,7 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Registered Accounts</h1>
+            <h1 class="display-4 text-white mb-4">Account Login</h1>
         </div>
     </div>
     <!-- Page Header End -->
@@ -32,30 +32,32 @@
     <div class="container-xxl mb-5" id="services">
         <div class="container">
             <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 mb-0 wow fadeInUp mb-5" data-wow-delay="0.1s">
+                <div class="col-lg-8 mb-0 wow mb-5">
                     <div class="bg-primary text-center p-5">
-                        <h1 class="mb-4">Login</h1>
-                        <p class="mb-4">No account? <a th:href="@{/index#contact}" id="contact-us-now"><u>Contact us now</u></a></p>
+                        <h1 class="mb-4">Login to your account</h1>
+                        <p class="mb-4">No account?
+                            <a th:href="@{/index#contact}" id="contact-us-now"><u>Contact us now</u></a>
+                        </p>
                         <!-- forms -->
                         <!-- 'novalidate' disables browser validate check (bootstrap to validate)
                               action = where form data is submitted
                               method = post data to web server -->
-                        <form class="needs-validation" id="contact-form" method="post" novalidate>
+                        <form class="needs-validation" id="contact-form" method="post">
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="username" name="username"
+                                        <input type="text" th:class="${validate}" id="username" name="username"
                                                placeholder="Username" maxlength="50" required>
                                         <label for="username">UserName</label>
-                                        <div class="invalid-feedback">Please enter username</div>
+                                        <div class="invalid-feedback">Please enter a valid username</div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="password" name="password"
+                                        <input type="text" th:class="${validate}" id="password" name="password"
                                                placeholder="Password" maxlength="50" required>
                                         <label for="password">Password</label>
-                                        <div class="invalid-feedback">Please enter password</div>
+                                        <div class="invalid-feedback">Please enter a valid password</div>
                                     </div>
                                 </div>
                                 <div class="col-12">

@@ -2,6 +2,7 @@ package mgm.service;
 
 import mgm.model.entity.Contact;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ContactService {
@@ -13,4 +14,6 @@ public interface ContactService {
     Optional<Contact> findById(Integer id);
 
     Optional<Contact> findByMinId();
+
+    List<Contact> getAllContacts();
 }
