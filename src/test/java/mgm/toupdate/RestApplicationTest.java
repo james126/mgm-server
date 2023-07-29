@@ -1,5 +1,7 @@
-package mgm;
+package mgm.toupdate;
 
+import mgm.ContactBuilder;
+import mgm.Main;
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
 import org.json.JSONObject;
@@ -32,6 +34,14 @@ public class RestApplicationTest {
 
     @MockBean
     ContactServiceImpl service;
+
+    @Test
+    void testGetRoot() throws Exception {
+        mvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))
+                .andExpect(view().name("index"));
+    }
 
     @Test
     void testGetIndex() throws Exception {

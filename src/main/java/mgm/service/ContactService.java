@@ -16,4 +16,6 @@ public interface ContactService {
     Optional<Contact> findByMinId();
 
     List<Contact> getAllContacts();
+
+    Optional<Contact> getNextContactForm(Integer id);
 }

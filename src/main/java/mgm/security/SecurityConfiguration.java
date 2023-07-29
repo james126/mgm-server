@@ -1,6 +1,5 @@
 package mgm.security;
 
-import mgm.security.securityreferrence.CustomFilter;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.session.DisableEncodeUrlFilter;
 
 import javax.sql.DataSource;
 
@@ -58,8 +55,7 @@ public class SecurityConfiguration {
                     configure.failureForwardUrl("/invalid");
                 }).logout().logoutSuccessUrl("/index")
                 .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and().addFilterBefore(new CustomFilter(http.getSharedObject(AuthenticationManager.class)), DisableEncodeUrlFilter.class)
-                .build();
+                .and().build();
     }
 
     @Bean

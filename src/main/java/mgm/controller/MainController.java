@@ -36,13 +36,13 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String loginPage(Model model) {
         model.addAttribute("validate", "form-control border-0");
         return "login";
     }
 
     @PostMapping("/invalid")
-    public String invalidLogin(Model model) {
+    public String invalidLoginAttempt(Model model) {
         model.addAttribute("validate", "form-control border-0 is-invalid");
         return "login";
     }

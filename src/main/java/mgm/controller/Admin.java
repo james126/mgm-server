@@ -1,7 +1,6 @@
 package mgm.controller;
 
 import mgm.model.entity.Contact;
-import mgm.service.ContactProcessorImpl;
 import mgm.service.ContactServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,34 +15,35 @@ import java.util.Optional;
 @Controller
 public class Admin {
     private final ContactServiceImpl contactService;
-    private final ContactProcessorImpl contactProcessor;
 
     @Autowired
-    public Admin(ContactServiceImpl contactService, ContactProcessorImpl contactProcessor) {
+    public Admin(ContactServiceImpl contactService) {
         this.contactService = contactService;
-        this.contactProcessor = contactProcessor;
     }
 
     @GetMapping("/admin")
-    public String adminGet(Model model) {
+    public String adminPage(Model model) {
         Optional<Contact> result = contactService.findByMinId();
-        return getString(model, result);
+        addToModel(model, result);
+        return "admin";
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.POST)
     public String viewNextContactForm(Model model, @RequestParam(name = "id", defaultValue = "0") int id) {
-        Optional<Contact> result = contactProcessor.getNextContactForm(id);
-        return getString(model, result);
+        Optional<Contact> result = contactService.getNextContactForm(id);
+        addToModel(model, result);
+        return "admin";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteContact(Model model, @RequestParam(name = "id") int id) {
+    public String deleteContactForm(Model model, @RequestParam(name = "id") int id) {
         contactService.deleteById(id);
-        Optional<Contact> result = contactProcessor.getNextContactForm(id);
-        return getString(model, result);
+        Optional<Contact> result = contactService.getNextContactForm(id);
+        addToModel(model, result);
+        return "admin";
     }
 
-    private String getString(Model model, Optional<Contact> result) {
+    private void addToModel(Model model, Optional<Contact> result) {
         if (result.isPresent()) {
             model.addAttribute("contact", result);
             model.addAttribute("id", result.get().getId());
@@ -51,7 +51,5 @@ public class Admin {
             model.addAttribute("contact", new Contact());
             model.addAttribute("id", Integer.valueOf(0));
         }
-
-        return "admin";
     }
 }

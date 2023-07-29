@@ -54,4 +54,14 @@ public class ContactServiceImpl extends ContactMapper implements ContactService 
     public List<Contact> getAllContacts() {
         return contactRepository.findAll();
     }
+
+    @Override public Optional<Contact> getNextContactForm(Integer id) {
+        Optional<Contact> result = contactRepository.findById(id + 1);
+        if (result.isPresent()) {
+            return result;
+        }
+
+        result = contactRepository.findByMinId();
+        return result;
+    }
 }
