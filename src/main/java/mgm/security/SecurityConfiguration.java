@@ -1,8 +1,10 @@
 package mgm.security;
 
+import mgm.security.securityreferrence.RobotLoginConfigurer;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,18 +28,18 @@ import javax.sql.DataSource;
 
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
-@ConfigurationProperties(prefix = "spring.datasource")
-@ConfigurationPropertiesScan
+@ConfigurationProperties("spring.datasource")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    private final boolean useEmbeddedDatabase = true;
-//    @Value("${spring.datasource.url}")
-//    private String url;
-//    @Value("${spring.datasource.username}")
-//    private String username;
-//    @Value("${spring.datasource.password}")
-//    private String password;
+    @Value("${database.embedded}")
+    private boolean embedded;
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -55,23 +57,25 @@ public class SecurityConfiguration {
                     configure.failureForwardUrl("/invalid");
                 }).logout().logoutSuccessUrl("/index")
                 .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+                .and().apply(new RobotLoginConfigurer())
                 .and().build();
     }
 
     @Bean
+    @ConfigurationProperties("database.embedded")
     public DataSource appDataSource() {
-//        if (useEmbeddedDatabase) {
+        if (embedded) {
             return new EmbeddedDatabaseBuilder()
                     .setType(H2)
                     .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
                     .build();
-//        } else {
-//            DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-//            dataSourceBuilder.url(url);
-//            dataSourceBuilder.username(username);
-//            dataSourceBuilder.password(password);
-//            return dataSourceBuilder.build();
-//        }
+        } else {
+            DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+            dataSourceBuilder.url(url);
+            dataSourceBuilder.username(username);
+            dataSourceBuilder.password(password);
+            return dataSourceBuilder.build();
+        }
     }
 
     @Bean
@@ -108,7 +112,7 @@ public class SecurityConfiguration {
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent success) {
-        if (useEmbeddedDatabase) {
+        if (embedded) {
             //Log for testing/development
             var auth = success.getAuthentication();
             LoggerFactory.getLogger("SecurityConfiguration").info("LOGIN SUCCESSFUL [{}] - {}", auth.getClass().getSimpleName(),

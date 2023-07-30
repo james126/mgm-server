@@ -26,7 +26,7 @@ public class StringSanitiserTest {
     private String javascriptRegex = "<script[^>]*>|function";
 
     @BeforeEach
-    void setup() throws IOException {
+    void setup() {
         Path path = Paths.get(filePath);
         assumeTrue(Files.exists(path), "Path not found: " + filePath);
         htmlFile = new File(filePath);

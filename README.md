@@ -17,9 +17,9 @@ Server side validation<br>
 Login functionality and authentication<br>
 
 <b>Index pages - carousel</b><br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="100%" height="100%">
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index2.png" width="100%" height="100%">
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index3.png" width="100%" height="100%">
+<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="50%" height="50%">
+<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index2.png" width="50%" height="50%">
+<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index3.png" width="50%" height="100%">
 
 <b>Services page</b><br>
 <img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/services.png" width="100%" height="100%">

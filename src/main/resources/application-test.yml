@@ -1,14 +1,32 @@
 server:
-  port: 5000
+  port: 8080
 
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb;INIT=RUNSCRIPT FROM 'src/test/resources/schema.sql';
-    username: sa
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
     password: password
+  #        url: jdbc:h2:mem:test;
+  #        driverClassName: org.h2.Driver
+  #        username: sa
+  #        password: password
   sql:
     init:
       mode: always
+
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing: false
+
+database:
+  embedded: false
+
+logging.level:
+  org.springframework.security: info
+
+logging:
+  file:
+    path: "src/logs"
 
 date:
   zone: 'Pacific/Auckland'

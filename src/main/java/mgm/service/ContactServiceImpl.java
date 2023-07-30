@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import lombok.NonNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,21 +28,16 @@ public class ContactServiceImpl extends ContactMapper implements ContactService 
     }
 
     @Override
-    public void insertContact(Contact form){
+    public void insertContact(@NonNull Contact form){
         form.setUpdate_datetime(dateTime.getDate());
         Contact clean = sanitiser.sanitise(form);
         contactRepository.saveAndFlush(clean);
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(@NonNull Integer id) {
         contactRepository.deleteById(id);
         contactRepository.flush();
-    }
-
-    @Override
-    public Optional<Contact> findById(Integer id){
-        return contactRepository.findById(id);
     }
 
     @Override
@@ -55,7 +50,8 @@ public class ContactServiceImpl extends ContactMapper implements ContactService 
         return contactRepository.findAll();
     }
 
-    @Override public Optional<Contact> getNextContactForm(Integer id) {
+    @Override
+    public Optional<Contact> getNextContactForm(@NonNull Integer id) {
         Optional<Contact> result = contactRepository.findById(id + 1);
         if (result.isPresent()) {
             return result;

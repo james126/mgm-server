@@ -2,13 +2,14 @@ package mgm;
 
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.Optional;
 import java.util.Random;
 
 import static org.exparity.hamcrest.date.InstantMatchers.within;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Main.class)
@@ -47,50 +50,127 @@ public class DatabaseApplicationTest {
     }
 
     @Test
-    public void testGetById() {
+    public void testInsertContact() {
+        //Delete all database records
+        List<Contact> contactList = contactService.getAllContacts();
+        contactList.forEach(contact -> {
+            assertNotNull(contact.getId());
+            contactService.deleteById(contact.getId());
+        });
+        List<Contact> deleteResult = contactService.getAllContacts();
+        assertTrue(deleteResult.isEmpty());
+
+        //Insert a single record
+        int id = getRandomId();
+        Contact expected = getMockedContactById(id);
+        //Id is auto-incremented in database
+        expected.setId(null);
+        contactService.insertContact(expected);
+
+        List<Contact> resultList = contactService.getAllContacts();
+        assertEquals(1, resultList.size());
+        assertAll(() -> {
+            Contact actual = resultList.get(0);
+            assertEquals(actual.getFirst_name(), expected.getFirst_name());
+            assertEquals(actual.getLast_name(), expected.getLast_name());
+            assertEquals(actual.getEmail(), expected.getEmail());
+            assertEquals(actual.getPhone(), expected.getPhone());
+            assertEquals(actual.getAddress_line1(), expected.getAddress_line1());
+            assertEquals(actual.getAddress_line2(), expected.getAddress_line2());
+            assertEquals(actual.getMessage(), expected.getMessage());
+            assertThat(actual.getUpdate_datetime().toInstant(), within(1, ChronoUnit.MINUTES,
+                    expected.getUpdate_datetime().toInstant()));
+        });
+    }
+
+    @Test
+    public void testInsertNullContact() {
+        //Delete all database records
+        List<Contact> contactList = contactService.getAllContacts();
+        contactList.forEach(contact -> {
+            assertNotNull(contact.getId());
+            contactService.deleteById(contact.getId());
+        });
+        List<Contact> deleteResult = contactService.getAllContacts();
+        assertTrue(deleteResult.isEmpty());
+
+        //Insert a null record
+        Contact empty = new Contact();
+        assertThrows(DataIntegrityViolationException.class, () -> contactService.insertContact(empty));
+    }
+
+    @Test
+    public void testInsertContactWithDuplicateId() {
+        //Delete all database records
+        List<Contact> contactList = contactService.getAllContacts();
+        contactList.forEach(contact -> {
+            assertNotNull(contact.getId());
+            contactService.deleteById(contact.getId());
+        });
+        List<Contact> deleteResult = contactService.getAllContacts();
+        assertTrue(deleteResult.isEmpty());
+
         int id = getRandomId();
         Contact contact = getMockedContactById(id);
-        Optional<Contact> result = contactService.findById(id);
-        assertTrue(result.isPresent());
-        assertAll(() -> {
-            assertEquals(contact.getId(), result.get().getId());
-            assertEquals(contact.getFirst_name(), result.get().getFirst_name());
-            assertEquals(contact.getLast_name(), result.get().getLast_name());
-            assertEquals(contact.getEmail(), result.get().getEmail());
-            assertEquals(contact.getPhone(), result.get().getPhone());
-            assertEquals(contact.getAddress_line1(), result.get().getAddress_line1());
-            assertEquals(contact.getAddress_line2(), result.get().getAddress_line2());
-            assertEquals(contact.getMessage(), result.get().getMessage());
-            MatcherAssert.assertThat(contact.getUpdate_datetime().toInstant(), within(1, ChronoUnit.HOURS,
-                    result.get().getUpdate_datetime().toInstant()));
-        });
+        contact.setId(1);
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> contactService.insertContact(contact));
     }
 
     @Test
     public void testDeleteById() {
-        int id = getRandomId();
-        Contact contact = getMockedContactById(id);
+        Integer id = getRandomId();
+        assertNotNull(id);
         contactService.deleteById(id);
         List<Contact> contactList = contactService.getAllContacts();
-        assertFalse(contactList.contains(contact));
+        contactList.forEach(contact -> {
+            assertThat(hasProperty("id"), is(not(id)));
+        });
     }
 
     @Test
-    public void testInsertEnquiry() {
+    public void testDeleteByNull() {
+        assertThrows(NullPointerException.class, () -> contactService.deleteById(null));
+    }
+
+    @Test
+    public void testDeleteByUnassignedId() {
+        assertDoesNotThrow(() -> contactService.deleteById(Integer.MAX_VALUE));
+    }
+
+    @Test
+    public void testFindByMinId() {
+        Optional<Contact> contact = contactService.findByMinId();
+        assertTrue(contact.isPresent());
+    }
+
+    @Test
+    public void testFindByMinIdWhenNoRecords() {
+        //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
-
-        contactList.forEach(contact -> contactService.deleteById(contact.getId()));
-        List<Contact> deleteResult = contactService.getAllContacts();
-        assertTrue(deleteResult.isEmpty());
-
         contactList.forEach(contact -> {
-            int id = contact.getId();
-            contact.setId(null);
-            contactService.insertContact(contact);
-            contact.setId(id);
+            assertNotNull(contact.getId());
+            contactService.deleteById(contact.getId());
         });
-        List<Contact> insertResult = contactService.getAllContacts();
-        assertEquals(insertResult.size(), 5);
+
+        Optional<Contact> contact = contactService.findByMinId();
+        assertFalse(contact.isPresent());
+    }
+
+    @Test
+    public void testGetNextContactForm() {
+        Optional<Contact> contact = contactService.getNextContactForm(0);
+        assertTrue(contact.isPresent());
+    }
+
+    @Test
+    public void testGetNextContactFormWithInvalidId() {
+        Optional<Contact> contact = contactService.getNextContactForm(Integer.MIN_VALUE);
+        assertTrue(contact.isPresent());
+    }
+
+    @Test
+    public void testGetNextContactFormNull() {
+        assertThrows(NullPointerException.class, () -> contactService.getNextContactForm(null));
     }
 
     public int getRandomId() {

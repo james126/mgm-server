@@ -34,6 +34,6 @@ public class StringSanitiser {
     }
 
     public String removeHtml(String dirty){
-        return Jsoup.clean(dirty, Safelist.none());
+        return dirty!= null ? Jsoup.clean(dirty, Safelist.none()) : null;
     }
 }
