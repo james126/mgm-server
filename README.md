@@ -60,9 +60,9 @@
           <br></br>
 - **Admin Page**
     - View/delete submitted 'Contact Us' forms
-        - `view forms` admin users can iterate through forms which are retrieved from the database.
+        - `view forms` admin users can iterate through forms which are retrieved from the database
           <br><picture><img alt="" title="" src="src/main/resources/readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
-        - `delete forms` admin user can delete forms which deletes them from the database.
+        - `delete forms` admin user can delete forms which deletes them from the database
           <br><picture><img alt="" title="" src="src/main/resources/readme/delete-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `logout` redirects the user to the /index page.
 
