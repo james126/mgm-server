@@ -1,6 +1,7 @@
 securityreferrence/
 logs/
 src/main/resources/application-prod.yml
+application-prod.yml
 
 ### SSL ###
 csr.pem

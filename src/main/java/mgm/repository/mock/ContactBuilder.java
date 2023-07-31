@@ -6,9 +6,7 @@ import mgm.service.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,9 @@ public class ContactBuilder {
         this.contactService = contactService;
         dateTime = zone;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/static/mock_db_records.csv"))){
+        InputStream inputStream = getClass().getResourceAsStream("/mock_db_records.csv");
+        assert inputStream != null;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
             String line = null;
             reader.readLine(); //skip the first line
 
