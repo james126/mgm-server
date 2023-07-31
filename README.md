@@ -125,10 +125,6 @@ BODY:
 <a name="screenshots"></a>
 ## Screenshots
 
-### `Index`
-[<img src="src/main/resources/readme/index.png" width="100%"/>](src/main/resources/readme/index.png)
-<br/><br/>
-
 ### `Login`
 [<img src="src/main/resources/readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
 <br/><br/>
