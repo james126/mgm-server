@@ -70,9 +70,9 @@
 - **Admin Page**
     - View/delete submitted 'Contact Us' forms
         - `view forms` admin users can iterate through forms which are retrieved from the database
-          <br><picture><img alt="" title="" src="readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
+          <br><picture><img alt="" title="" src="src/main/resources/readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `delete forms` admin user can delete forms which deletes them from the database
-          <br><picture><img alt="" title="" src="readme/delete-button.png" align="center" width="30%" height="30%" alt=""></picture>
+          <br><picture><img alt="" title="" src="src/main/resources/readme/delete-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `logout` redirects the user to the /index page.
 
 <a name="dependencies"></a>
@@ -96,7 +96,7 @@
 - **`Logging`**
     - logback
 - **`Template Engine`**
-   - thymeleaf
+  - thymeleaf
 
 
 <a name="interesting"></a>
@@ -145,24 +145,24 @@ BODY:
 
 ### `Login`
 <picture>
-    [<img src="readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
+    [<img src="src/main/resources/readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
 </picture>picture>
 <br/><br/>
 
 ### `Invalid login`
-[<img src="readme/invalid-login.png" width="100%"/>](readme/invalid-login.png)
+[<img src="src/main/resources/readme/invalid-login.png" width="100%"/>](src/main/resources/readme/invalid-login.png)
 <br/><br/>
 
 ### `Admin`
-[<img src="readme/admin.png" width="100%"/>](readme/admin.png)
+[<img src="src/main/resources/readme/admin.png" width="100%"/>](src/main/resources/readme/admin.png)
 <br/><br/>
 
 ### `View next contact form`
-[<img src="readme/admin-view-next.png" width="100%"/>](readme/admin-view-next.png)
+[<img src="src/main/resources/readme/admin-view-next.png" width="100%"/>](src/main/resources/readme/admin-view-next.png)
 <br/><br/>
 
 ###  `Delete contact form`
-[<img src="readme/admin-delete.png" width="100%"/>](readme/admin-delete.png)
+[<img src="src/main/resources/readme/admin-delete.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
 <br/><br/>
 
 <a name="backlog"></a>
