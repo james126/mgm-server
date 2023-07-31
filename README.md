@@ -1,7 +1,9 @@
 <h1 align="center"> MrGrassMaster </h1> <br>
 
 <div align="center">
-    <img src="src/main/resources/static/image/man.png" align="center" width="10%" height="10%" alt="">
+    <picture>
+        <img src="src/main/resources/static/image/man.png" align="center" width="10%" height="10%" alt="">
+    </picture>
 </div>
 
 <p align="center">
@@ -9,9 +11,15 @@
 </p>
 
 <div align="center">
-    <img alt="" title="" src="src/main/resources/readme/java.png" align="center" width="5%" height="5%">
-    <img alt="" title="" src="src/main/resources/readme/aws.png" align="center" width="5%" height="5%">
-    <img alt="" title="" src="src/main/resources/readme/spring.png" align="center" width="5%" height="5%">
+    <picture>
+        <img alt="" title="" src="src/main/resources/readme/java.png" align="center" width="5%" height="5%">
+    </picture> 
+    <picture>
+        <img alt="" title="" src="src/main/resources/readme/aws.png" align="center" width="5%" height="5%">
+     </picture> 
+     <picture>
+        <img alt="" title="" src="src/main/resources/readme/spring.png" align="center" width="5%" height="5%">
+    </picture>
 </div>
 
 ## Contents
@@ -53,9 +61,9 @@
 - **Admin Page**
     - View/delete submitted 'Contact Us' forms
         - `view forms` admin users can iterate through forms which are retrieved from the database.
-          <br><img alt="" title="" src="src/main/resources/readme/view-next-button.png" align="center" width="30%" height="30%" alt="">
+          <br><picture><img alt="" title="" src="src/main/resources/readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `delete forms` admin user can delete forms which deletes them from the database.
-          <br><img alt="" title="" src="src/main/resources/readme/delete-button.png" align="center" width="30%" height="30%" alt="">
+          <br><picture><img alt="" title="" src="src/main/resources/readme/delete-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `logout` redirects the user to the /index page.
 
 <a name="dependencies"></a>
@@ -87,7 +95,8 @@
 
 **Viewing HTTP Requests**
 
-Logged using a custom security filter
+Logged using a custom security filter<br/>
+Helpful when debugging
 ~~~
 HEADER:
     POST http://localhost:8080/form
@@ -106,7 +115,8 @@ BODY:
     address_line1=[16 Pinero Place],
     address_line2=[Bucklands Beach],
     message=[Lawnmowing quote]
-    
+~~~
+~~~    
 HEADER:
     POST http://localhost:8080/login
     host: localhost:8080
@@ -119,14 +129,15 @@ BODY:
     username=[user1],
     password=[password],
     _csrf=[VAGZzEvVOn--6LIw1srTXmgzWzPTqlnFLIfZ8J-tSzWer5EOYTOs_3_sWUqT0dMB5OfnaQ1Sdgrqz2_oG-G_k_rLclD7yalr]
-
 ~~~
 
 <a name="screenshots"></a>
 ## Screenshots
 
 ### `Login`
-[<img src="src/main/resources/readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
+<picture>
+    [<img src="src/main/resources/readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
+</picture>picture>
 <br/><br/>
 
 ### `Invalid login`
@@ -147,11 +158,13 @@ BODY:
 
 <a name="backlog"></a>
 ## Backlog
-- [x] Injection attack mitigation
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
+<br/>
 
 <a name="version"></a>
 ## Version
-1.0 PHP<br />
-2.0 Java
+<ul>
+    <li>2.0 Java</li>
+    <li>1.0 PHP</li>
+</ul>
