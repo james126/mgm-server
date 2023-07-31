@@ -1,34 +1,161 @@
-# Mr Grass Master
-<b>Description</b><br>
-I refactored and enhanced one of my old PHP projects to use Java instead.<br>
-It's currently not mobile responsive.<br>
-<ul>
-<li>Spring Boot web app on AWS Elastic Beanstalk</li>
-<li>PostgreSQL database on AWS RDS</li>
-<li>http://m-g-m.ap-southeast-2.elasticbeanstalk.com</li>
-<li>Thymeleaf template engine</li>
-<li>Bootstrap CSS styling</li>
-</ul>
+<h1 align="center"> MrGrassMaster </h1> <br>
+
+<div align="center">
+    <img src="src/main/resources/static/image/man.png" align="center" width="10%" height="10%" alt="">
+</div>
+
+<p align="center">
+  Spring Boot Web App
+</p>
+
+<div align="center">
+    <img alt="" title="" src="src/main/resources/readme/java.png" align="center" width="5%" height="5%">
+    <img alt="" title="" src="src/main/resources/readme/aws.png" align="center" width="5%" height="5%">
+    <img alt="" title="" src="src/main/resources/readme/spring.png" align="center" width="5%" height="5%">
+</div>
+
+## Contents
+
+- [Demo](#demo)
+- [Description](#description)
+- [Dependencies](#dependencies)
+- [Learning interesting stuff](#interesting)
+- [Screenshots](#screenshots)
+- [Backlog](#backlog)
+- [Version](#version)
+
+<a name="demo"></a>
+## Demo 
+
+[http://m-g-m.ap-southeast-2.elasticbeanstalk.com](http://m-g-m.ap-southeast-2.elasticbeanstalk.com)
+
+<a name="description"></a>
+## Description 
+
+- **Hosting**
+    - Amazon Web Services
+      - `AWS Elastic Beanstalk` running a JAR
+      - `AWS RDS` running a Postgres database
+        <br></br>
+- **Contact Us Form**
+    - Inject attack mitigation
+        - `HTML/JavaScript injection` form input is sanitised to remove HTML/JavaScript
+        - `SQL Injection` input is inserted into the database as String parameters
+          <br></br>
+- **Login Page**
+    - Authentication, authorization, redirecting, forwarding and exception handling
+        - `authentication`
+        - `invalid login` forwards the user to /invalid
+        - `password encoding/decoding` user details stored in database
+        - `authorization` admin users can view /admin
+        - `valid login` users are redirected to /admin by a custom handler
+          <br></br>
+- **Admin Page**
+    - View/delete submitted 'Contact Us' forms
+        - `view forms` admin users can iterate through forms which are retrieved from the database.
+          <br><img alt="" title="" src="src/main/resources/readme/view-next-button.png" align="center" width="40%" height="40%" alt="">
+        - `delete forms` admin user can delete forms which deletes them from the database.
+          <br><img alt="" title="" src="src/main/resources/readme/delete-button.png" align="center" width="40%" height="40%" alt="">
+        - `logout` redirects the user to the /index page.
+
+<a name="dependencies"></a>
+## Dependencies/Libraries <a id="dependencies"></a>
 
 
-<b>Future Improvements</b><br>
-More unit/integration testing<br>
-Server side validation<br>
-Login functionality and authentication<br>
+- **`Spring Boot`**
+    - various e.g. spring-boot-starter-web
+- **`Security`**
+    - spring-boot-starter-security
+    - JSoup
+- **`Database`**
+    - postgresql
+    - h2
+    - hibernate
+- **`Testing`**
+    - junit5
+    - hamcrest
+    - mockito
+    - MockMvc
+- **`Logging`**
+    - logback
+- **`Template Engine`**
+  - thymeleaf
 
-<b>Index pages - carousel</b><br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index1.png" width="50%" height="50%">
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index2.png" width="50%" height="50%">
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/index3.png" width="50%" height="100%">
 
-<b>Services page</b><br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/services.png" width="100%" height="100%">
+<a name="interesting"></a>
+## Learning Interesting Stuff <a name="interesting"></a>
 
-<b>About page</b><br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/about.png" width="100%" height="100%">
+**Viewing HTTP Requests**
 
-<b>Contact page</b><br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/contact1.png" width="100%" height="100%">
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/contact2.png" width="100%" height="100%"><br>
-Verifying record has been written to database<br>
-<img src="https://github.com/james126/Mr-Grass-Master/blob/development/screenshots/databasequery.png" width="100%" height="100%">
+Logged using a custom security filter
+~~~
+HEADER:
+    POST http://localhost:8080/form
+    host: localhost:8080
+    origin: http://localhost:8080
+    content-type: application/x-www-form-urlencoded
+    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    referer: http://localhost:8080/form
+    cookie: Idea-c1035a9b=3a68ec60-852b-4005-a4ef-e4c243ce1df1; JSESSIONID=E3888E4060FADEF1E201639266E76AFD
+BODY:
+    _csrf=[yJwud5V0wzH2VT2UMXcrelxuW6FUmzp6kARNAMsAfOesM1bFrKxLQ_BC9lTbYA2iUFofSGVadsMx-QtXpWd1OPk2TYWeV2D3],
+    first_name=[Billy],
+    last_name=[Brown],
+    email=[billy@gmail.com],
+    phone=[022 546 8888],
+    address_line1=[16 Pinero Place],
+    address_line2=[Bucklands Beach],
+    message=[Lawnmowing quote]
+    
+HEADER:
+    POST http://localhost:8080/login
+    host: localhost:8080
+    origin: http://localhost:8080
+    content-type: application/x-www-form-urlencoded
+    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    referer: http://localhost:8080/login
+    cookie: Idea-c1035a9b=3a68ec60-852b-4005-a4ef-e4c243ce1df1; JSESSIONID=B4C703DAF9E54A677FC09CA857CC2441
+BODY:
+    username=[user1],
+    password=[password],
+    _csrf=[VAGZzEvVOn--6LIw1srTXmgzWzPTqlnFLIfZ8J-tSzWer5EOYTOs_3_sWUqT0dMB5OfnaQ1Sdgrqz2_oG-G_k_rLclD7yalr]
+
+~~~
+
+<a name="screenshots"></a>
+## Screenshots
+
+### `Index`
+[<img src="src/main/resources/readme/index.png" width="100%"/>](src/main/resources/readme/index.png)
+<br/><br/>
+
+### `Login`
+[<img src="src/main/resources/readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
+<br/><br/>
+
+### `Invalid login`
+[<img src="src/main/resources/readme/invalid-login.png" width="100%"/>](src/main/resources/readme/invalid-login.png)
+<br/><br/>
+
+### `Admin`
+[<img src="src/main/resources/readme/admin.png" width="100%"/>](src/main/resources/readme/admin.png)
+<br/><br/>
+
+### `View next contact form`
+[<img src="src/main/resources/readme/admin-view-next.png" width="100%"/>](src/main/resources/readme/admin-view-next.png)
+<br/><br/>
+
+###  `Delete contact form`
+[<img src="src/main/resources/readme/admin-delete.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
+<br/><br/>
+
+<a name="backlog"></a>
+## Backlog
+- [x] Injection attack mitigation
+- [ ] Form submission confirmation
+- [ ] Brute force attack mitigation
+
+<a name="version"></a>
+## Version
+1.0 PHP<br />
+2.0 Java

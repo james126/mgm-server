@@ -1,4 +1,4 @@
-package mgm;
+package mgm.utilities;
 
 import mgm.model.entity.Contact;
 import mgm.service.DateTime;

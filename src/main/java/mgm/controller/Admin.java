@@ -5,10 +5,7 @@ import mgm.service.ContactServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,6 +16,17 @@ public class Admin {
     @Autowired
     public Admin(ContactServiceImpl contactService) {
         this.contactService = contactService;
+    }
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        model.addAttribute("validate", "form-control border-0");
+        return "login";
+    }
+
+    @RequestMapping(value = "/invalid", method = { RequestMethod.GET, RequestMethod.POST })
+    public String invalidLoginAttempt(Model model) {
+        model.addAttribute("validate", "form-control border-0 is-invalid");
+        return "login";
     }
 
     @GetMapping("/admin")
@@ -37,7 +45,9 @@ public class Admin {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteContactForm(Model model, @RequestParam(name = "id") int id) {
-        contactService.deleteById(id);
+        try {
+            contactService.deleteById(id);
+        } catch (NullPointerException ignored){}
         Optional<Contact> result = contactService.getNextContactForm(id);
         addToModel(model, result);
         return "admin";

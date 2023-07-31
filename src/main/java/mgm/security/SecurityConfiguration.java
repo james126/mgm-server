@@ -57,7 +57,6 @@ public class SecurityConfiguration {
                     configure.failureForwardUrl("/invalid");
                 }).logout().logoutSuccessUrl("/index")
                 .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and().apply(new RobotLoginConfigurer())
                 .and().build();
     }
 

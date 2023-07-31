@@ -1,14 +1,15 @@
 package mgm;
 
+import jakarta.validation.ConstraintViolationException;
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
+import mgm.utilities.ContactBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import java.time.temporal.ChronoUnit;
@@ -22,9 +23,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Integration test using external Postgres database
+ */
 @SpringBootTest(classes = Main.class)
 @Import(ContactBuilder.class)
-public class DatabaseApplicationTest {
+public class DatabaseTest {
 
     @Autowired
     private ContactServiceImpl contactService;
@@ -84,7 +88,7 @@ public class DatabaseApplicationTest {
     }
 
     @Test
-    public void testInsertNullContact() {
+    public void testInsertEmptyContact() {
         //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
         contactList.forEach(contact -> {
@@ -94,9 +98,14 @@ public class DatabaseApplicationTest {
         List<Contact> deleteResult = contactService.getAllContacts();
         assertTrue(deleteResult.isEmpty());
 
-        //Insert a null record
+        //Insert an empty record
         Contact empty = new Contact();
-        assertThrows(DataIntegrityViolationException.class, () -> contactService.insertContact(empty));
+        assertThrows(ConstraintViolationException.class, () -> contactService.insertContact(empty));
+    }
+
+    @Test
+    public void testInsertNullContact() {
+        assertThrows(NullPointerException.class, () -> contactService.insertContact(null));
     }
 
     @Test

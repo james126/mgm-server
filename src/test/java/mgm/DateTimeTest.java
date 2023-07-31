@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(classes = Main.class)
 @ExtendWith(MockitoExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class DateUnitTests {
+public class DateTimeTest {
 
     @Autowired
     private DateTime dateTime;

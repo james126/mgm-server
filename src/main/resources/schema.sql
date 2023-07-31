@@ -1,5 +1,7 @@
 --Postgres
 DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS authorities;
 
 CREATE TABLE IF NOT EXISTS contact (
    id BIGSERIAL PRIMARY KEY, --auto incrementing integer
@@ -14,8 +16,6 @@ CREATE TABLE IF NOT EXISTS contact (
 );
 
 -- Security
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS authorities;
 
 CREATE TABLE IF NOT EXISTS users
 (

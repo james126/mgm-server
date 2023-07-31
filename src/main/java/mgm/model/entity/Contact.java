@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,13 +21,21 @@ public class Contact implements Persistable<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull
     private String first_name;
+    @NotNull
     private String last_name;
+    @NotNull
     private String email;
+    @NotNull
     private String phone;
+    @NotNull
     private String address_line1;
+    @NotNull
     private String address_line2;
+    @NotNull
     private String message;
+    @NotNull
     private Date update_datetime;
 
     @Override

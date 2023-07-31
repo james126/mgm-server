@@ -29,21 +29,11 @@ public class MainController {
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitContactForm(@ModelAttribute Contact form, Model model) {
+    public String submitContactForm(Contact contact, Model model) {
         model.addAttribute("contact", new Contact());
-        contactService.insertContact(form);
+        try {
+            contactService.insertContact(contact);
+        } catch (NullPointerException ignored){}
         return "index";
-    }
-
-    @GetMapping("/login")
-    public String loginPage(Model model) {
-        model.addAttribute("validate", "form-control border-0");
-        return "login";
-    }
-
-    @PostMapping("/invalid")
-    public String invalidLoginAttempt(Model model) {
-        model.addAttribute("validate", "form-control border-0 is-invalid");
-        return "login";
     }
 }
