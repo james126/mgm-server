@@ -12,22 +12,22 @@
 
 <div align="center">
     <picture>
-        <img alt="" title="" src="readme/java.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/java.png" align="center" width="2%" height="2%">
     </picture> 
     <picture>
-        <img alt="" title="" src="readme/aws.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/aws.png" align="center" width="2%" height="2%">
      </picture> 
      <picture>
-        <img alt="" title="" src="readme/spring.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/spring.png" align="center" width="2%" height="2%">
     </picture>
      <picture>
-        <img alt="" title="" src="readme/postgres.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/postgres.png" align="center" width="2%" height="2%">
     </picture>
      <picture>
-        <img alt="" title="" src="readme/junit.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/junit.png" align="center" width="2%" height="2%">
     </picture>
      <picture>
-        <img alt="" title="" src="readme/thymeleaf.png" align="center" width="3%" height="3%">
+        <img alt="" title="" src="readme/thymeleaf.png" align="center" width="2%" height="2%">
     </picture>
 </div>
 
