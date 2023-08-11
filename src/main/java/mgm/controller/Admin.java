@@ -17,8 +17,9 @@ public class Admin {
     public Admin(ContactServiceImpl contactService) {
         this.contactService = contactService;
     }
+
     @GetMapping("/login")
-    public String loginPage(Model model) {
+    public String getLogin(Model model) {
         model.addAttribute("validate", "form-control border-0");
         return "login";
     }
@@ -29,7 +30,7 @@ public class Admin {
         return "login";
     }
 
-    @GetMapping("/admin")
+    @RequestMapping(value = "/admin", method = { RequestMethod.GET, RequestMethod.POST })
     public String adminPage(Model model) {
         Optional<Contact> result = contactService.findByMinId();
         addToModel(model, result);

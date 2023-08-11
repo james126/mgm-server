@@ -1,6 +1,6 @@
 package mgm;
 
-import mgm.service.DateTime;
+import mgm.utility.DateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

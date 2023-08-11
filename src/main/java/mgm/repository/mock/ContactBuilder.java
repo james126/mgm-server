@@ -2,7 +2,7 @@ package mgm.repository.mock;
 
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
-import mgm.service.DateTime;
+import mgm.utility.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

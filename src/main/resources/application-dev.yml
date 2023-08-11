@@ -19,7 +19,7 @@ spring:
             produce-partial-output-while-processing: false
 
 database:
-  embedded: false
+    embedded: false
 
 logging.level:
     org.springframework.security: trace
@@ -30,3 +30,9 @@ logging:
 
 date:
     zone: 'Pacific/Auckland'
+
+app:
+  jwt:
+    secret: daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb
+    expiration-milliseconds: 604800000
+

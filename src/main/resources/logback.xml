@@ -23,8 +23,9 @@
         </encoder>
     </appender>
 
-    <Logger name="SecurityConfiguration" level="INFO">
+    <Logger name="Security" level="INFO">
         <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </Logger>
 
     <root level="INFO">

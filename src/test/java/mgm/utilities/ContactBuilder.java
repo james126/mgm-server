@@ -1,7 +1,7 @@
 package mgm.utilities;
 
 import mgm.model.entity.Contact;
-import mgm.service.DateTime;
+import mgm.utility.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.TestConfiguration;

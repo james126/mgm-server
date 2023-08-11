@@ -1,4 +1,4 @@
-package mgm.service.sanitise;
+package mgm.utility;
 
 import mgm.model.entity.Contact;
 import org.jsoup.Jsoup;

@@ -1,12 +1,12 @@
 package mgm;
 
-import mgm.security.SecurityConfiguration;
+import mgm.utility.JwtUtility;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(SecurityConfiguration.class)
+@EnableConfigurationProperties(JwtUtility.class)
 public class Main{
 
     public static void main(String[] args) {

@@ -34,3 +34,14 @@
 15:09:38.727 INFO  [http-nio-8080-exec-1] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
 15:10:01.497 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user2
 18:26:02.383 INFO  [http-nio-8080-exec-2] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:40:45.540 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:40:45.540 INFO  [http-nio-8080-exec-4] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:41:52.915 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:41:52.915 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:44:33.574 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+14:44:33.574 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+15:02:23.437 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+15:02:23.437 INFO  [http-nio-8080-exec-5] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+16:26:18.585 INFO  [http-nio-8080-exec-3] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+16:49:33.381 INFO  [http-nio-8080-exec-8] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
+19:17:57.727 INFO  [http-nio-8080-exec-7] - LOGIN SUCCESSFUL [UsernamePasswordAuthenticationToken] - user1
