@@ -82,8 +82,9 @@
 - **`Spring Boot`**
     - various e.g. spring-boot-starter-web
 - **`Security`**
+    - io.jsonwebtoken
     - spring-boot-starter-security
-    - JSoup
+    - org.jsoup
 - **`Database`**
     - postgresql
     - h2
@@ -96,7 +97,7 @@
 - **`Logging`**
     - logback
 - **`Template Engine`**
-  - thymeleaf
+    - thymeleaf
 
 
 <a name="interesting"></a>
