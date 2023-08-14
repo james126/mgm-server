@@ -6,7 +6,7 @@
 <head th:replace="~{shared/head :: head}"></head>
 
 
-<body id="admin">
+<body onload="updateOnLoad()" id="admin">
     <div id="page-container">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -46,7 +46,8 @@
                                   action = where form data is submitted
                                   method = post data to web server -->
                             <form class="needs-validation" id="contact-form" novalidate
-                                  th:action="@{/view(id=${id})}" method="post"
+                                  onsubmit="return false;"
+                                  th:attr="data-id=${id}"
                                   th:object="${contact}" >
                                 <div class="row g-3">
                                     <div class="col-sm-6">
@@ -100,14 +101,14 @@
                                     <div class="col-sm-6">
                                         <div class="form-floating">
                                             <input type="text" class="form-control border-0" id="city" placeholder="City" disabled>
-                                            <label for="city">Auckland</label>
+                                            <label for="city" id="city-label">Auckland</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating">
                                             <input type="text" class="form-control border-0" id="country" placeholder="Country"
                                                    disabled>
-                                            <label for="country">New Zealand</label>
+                                            <label for="country" id="country-label">New Zealand</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -119,13 +120,12 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating">
-                                            <button class="btn btn-dark w-100 py-3" type="submit" role="button">View next</button>
+                                            <button class="btn btn-dark w-100 py-3" type="button" onclick="viewNext()" id="view-next-button">View next</button>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating">
-                                            <button class="btn btn-dark w-100 py-3" type="submit" value="Delete" th:formaction="@{/delete(id=${id})}"
-                                                    role="button">Delete
+                                            <button class="btn btn-dark w-100 py-3" type="button" onclick="deleteForm()" id="delete-button">Delete
                                             </button>
                                         </div>
                                     </div>
@@ -153,6 +153,7 @@
 
         <!-- Custom Javascript -->
         <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/admin.js}"></script>
         <script th:src="@{/js/logout.js}"></script>
     </div>
 </body>

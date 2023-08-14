@@ -7,10 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Duration;
 import java.util.Date;
 
 /**
@@ -29,9 +30,7 @@ public class JwtUtility {
     private long jwtExpirationDate;
 
     // generate JWT token
-    public String generateToken(Authentication authentication){
-        String username = authentication.getName();
-
+    public String generateToken(String username){
         Date currentDate = new Date();
 
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
@@ -43,6 +42,18 @@ public class JwtUtility {
                 .signWith(key())
                 .compact();
         return token;
+    }
+
+    public ResponseCookie generateCookie(String jwtString){
+        ResponseCookie cookie = ResponseCookie.from("Bearer", jwtString)
+                .httpOnly(true)
+                .secure(false)
+                .maxAge(Duration.ofHours(1))
+                .sameSite("Lax")  // SameSite=Lax, secure cookies have to be sent over HTTPS
+                .path("/")
+                .build();
+
+        return cookie;
     }
 
     private Key key(){

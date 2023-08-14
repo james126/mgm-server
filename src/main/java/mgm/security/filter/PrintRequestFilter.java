@@ -53,10 +53,9 @@ public class PrintRequestFilter extends OncePerRequestFilter {
             try {
                 //JSON BODY
                 Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
-                String username = requestMap.get("username");
-                String password = requestMap.get("password");
-                System.out.println("username: " + username);
-                System.out.println("password: " + password);
+                requestMap.forEach((k,v) -> {
+                    System.out.println(k + ": " + v);
+                });
 
             } catch (Exception e) {}
         }
@@ -68,7 +67,7 @@ public class PrintRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return ("application/json".equals(request.getContentType()));
+        return (!"application/json".equals(request.getContentType()));
     }
 }
 

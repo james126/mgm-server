@@ -43,21 +43,20 @@ public class SecurityConfiguration {
                 .authenticationProvider(customAuthenticationProvider)
                 .addFilterBefore(cachingFilter, ExceptionTranslationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, AuthorizationFilter.class)
-                .addFilterAfter(printRequestsFilter, AuthorizationFilter.class)
+                //.addFilterAfter(printRequestsFilter, AuthorizationFilter.class)
 
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/", "/index", "/form").permitAll();
                     request.requestMatchers("/login", "/invalid").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
                     request.requestMatchers("/entity/Contact").permitAll();
-                    request.requestMatchers("/admin", "/view", "delete").hasRole("ADMIN");
+                    request.requestMatchers("/admin", "/admin/view-next", "/admin/delete").hasRole("ADMIN");
                     request.requestMatchers("/auth/**").authenticated();
                 })
                 .formLogin(configure -> {
                     configure.loginPage("/login");
                     configure.loginProcessingUrl("/login");
                     configure.successForwardUrl("/admin");
-                    //configure.successHandler(new LoginSuccessHandler());
                     configure.failureForwardUrl("/invalid");
                 })
                 .logout().logoutSuccessUrl("/index").and()

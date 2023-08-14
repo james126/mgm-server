@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 @Import(ContactBuilder.class)
-public class AdminRestTest {
+public class AdminControllerRestTest {
 
     @Autowired
     private MockMvc mvc;

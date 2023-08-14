@@ -11,6 +11,9 @@
 </p>
 
 <div align="center">
+     <picture>
+        <img alt="" title="" src="readme/jwt.png" align="center" width="2%" height="2%">
+    </picture>
     <picture>
         <img alt="" title="" src="readme/java.png" align="center" width="2%" height="2%">
     </picture> 
@@ -47,7 +50,8 @@
 [http://m-g-m.ap-southeast-2.elasticbeanstalk.com](http://m-g-m.ap-southeast-2.elasticbeanstalk.com)
 
 <a name="description"></a>
-## Description 
+## Description
+The Admin page contains most of the functionality.
 
 - **Hosting**
     - Amazon Web Services
@@ -60,24 +64,31 @@
         - `SQL Injection` input is inserted into the database as String parameters
           <br></br>
 - **Login Page**
-    - Authentication, authorization, redirecting, forwarding and exception handling
+    - Authentication, authorization, forwarding and exception handling
         - `authentication`
-        - `invalid login` forwards the user to /invalid
-        - `password encoding/decoding` user details stored in database
-        - `authorization` admin users can view /admin
-        - `valid login` users are redirected to /admin by a custom handler
+        - `user details` stored in a Postgres database.
+        - `passwords` hashed using *BCryptPasswordEncoder*.
+        - `CustomUserDetailsService` given a username, gets user data from the database
+        - `invalid login` forwards the user to '/invalid'.
+        - `valid login/authorization` admin users are forwarded '/admin'.
           <br></br>
 - **Admin Page**
-    - View/delete submitted 'Contact Us' forms
-        - `view forms` admin users can iterate through forms which are retrieved from the database
+    - JWT Cookies, JWT authentication, HTTP request caching and functionality to view/delete submitted 'Contact Us' forms from the database.
+    - To prevent the page refreshing, vanilla JavaScript is used to submit HTTP requests to the Servlet and update only the HTML elements that have changed.
+    - NB: Cross-site tracking cookies must be enabled on the web browser (Firefox, Safari) to include JWT cookies in HTTP requests
+        - `JwtAuthenticationFilter` extracts a JWT cookie from the request and creates a *UserNamePasswordAuthenticationToken*.  
+        - `PrintRequestFilter` can  log all url-encoded/JSON HTTP requests.
+        - `InputStreamCachingFilter` caches content type *application/json* requests to prevent *IllegalStateException: “getInputStream() has already been called for this request*.
+        - `CustomAuthenticationProvider` verifies the JWT token and authenticates the request.
+        - `JWTUtility` creates JWT cookies and extracts a username from a token.
+        - `view forms` admin users can iterate through forms - retrieved from the database.
           <br><picture><img alt="" title="" src="readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
-        - `delete forms` admin user can delete forms which deletes them from the database
+        - `delete forms` admin users can delete forms - deleting them from the database.
           <br><picture><img alt="" title="" src="readme/delete-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `logout` redirects the user to the /index page.
 
 <a name="dependencies"></a>
-## Dependencies/Libraries <a id="dependencies"></a>
-
+## Dependencies, Libraries etc <a id="dependencies"></a>
 
 - **`Spring Boot`**
     - various e.g. spring-boot-starter-web
@@ -85,6 +96,8 @@
     - io.jsonwebtoken
     - spring-boot-starter-security
     - org.jsoup
+- **`JavaScript`**
+    - submits client side HTTP requests and processes their response
 - **`Database`**
     - postgresql
     - h2
@@ -98,6 +111,9 @@
     - logback
 - **`Template Engine`**
     - thymeleaf
+- **`CSS`**
+    - bootstrap5
+
 
 
 <a name="interesting"></a>
@@ -105,19 +121,29 @@
 
 **Viewing HTTP Requests**
 
-Logged using a custom security filter<br/>
+Logged using *PrintRequestFilter*<br/>
 Helpful when debugging
+
 ~~~
+JWT cookie
+
+HEADER:
+    POST http://localhost:8080/admin/view-next
+    content-type:application/json
+	accept:*/*
+	sec-fetch-site:same-origin
+	cookie:Bearer=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTY5MTk4OTgyOSwiZXhwIjoxNjkyNTk0NjI5fQ.heWyctaIKy1EJOHVKAcN_0XfDg9F_yzmeU1EjUl3h3AcHhfR5SxP2Ctz9_wCLl15;
+BODY:
+    id: 1
+~~~
+~~~
+Form data
+
 HEADER:
     POST http://localhost:8080/form
-    host: localhost:8080
-    origin: http://localhost:8080
     content-type: application/x-www-form-urlencoded
-    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-    referer: http://localhost:8080/form
-    cookie: Idea-c1035a9b=3a68ec60-852b-4005-a4ef-e4c243ce1df1; JSESSIONID=E3888E4060FADEF1E201639266E76AFD
+    ...
 BODY:
-    _csrf=[yJwud5V0wzH2VT2UMXcrelxuW6FUmzp6kARNAMsAfOesM1bFrKxLQ_BC9lTbYA2iUFofSGVadsMx-QtXpWd1OPk2TYWeV2D3],
     first_name=[Billy],
     last_name=[Brown],
     email=[billy@gmail.com],
@@ -127,18 +153,15 @@ BODY:
     message=[Lawnmowing quote]
 ~~~
 ~~~    
+Username/password
+
 HEADER:
     POST http://localhost:8080/login
-    host: localhost:8080
-    origin: http://localhost:8080
     content-type: application/x-www-form-urlencoded
-    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-    referer: http://localhost:8080/login
-    cookie: Idea-c1035a9b=3a68ec60-852b-4005-a4ef-e4c243ce1df1; JSESSIONID=B4C703DAF9E54A677FC09CA857CC2441
+    ...
 BODY:
     username=[user1],
     password=[password],
-    _csrf=[VAGZzEvVOn--6LIw1srTXmgzWzPTqlnFLIfZ8J-tSzWer5EOYTOs_3_sWUqT0dMB5OfnaQ1Sdgrqz2_oG-G_k_rLclD7yalr]
 ~~~
 
 <a name="screenshots"></a>
@@ -166,10 +189,19 @@ BODY:
 [<img src="readme/admin-delete.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
 <br/><br/>
 
+###  `All forms deleted`
+[<img src="readme/all-deleted.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
+<br/><br/>
+
 <a name="backlog"></a>
 ## Backlog
+- [x] JWT cookies and validation
+- [x] Client side JavaScript HTTP requests and processing
+- [x] Custom user details service, authentication and authorization
+- [x] Caching HTTP application/json requests
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
+- [ ] Form captcha
 <br/>
 
 <a name="version"></a>

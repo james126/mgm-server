@@ -1,4 +1,4 @@
-package mgm.security;
+package mgm.service;
 
 import mgm.model.CustomUserDetails;
 import mgm.model.entity.Authorities;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UsersRepository userRepository;
