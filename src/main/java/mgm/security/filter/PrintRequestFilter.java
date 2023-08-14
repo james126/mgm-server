@@ -5,6 +5,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -19,22 +21,25 @@ import java.util.Map;
 
 @Component
 public class PrintRequestFilter extends OncePerRequestFilter {
+
+    Logger logger = LoggerFactory.getLogger("Security");
+
     @Override protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("**************************************************************");
+        logger.info("**************************************************************");
 
-        System.out.println("HTTP REQUEST");
-        System.out.println("\t" + request.getMethod() + " " + request.getRequestURL());
+        logger.info("HTTP Request");
+        logger.info("\t {} {}", request.getMethod(), request.getRequestURL());
 
-        System.out.println("HEADER:");
+        logger.info("Header:");
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
-            System.out.println("\t" + headerName + ":" + request.getHeader(headerName));
+            logger.info("\t {} : {}", headerName, request.getHeader(headerName));
         }
 
-        System.out.println("BODY:");
+        logger.info("Body:");
         if ("application/x-www-form-urlencoded".equals(request.getContentType())) {
             String contentType = request.getContentType();
             MediaType type = StringUtils.hasText(contentType) ? MediaType.valueOf(contentType) : null;
@@ -44,7 +49,7 @@ public class PrintRequestFilter extends OncePerRequestFilter {
             if (formHttpMessageConverter.canRead(MultiValueMap.class, type)) {
                 MultiValueMap<String, String> read = formHttpMessageConverter.read(null, serverHttpRequest);
                 read.forEach((k, v) -> {
-                    System.out.println("\t" + k + "=" + v);
+                    logger.info("\t {} = {}", k, v);
                 });
             }
         }
@@ -54,20 +59,20 @@ public class PrintRequestFilter extends OncePerRequestFilter {
                 //JSON BODY
                 Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
                 requestMap.forEach((k,v) -> {
-                    System.out.println(k + ": " + v);
+                    logger.info("\t {} : {}", k, v);
                 });
 
             } catch (Exception e) {}
         }
 
-        System.out.println("**************************************************************");
+        logger.info("**************************************************************");
 
         filterChain.doFilter(request, response);
     }
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return (!"application/json".equals(request.getContentType()));
-    }
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) {
+//        return (!"application/json".equals(request.getContentType()));
+//    }
 }
 

@@ -20,6 +20,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -42,8 +43,8 @@ public class SecurityConfiguration {
         return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
                 .authenticationProvider(customAuthenticationProvider)
                 .addFilterBefore(cachingFilter, ExceptionTranslationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, AuthorizationFilter.class)
-                //.addFilterAfter(printRequestsFilter, AuthorizationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(printRequestsFilter, AuthorizationFilter.class)
 
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/", "/index", "/form").permitAll();

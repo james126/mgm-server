@@ -23,12 +23,12 @@
         </encoder>
     </appender>
 
-    <Logger name="Security" level="INFO">
+    <Logger name="Security" level="ERROR">
 <!--        <appender-ref ref="ROLLING_FILE"/>-->
 <!--        <appender-ref ref="CONSOLE"/>-->
     </Logger>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="CONSOLE"/>
     </root>
 

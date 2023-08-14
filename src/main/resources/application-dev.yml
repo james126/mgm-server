@@ -18,9 +18,6 @@ spring:
         servlet:
             produce-partial-output-while-processing: false
 
-database:
-    embedded: false
-
 logging.level:
     org.springframework.security: trace
 

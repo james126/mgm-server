@@ -48,19 +48,22 @@
 - [Version](#version)
 
 <a name="demo"></a>
-## Demo 
+
+## Demo
 
 [http://m-g-m.ap-southeast-2.elasticbeanstalk.com](http://m-g-m.ap-southeast-2.elasticbeanstalk.com)
 
 <a name="description"></a>
+
 ## Description
+
 The Admin page contains most of the functionality.
 
 - **Hosting**
     - Amazon Web Services
-      - `AWS Elastic Beanstalk` running a JAR
-      - `AWS RDS` running a Postgres database
-        <br></br>
+        - `AWS Elastic Beanstalk` running a JAR
+        - `AWS RDS` running a Postgres database
+          <br></br>
 - **Contact Us Form**
     - Inject attack mitigation
         - `HTML/JavaScript injection` form input is sanitised to remove HTML/JavaScript
@@ -77,11 +80,13 @@ The Admin page contains most of the functionality.
           <br></br>
 - **Admin Page**
     - JWT Cookies, JWT authentication, HTTP request caching and functionality to view/delete submitted 'Contact Us' forms from the database.
-    - To prevent the page refreshing, vanilla JavaScript is used to submit HTTP requests to the Servlet and update only the HTML elements that have changed.
+    - To prevent the page refreshing, vanilla JavaScript is used to submit HTTP requests to the Servlet and update only the HTML elements
+      that have changed.
     - NB: Cross-site tracking cookies must be enabled on the web browser (Firefox, Safari) to include JWT cookies
-        - `JwtAuthenticationFilter` extracts a JWT cookie from the request and creates a *UserNamePasswordAuthenticationToken*.  
-        - `PrintRequestFilter` can  log all url-encoded/JSON HTTP requests.
-        - `InputStreamCachingFilter` caches content type *application/json* requests to prevent *IllegalStateException: “getInputStream() has already been called for this request*.
+        - `JwtAuthenticationFilter` extracts a JWT cookie from the request and creates a *UserNamePasswordAuthenticationToken*.
+        - `PrintRequestFilter` can log all url-encoded/JSON HTTP requests.
+        - `InputStreamCachingFilter` caches content type *application/json* requests to prevent *IllegalStateException: “getInputStream()
+          has already been called for this request*.
         - `CustomAuthenticationProvider` verifies the JWT token and authenticates the request.
         - `JWTUtility` creates JWT cookies and extracts a username from a token.
         - `view forms` admin users can iterate through forms - retrieved from the database.
@@ -91,6 +96,7 @@ The Admin page contains most of the functionality.
         - `logout` redirects the user to the /index page.
 
 <a name="dependencies"></a>
+
 ## Dependencies, Libraries etc <a id="dependencies"></a>
 
 - **`Spring Boot`**
@@ -117,9 +123,8 @@ The Admin page contains most of the functionality.
 - **`CSS`**
     - bootstrap5
 
-
-
 <a name="interesting"></a>
+
 ## Learning Interesting Stuff <a name="interesting"></a>
 
 **Viewing HTTP Requests**
@@ -133,12 +138,13 @@ JWT cookie
 HEADER:
     POST http://localhost:8080/admin/view-next
     content-type:application/json
-	accept:*/*
-	sec-fetch-site:same-origin
-	cookie:Bearer=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTY5MTk4OTgyOSwiZXhwIjoxNjkyNTk0NjI5fQ.heWyctaIKy1EJOHVKAcN_0XfDg9F_yzmeU1EjUl3h3AcHhfR5SxP2Ctz9_wCLl15;
+    accept:*/*
+    sec-fetch-site:same-origin
+    cookie:Bearer=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTY5MTk4OTgyOSwiZXhwIjoxNjkyNTk0NjI5fQ.heWyctaIKy1EJOHVKAcN_0XfDg9F_yzmeU1EjUl3h3AcHhfR5SxP2Ctz9_wCLl15;
 BODY:
     id: 1
 ~~~
+
 ~~~
 Form data
 
@@ -155,6 +161,7 @@ BODY:
     address_line2=[Bucklands Beach],
     message=[Lawnmowing quote]
 ~~~
+
 ~~~    
 Username/password
 
@@ -164,48 +171,68 @@ HEADER:
     ...
 BODY:
     username=[user1],
-    password=[password],
+    password=[password]
 ~~~
 
 <a name="screenshots"></a>
+
 ## Screenshots
 
 ### `Login`
+
 <picture>
     [<img src="readme/login.png" width="100%"/>](src/main/resources/readme/login.png)
 </picture>picture>
 <br/><br/>
 
 ### `Invalid login`
+
 [<img src="readme/invalid-login.png" width="100%"/>](src/main/resources/readme/invalid-login.png)
 <br/><br/>
 
 ### `Admin`
+
 [<img src="readme/admin.png" width="100%"/>](src/main/resources/readme/admin.png)
 <br/><br/>
 
 ### `View next contact form`
+
 [<img src="readme/admin-view-next.png" width="100%"/>](src/main/resources/readme/admin-view-next.png)
 <br/><br/>
 
-###  `Delete contact form`
+### `Delete contact form`
+
 [<img src="readme/admin-delete.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
 <br/><br/>
 
-###  `All forms deleted`
+### `All forms deleted`
+
 [<img src="readme/all-deleted.png" width="100%"/>](src/main/resources/readme/admin-delete.png)
 <br/><br/>
 
 <a name="backlog"></a>
+
 ## Backlog
+
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
 - [ ] Form captcha
-<br/>
+  <br/>
 
 <a name="version"></a>
+
 ## Version
+
 <ul>
-    <li>2.0 Java</li>
-    <li>1.0 PHP</li>
+    <li>2.0 Java web app(no CI/CD)</li>
+    <ul>
+        <li>2.1 admin page</li>
+        <li>2.2 security</li>
+    </ul>
+    <li>1.0 PHP web app</li>
+    <ul>
+        <li>1.1 contact form</li>
+        <li>1.1 Postgres db</li>
+        <li>1.2 CI/CD</li>
+    </ul>
 </ul>
