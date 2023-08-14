@@ -32,6 +32,9 @@
      <picture>
         <img alt="" title="" src="readme/thymeleaf.png" align="center" width="2%" height="2%">
     </picture>
+     <picture>
+        <img alt="" title="" src="readme/javascript.png" align="center" width="2%" height="2%">
+    </picture>
 </div>
 
 ## Contents
@@ -75,7 +78,7 @@ The Admin page contains most of the functionality.
 - **Admin Page**
     - JWT Cookies, JWT authentication, HTTP request caching and functionality to view/delete submitted 'Contact Us' forms from the database.
     - To prevent the page refreshing, vanilla JavaScript is used to submit HTTP requests to the Servlet and update only the HTML elements that have changed.
-    - NB: Cross-site tracking cookies must be enabled on the web browser (Firefox, Safari) to include JWT cookies in HTTP requests
+    - NB: Cross-site tracking cookies must be enabled on the web browser (Firefox, Safari) to include JWT cookies
         - `JwtAuthenticationFilter` extracts a JWT cookie from the request and creates a *UserNamePasswordAuthenticationToken*.  
         - `PrintRequestFilter` can  log all url-encoded/JSON HTTP requests.
         - `InputStreamCachingFilter` caches content type *application/json* requests to prevent *IllegalStateException: “getInputStream() has already been called for this request*.
@@ -195,10 +198,6 @@ BODY:
 
 <a name="backlog"></a>
 ## Backlog
-- [x] JWT cookies and validation
-- [x] Client side JavaScript HTTP requests and processing
-- [x] Custom user details service, authentication and authorization
-- [x] Caching HTTP application/json requests
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
 - [ ] Form captcha
