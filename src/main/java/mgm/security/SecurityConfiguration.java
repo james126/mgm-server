@@ -47,14 +47,15 @@ public class SecurityConfiguration {
                 .addFilterAfter(printRequestsFilter, AuthorizationFilter.class)
 
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/", "/index", "/form").permitAll();
-                    request.requestMatchers("/login", "/invalid").permitAll();
+                    request.requestMatchers("/", "/index", "/form", "invalid").permitAll();
+                    request.requestMatchers("/actuator/**").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
                     request.requestMatchers("/entity/Contact").permitAll();
                     request.requestMatchers("/admin", "/admin/view-next", "/admin/delete").hasRole("ADMIN");
                     request.requestMatchers("/auth/**").authenticated();
                 })
                 .formLogin(configure -> {
+                    configure.permitAll();
                     configure.loginPage("/login");
                     configure.loginProcessingUrl("/login");
                     configure.successForwardUrl("/admin");

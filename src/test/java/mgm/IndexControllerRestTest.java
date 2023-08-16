@@ -3,7 +3,7 @@ package mgm;
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
 import mgm.utilities.ContactBuilder;
-import mgm.utilities.ContactParser;
+import mgm.controller.utility.ContactParser;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 @Import(ContactBuilder.class)
-public class MainRestTest {
+public class IndexControllerRestTest {
     @Autowired
     private ContactParser contactParser;
 
@@ -102,7 +102,7 @@ public class MainRestTest {
         mvc.perform(post("http://localhost:8080/form")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
-                        .content(contactParser.toJSON(contact)))
+                        .content(contactParser.toJsonString(contact)))
                 .andExpect(status().isOk());
 
         verify(service, times(1)).insertContact(any(Contact.class));

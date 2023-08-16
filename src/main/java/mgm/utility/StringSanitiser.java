@@ -9,31 +9,31 @@ import org.springframework.stereotype.Component;
 public class StringSanitiser {
 
     public synchronized Contact sanitise(Contact contact){
-        String clean = removeHtml(contact.getFirst_name());
+        String clean = cleanString(contact.getFirst_name());
         contact.setFirst_name(clean);
 
-        clean = removeHtml(contact.getLast_name());
+        clean = cleanString(contact.getLast_name());
         contact.setLast_name(clean);
 
-        clean = removeHtml(contact.getEmail());
+        clean = cleanString(contact.getEmail());
         contact.setEmail(clean);
 
-        clean = removeHtml(contact.getPhone());
+        clean = cleanString(contact.getPhone());
         contact.setPhone(clean);
 
-        clean = removeHtml(contact.getAddress_line1());
+        clean = cleanString(contact.getAddress_line1());
         contact.setAddress_line1(clean);
 
-        clean = removeHtml(contact.getAddress_line2());
+        clean = cleanString(contact.getAddress_line2());
         contact.setAddress_line2(clean);
 
-        clean = removeHtml(contact.getMessage());
+        clean = cleanString(contact.getMessage());
         contact.setMessage(clean);
 
         return contact;
     }
 
-    public String removeHtml(String dirty){
+    public String cleanString(String dirty){
         return dirty!= null ? Jsoup.clean(dirty, Safelist.none()) : null;
     }
 }

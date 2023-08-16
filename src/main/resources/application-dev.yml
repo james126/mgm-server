@@ -10,6 +10,10 @@ spring:
 #        driverClassName: org.h2.Driver
 #        username: sa
 #        password: password
+
+    jpa:
+      open-in-view: false
+
     sql:
       init:
         mode: always
@@ -17,6 +21,12 @@ spring:
     thymeleaf:
         servlet:
             produce-partial-output-while-processing: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 logging.level:
     org.springframework.security: trace

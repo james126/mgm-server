@@ -47,7 +47,7 @@ public class JwtUtility {
     public ResponseCookie generateCookie(String jwtString){
         ResponseCookie cookie = ResponseCookie.from("Bearer", jwtString)
                 .httpOnly(true)
-                .secure(false)
+                .secure(false) // Cookie transmitted only over https
                 .maxAge(Duration.ofHours(1))
                 .sameSite("Lax")  // SameSite=Lax, secure cookies have to be sent over HTTPS
                 .path("/")

@@ -41,13 +41,13 @@ public class DateTimeTest {
 
     @Test
     @DisplayName("Verify zone is supported")
-    public void validZone() {
+    public void getZoneCheckIfValid() {
         Set<String> zoneIds = ZoneId.getAvailableZoneIds();
         assertTrue(zoneIds.contains(dateTime.getZone()));
     }
 
     @Test
-    public void getDate() {
+    public void getDateCheckIfValid() {
        given(mockDateTime.getDate()).willReturn(Date.from(ZonedDateTime.now(ZoneId.of("Pacific/Auckland")).
                 truncatedTo(ChronoUnit.SECONDS).toInstant()));
 
@@ -56,7 +56,7 @@ public class DateTimeTest {
 
     @Test
     @DisplayName("Milliseconds have been removed")
-    public void datePrecision() {
+    public void getDateCheckPrecision() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime.getDate());
         int milliseconds = calendar.get(Calendar.MILLISECOND);
@@ -65,7 +65,7 @@ public class DateTimeTest {
 
     @Test
     @DisplayName("Exception thrown when zone is null")
-    public void zoneNotSet() {
+    public void getZoneWhenNotSet() {
         dateTime.setZone(null);
         assertThrows(NullPointerException.class, () -> dateTime.getDate());
     }

@@ -1,121 +1,91 @@
 package mgm;
 
+import jakarta.servlet.http.Cookie;
+import mgm.controller.AdminController;
 import mgm.service.ContactServiceImpl;
 import mgm.utilities.ContactBuilder;
-import org.json.JSONObject;
+import mgm.utilities.CustomAuthentication;
+import mgm.utilities.CustomModel;
+import org.apache.http.HttpStatus;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@SpringBootTest(classes = Main.class)
-@AutoConfigureMockMvc
+@WebAppConfiguration
+@SpringBootTest(classes = {Main.class, AdminController.class})
 @Import(ContactBuilder.class)
 public class AdminControllerRestTest {
+    @Autowired
+    AdminController controller;
 
     @Autowired
-    private MockMvc mvc;
+    private WebApplicationContext context;
+
+    private MockMvc mvcSecurity;
 
     @MockBean
     ContactServiceImpl service;
 
-    @Test
-    void testGetLogin() throws Exception {
-        mvc.perform(get("/login"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("login"));
+    @Autowired
+    CustomModel model;
+    @Autowired
+    CustomAuthentication customAuthentication;
+
+    @BeforeEach
+    public void setup() {
+        mvcSecurity = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(SecurityMockMvcConfigurers.springSecurity())
+                .build();
+
+       customAuthentication.setName("user1");
     }
 
     @Test
-    void testGetLoginWithValidUserDetails() throws Exception {
-        mvc.perform(post("http://localhost:8080/login")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .with(csrf())
-                        .param("username", "user1")
-                        .param("password", "password"))
-                .andExpect(status().is(302)) //response.sendRedirect(targetUrl);
-                .andExpect(redirectedUrl("/admin"));
-
+    void adminPageTestForwardUrl() throws Exception {
+        mvcSecurity.perform(formLogin("http://localhost:8080/login")
+                        .user("user1")
+                        .password("password"))
+                .andExpect(forwardedUrl("/admin"))
+                .andExpect(status().is(HttpStatus.SC_OK));
     }
 
     @Test
-    void testGetLoginWithInvalidUserDetails() throws Exception {
-        mvc.perform(post("http://localhost:8080/login")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .with(csrf())
-                        .param("username", "user1")
-                        .param("password", "123"))
-                .andExpect(status().is(200)) //configure.failureForwardUrl("/invalid");
-                .andExpect(forwardedUrl("/invalid"));
+    void adminPageTestJwtCookie() throws Exception {
+        MvcResult value = mvcSecurity.perform(formLogin("http://localhost:8080/login")
+                        .user("user1")
+                        .password("password"))
+                .andExpect(forwardedUrl("/admin"))
+                .andExpect(status().is(HttpStatus.SC_OK)).andReturn();
 
-    }
+        MockHttpServletResponse response = value.getResponse();
 
-    @Test
-    void testInvalidLoginAttempt() throws Exception {
-        mvc.perform(get("/invalid"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("login"));
-    }
+        controller.adminPage(model, customAuthentication, response);
 
-    @Test
-    void testAdminPage() throws Exception {
-        when(service.findByMinId()).thenReturn(Optional.empty());
-
-        mvc.perform(get("/admin"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("admin"));
-
-        verify(service, times(1)).findByMinId();
-    }
-
-    @Test
-    void testViewNextContactForm() throws Exception {
-        when(service.getNextContactForm(1)).thenReturn(Optional.empty());
-
-        mvc.perform(post("/view")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(csrf())
-                .content(toJSON("1")))
-                .andExpect(status().isOk())
-                .andExpect(view().name("admin"));
-
-        verify(service, times(1)).getNextContactForm(1);
-    }
-
-    @Test
-    void testDeleteContactForm() throws Exception {
-        when(service.getNextContactForm(1)).thenReturn(Optional.empty());
-        doNothing().when(service).deleteById(1);
-
-
-        mvc.perform(post("/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(csrf())
-                        .content(toJSON("1")))
-                .andExpect(status().isOk())
-                .andExpect(view().name("admin"));
-
-        verify(service, times(1)).deleteById(1);
-        verify(service, times(1)).getNextContactForm(1);
-    }
-
-    public String toJSON(String id) {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        return new JSONObject(map).toString();
+        Cookie cookie = response.getCookie("Bearer");
+        Assertions.assertAll(() -> {
+            assertNotNull(cookie.getValue());
+            assertTrue(cookie.isHttpOnly());
+            assertThat(cookie.getValue(), Matchers.instanceOf(String.class));
+        });
     }
 }

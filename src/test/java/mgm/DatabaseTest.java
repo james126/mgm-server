@@ -54,7 +54,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testInsertContact() {
+    public void insertContactIntoDb() {
         //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
         contactList.forEach(contact -> {
@@ -88,7 +88,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testInsertEmptyContact() {
+    public void insertContactWithEmptyObject() {
         //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
         contactList.forEach(contact -> {
@@ -104,12 +104,12 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testInsertNullContact() {
+    public void insertContactWithNullArgument() {
         assertThrows(NullPointerException.class, () -> contactService.insertContact(null));
     }
 
     @Test
-    public void testInsertContactWithDuplicateId() {
+    public void testInsertContactWithDuplicatePrimaryKey() {
         //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
         contactList.forEach(contact -> {
@@ -126,7 +126,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testDeleteById() {
+    public void deleteById() {
         Integer id = getRandomId();
         assertNotNull(id);
         contactService.deleteById(id);
@@ -137,23 +137,23 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testDeleteByNull() {
+    public void deleteByIdWhenArgumentIsNull() {
         assertThrows(NullPointerException.class, () -> contactService.deleteById(null));
     }
 
     @Test
-    public void testDeleteByUnassignedId() {
+    public void deleteByIdWhenIdDoesntExist() {
         assertDoesNotThrow(() -> contactService.deleteById(Integer.MAX_VALUE));
     }
 
     @Test
-    public void testFindByMinId() {
+    public void findByMinId() {
         Optional<Contact> contact = contactService.findByMinId();
         assertTrue(contact.isPresent());
     }
 
     @Test
-    public void testFindByMinIdWhenNoRecords() {
+    public void findByMinIdWhenNoRecordsInDb() {
         //Delete all database records
         List<Contact> contactList = contactService.getAllContacts();
         contactList.forEach(contact -> {
@@ -166,19 +166,19 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testGetNextContactForm() {
+    public void getNextContactForm() {
         Optional<Contact> contact = contactService.getNextContactForm(0);
         assertTrue(contact.isPresent());
     }
 
     @Test
-    public void testGetNextContactFormWithInvalidId() {
+    public void getNextContactFormWithInvalidId() {
         Optional<Contact> contact = contactService.getNextContactForm(Integer.MIN_VALUE);
         assertTrue(contact.isPresent());
     }
 
     @Test
-    public void testGetNextContactFormNull() {
+    public void getNextContactFormWithNullArgument() {
         assertThrows(NullPointerException.class, () -> contactService.getNextContactForm(null));
     }
 
