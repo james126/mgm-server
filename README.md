@@ -213,7 +213,7 @@ BODY:
 <a name="backlog"></a>
 
 ## Backlog
-
+- [ ] Separate front-end app using Anguar ![](https://geps.dev/progress/20)
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
 - [ ] Form captcha
