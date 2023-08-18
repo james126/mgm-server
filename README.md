@@ -52,7 +52,7 @@
 ## Demo
 
 [http://m-g-m.ap-southeast-2.elasticbeanstalk.com](http://m-g-m.ap-southeast-2.elasticbeanstalk.com)
-
+<br>NB: Currently, cookies must be enabled on the browser for JWT authentication
 <a name="description"></a>
 
 ## Description
