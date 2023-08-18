@@ -217,6 +217,9 @@ BODY:
 - [ ] Form submission confirmation
 - [ ] Brute force attack mitigation
 - [ ] Form captcha
+- [ ] Domain name
+- [ ] SSH certificate
+- [ ] https
   <br/>
 
 <a name="version"></a>
