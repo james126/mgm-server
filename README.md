@@ -11,9 +11,9 @@
 </p>
 
 <div align="center">
-     <picture>
+<!--      <picture>
         <img alt="" title="" src="readme/jwt.png" align="center" width="2%" height="2%">
-    </picture>
+    </picture> -->
     <picture>
         <img alt="" title="" src="readme/java.png" align="center" width="2%" height="2%">
     </picture> 
@@ -26,12 +26,12 @@
      <picture>
         <img alt="" title="" src="readme/postgres.png" align="center" width="2%" height="2%">
     </picture>
-     <picture>
+<!--      <picture>
         <img alt="" title="" src="readme/junit.png" align="center" width="2%" height="2%">
     </picture>
      <picture>
         <img alt="" title="" src="readme/thymeleaf.png" align="center" width="2%" height="2%">
-    </picture>
+    </picture> -->
      <picture>
         <img alt="" title="" src="readme/javascript.png" align="center" width="2%" height="2%">
     </picture>
