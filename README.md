@@ -218,7 +218,6 @@ BODY:
 - [ ] Brute force attack mitigation
 - [ ] Form captcha
 - [ ] Domain name
-- [ ] SSH certificate
 - [ ] https
   <br/>
 
