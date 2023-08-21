@@ -65,7 +65,7 @@ The Admin page contains most of the functionality.
         - `AWS RDS` running a Postgres database
           <br></br>
 - **Contact Us Form**
-    - Inject attack mitigation
+    - Injection attack mitigation
         - `HTML/JavaScript injection` form input is sanitised to remove HTML/JavaScript
         - `SQL Injection` input is inserted into the database as String parameters
           <br></br>
