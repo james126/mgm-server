@@ -79,16 +79,17 @@ The Admin page contains most of the functionality.
         - `valid login/authorization` admin users are forwarded '/admin'.
           <br></br>
 - **Admin Page**
-    - JWT Cookies, JWT authentication, HTTP request caching and functionality to view/delete submitted 'Contact Us' forms from the database.
+    - JWT Cookies, JWT authentication and HTTP request caching.
+    - Functionality to view/delete submitted 'Contact Us' forms from the database.
     - To prevent the page refreshing, vanilla JavaScript is used to submit HTTP requests to the Servlet and update only the HTML elements
       that have changed.
     - NB: Cross-site tracking cookies must be enabled on the web browser (Firefox, Safari) to include JWT cookies
         - `JwtAuthenticationFilter` extracts a JWT cookie from the request and creates a *UserNamePasswordAuthenticationToken*.
-        - `PrintRequestFilter` can log all url-encoded/JSON HTTP requests.
+        - `PrintRequestFilter` can log all HTTP requests.
         - `InputStreamCachingFilter` caches content type *application/json* requests to prevent *IllegalStateException: “getInputStream()
           has already been called for this request*.
-        - `CustomAuthenticationProvider` verifies the JWT token and authenticates the request.
-        - `JWTUtility` creates JWT cookies and extracts a username from a token.
+        - `CustomAuthenticationProvider` verifies a JWT cookie and authenticates the request.
+        - `JWTUtility` creates JWT cookies and extracts a username from a cookie.
         - `view forms` admin users can iterate through forms - retrieved from the database.
           <br><picture><img alt="" title="" src="readme/view-next-button.png" align="center" width="30%" height="30%" alt=""></picture>
         - `delete forms` admin users can delete forms - deleting them from the database.
