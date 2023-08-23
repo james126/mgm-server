@@ -106,7 +106,7 @@ The Admin page contains most of the functionality.
     - spring-boot-starter-security
     - org.jsoup
 - **`JavaScript`**
-    - submits client side HTTP requests and processes their response
+    - submits client side HTTP requests (on the admin page) and processes their response
 - **`Database`**
     - postgresql
     - h2
