@@ -226,7 +226,7 @@ BODY:
 ## Version
 
 <ul>
-    <li>2.0 Java web app(no CI/CD)</li>
+    <li>2.0 Java web app (no CI/CD)</li>
     <ul>
         <li>2.1 admin page</li>
         <li>2.2 security</li>
