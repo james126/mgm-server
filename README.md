@@ -61,7 +61,7 @@ The Admin page contains most of the functionality.
 
 - **Hosting**
     - Amazon Web Services
-        - `AWS Elastic Beanstalk` running a JAR
+        - `AWS Elastic Beanstalk` running a JAR file
         - `AWS RDS` running a Postgres database
           <br></br>
 - **Contact Us Form**
