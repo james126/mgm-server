@@ -56,7 +56,7 @@
 <a name="description"></a>
 
 ## Description
-
+Spring Boot, Thymeleaf and Postgres web app.
 The Admin page contains most of the functionality.
 
 - **Hosting**
