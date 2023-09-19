@@ -6,10 +6,9 @@ import mgm.model.dto.FormId;
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
 import mgm.utility.JwtUtility;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,17 +31,32 @@ public class AdminController {
         this.contactParser = contactParser;
     }
 
+//    @RequestMapping(value = "/admin", method = { RequestMethod.GET, RequestMethod.POST })
+//    public String adminPage(Model model, Authentication authentication, HttpServletResponse response) {
+//        String username = authentication.getName();
+//        String token = jwtUtility.generateToken(username);
+//        ResponseCookie cookie = jwtUtility.generateCookie(token);
+//        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+//
+//        Optional<Contact> result = contactService.findByMinId();
+//        addToModel(model, result);
+//
+//        return "admin";
+//    }
+
     @RequestMapping(value = "/admin", method = { RequestMethod.GET, RequestMethod.POST })
-    public String adminPage(Model model, Authentication authentication, HttpServletResponse response) {
+    public ResponseEntity<JSONObject> adminPage(Authentication authentication) {
         String username = authentication.getName();
         String token = jwtUtility.generateToken(username);
         ResponseCookie cookie = jwtUtility.generateCookie(token);
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         Optional<Contact> result = contactService.findByMinId();
-        addToModel(model, result);
+        JSONObject jsonObject = new JSONObject(result.get());
 
-        return "admin";
+      return ResponseEntity.ok().
+              header(HttpHeaders.SET_COOKIE, cookie.toString())
+              .contentType(MediaType.APPLICATION_JSON)
+              .body(jsonObject);
     }
 
     @RequestMapping(value = "/admin/view-next", method = RequestMethod.POST)
