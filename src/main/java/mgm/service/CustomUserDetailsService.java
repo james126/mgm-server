@@ -1,6 +1,5 @@
 package mgm.service;
 
-import mgm.model.CustomUserDetails;
 import mgm.model.entity.Authorities;
 import mgm.model.entity.Users;
 import mgm.repository.AuthoritiesRepository;
@@ -33,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Users user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
         Authorities authorities = optionalAuthorities.orElseThrow(() -> new RuntimeException("User authority not found with username: " + username));
 
-        return new CustomUserDetails(user.getUsername(), user.getPassword(),
+        return new mgm.model.CustomUserDetails(user.getUsername(), user.getPassword(),
                 AuthorityUtils.createAuthorityList(authorities.getAuthority()),
                 user.getEnabled());
     }

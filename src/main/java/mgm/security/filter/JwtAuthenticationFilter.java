@@ -58,9 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             logger.info("Cannot filter JWT token: [{}]", e.getMessage());
         }
 
-        filterChain.
-
-        doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 
     @Override

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
-    CustomUserDetailsService customUserDetailsService;
+    CustomUserDetailsService customUserDetails;
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -22,7 +22,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-        UserDetails user = customUserDetailsService.loadUserByUsername(username);
+        UserDetails user = customUserDetails.loadUserByUsername(username);
 
         if (passwordEncoder.matches(password, user.getPassword())){
             return UsernamePasswordAuthenticationToken.authenticated(

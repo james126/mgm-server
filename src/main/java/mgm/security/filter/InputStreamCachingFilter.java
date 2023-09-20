@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Component
 public class InputStreamCachingFilter extends OncePerRequestFilter {
-    private final Set<String> cachePaths = new HashSet<>(Arrays.asList("/view-next", "/delete", "/form"));
+    private final Set<String> cachePaths = new HashSet<>(Arrays.asList("/view-next", "/delete", "/form", "login"));
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

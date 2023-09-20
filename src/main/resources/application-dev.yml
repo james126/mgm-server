@@ -39,7 +39,7 @@ date:
     zone: 'Pacific/Auckland'
 
 client:
-  domain: 'http://localhost:4200/'
+  domain: 'http://localhost:4200'
 
 app:
   jwt:

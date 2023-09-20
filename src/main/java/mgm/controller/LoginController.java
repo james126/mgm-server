@@ -1,5 +1,8 @@
 package mgm.controller;
 
+import org.json.JSONObject;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
-    public String getLogin(Model model) {
-        model.addAttribute("validate", "form-control border-0");
-        return "login";
+    @RequestMapping(value = "/login", method  = { RequestMethod.POST })
+    public ResponseEntity<JSONObject> getLogin() {
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
     }
 
-    @RequestMapping(value = "/invalid", method = { RequestMethod.GET, RequestMethod.POST })
-    public String invalidLoginAttempt(Model model) {
-        model.addAttribute("validate", "form-control border-0 is-invalid");
-        return "login";
+    @RequestMapping(value = "/invalid", method = { RequestMethod.POST })
+    public ResponseEntity<JSONObject> invalidLoginAttempt() {
+        return new ResponseEntity<>(HttpStatusCode.valueOf(401));
     }
 }

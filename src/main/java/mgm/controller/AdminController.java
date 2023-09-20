@@ -44,14 +44,14 @@ public class AdminController {
 //        return "admin";
 //    }
 
-    @RequestMapping(value = "/admin", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/admin", method = { RequestMethod.GET })
     public ResponseEntity<JSONObject> adminPage(Authentication authentication) {
         String username = authentication.getName();
         String token = jwtUtility.generateToken(username);
         ResponseCookie cookie = jwtUtility.generateCookie(token);
 
         Optional<Contact> result = contactService.findByMinId();
-        JSONObject jsonObject = new JSONObject(result.get());
+        JSONObject jsonObject = result.isPresent() ? new JSONObject(result.get()) : null;
 
       return ResponseEntity.ok().
               header(HttpHeaders.SET_COOKIE, cookie.toString())
