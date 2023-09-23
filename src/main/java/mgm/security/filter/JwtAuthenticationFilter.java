@@ -5,11 +5,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import mgm.service.CustomUserDetailsService;
+import mgm.security.CustomUserDetailsService;
 import mgm.utility.JwtUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +24,13 @@ import java.io.IOException;
 import java.util.*;
 
 @Component
+@ConfigurationProperties("authenticate.path")
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    @Value("${authenticate.path[0]}")
+    private String path0;
+
+    @Value("${authenticate.path[1]}")
+    private String path1;
 
     @Autowired
     private JwtUtility jwtUtility;
@@ -32,11 +40,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger("Security");
 
-    private final Set<String> cachePaths = new HashSet<>(Arrays.asList("/view-next", "/delete"));
+    Set<String> cachePaths = null;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+
+        if (cachePaths == null){
+            cachePaths = new HashSet<>(Arrays.asList(path0, path1));
+        }
+
+        if (cachePaths.stream().noneMatch(path -> request.getRequestURI().endsWith(path))){
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         try {
             // get JWT token from http request
@@ -59,11 +76,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return cachePaths.stream().noneMatch(path -> request.getRequestURI().endsWith(path));
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {

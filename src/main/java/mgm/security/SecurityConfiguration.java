@@ -1,12 +1,8 @@
 package mgm.security;
 
-import mgm.security.filter.CustomUsernamePasswordFilter;
-import mgm.security.filter.InputStreamCachingFilter;
-import mgm.security.filter.JwtAuthenticationFilter;
-import mgm.security.filter.PrintRequestFilter;
+import mgm.security.filter.*;
 import mgm.security.handler.CustomAccessDeniedHandler;
 import mgm.security.provider.CustomAuthenticationProvider;
-import mgm.service.CustomUserDetailsService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,16 +10,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.session.DisableEncodeUrlFilter;
 
 @Configuration
@@ -45,31 +46,29 @@ public class SecurityConfiguration {
     @Autowired
     CustomAuthenticationManager customAuthenticationManager;
 
+    @Autowired
+    CustomUsernamePasswordFilter customUsernamePasswordFilter;
+
+    @Autowired
+    CustomCorsFilter customCorsFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
                 .addFilterBefore(cachingFilter, DisableEncodeUrlFilter.class)
-                .addFilterBefore(new CustomUsernamePasswordFilter(customAuthenticationManager), AuthorizationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(printRequestsFilter, BasicAuthenticationFilter.class)
+                .addFilterAfter(printRequestsFilter, DisableEncodeUrlFilter.class)
+                .addFilterBefore(customCorsFilter, WebAsyncManagerIntegrationFilter.class)
+                .addFilterAfter(new CustomUsernamePasswordFilter(customAuthenticationManager), SecurityContextHolderFilter.class)
+                .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/", "/index", "/form", "invalid").permitAll();
-                    request.requestMatchers("/actuator/**").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
                     request.requestMatchers("/entity/Contact").permitAll();
-                    request.requestMatchers("/admin", "/admin/view-next", "/admin/delete").hasRole("ADMIN");
-                    request.requestMatchers("/auth/**").authenticated();
+                    request.requestMatchers("admin/view-next", "/admin/delete").hasRole("ADMIN");
                     request.requestMatchers("/login").authenticated();
                 })
-//                .formLogin(configure -> {
-//                    configure.permitAll();
-//                    configure.loginPage("/login");
-//                    configure.loginProcessingUrl("/login");
-//                    configure.successForwardUrl("/admin");
-//                    configure.failureForwardUrl("/invalid");
-//                })
-//                .logout().logoutSuccessUrl("/index").and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and().build();
     }

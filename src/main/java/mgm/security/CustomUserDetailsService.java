@@ -1,4 +1,4 @@
-package mgm.service;
+package mgm.security;
 
 import mgm.model.entity.Authorities;
 import mgm.model.entity.Users;

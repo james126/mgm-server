@@ -5,6 +5,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,28 +28,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class CustomUsernamePasswordFilter extends OncePerRequestFilter {
+
     AuthenticationManager authenticationManager;
 
+    @Autowired
     public CustomUsernamePasswordFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (CorsUtils.isPreFlightRequest(request)) {
-            HttpHeaders headers = new HttpHeaders();
-            response.setHeader("Access-Control-Allow-Headers", "*");
-            response.setHeader("Access-Control-Allow-Methods", "POST");
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getOutputStream().flush();
-            return;
-        }
-
-        if (!request.getRequestURI().endsWith("/login") || !request.getMethod().equals("POST")){
-            filterChain.doFilter(request, response);
-        }
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -57,10 +50,15 @@ public class CustomUsernamePasswordFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken token  = new UsernamePasswordAuthenticationToken(username, password);
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
             filterChain.doFilter(request, response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return !request.getRequestURI().endsWith("/login") || CorsUtils.isPreFlightRequest(request);
     }
 }

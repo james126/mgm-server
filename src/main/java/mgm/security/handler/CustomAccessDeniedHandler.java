@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-    private final String ACCESS_DENIED_URL = "/invalid";
+    private final String ACCESS_DENIED_URL = "/login";
 
     @Override public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
             throws IOException, ServletException {

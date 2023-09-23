@@ -1,6 +1,6 @@
 package mgm.security.provider;
 
-import mgm.service.CustomUserDetailsService;
+import mgm.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

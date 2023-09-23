@@ -19,4 +19,6 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     @Query("SELECT c FROM Contact c WHERE c.id = (SELECT MIN(c2.id) FROM Contact c2)")
     Optional<Contact> findByMinId();
 
+    @Query("SELECT c FROM Contact c WHERE c.id = (SELECT MIN(c2.id) FROM Contact c2 where c2.id > :id)")
+    Optional<Contact> viewNext(@Param("id") Integer id);
 }

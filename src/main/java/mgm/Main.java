@@ -1,13 +1,15 @@
 package mgm;
 
-import mgm.security.WebConfig;
+
+import mgm.security.filter.CustomCorsFilter;
+import mgm.security.filter.JwtAuthenticationFilter;
 import mgm.utility.JwtUtility;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties({JwtUtility.class, WebConfig.class})
+@EnableConfigurationProperties({JwtUtility.class, CustomCorsFilter.class, JwtAuthenticationFilter.class})
 public class Main{
 
     public static void main(String[] args) {
