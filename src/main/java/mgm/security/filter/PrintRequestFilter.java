@@ -57,12 +57,14 @@ public class PrintRequestFilter extends OncePerRequestFilter {
         if ("application/json".equals(request.getContentType())) {
             try {
                 //JSON BODY
-                Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+                Map<String, Object> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
                 requestMap.forEach((k,v) -> {
                     logger.info("\t {} : {}", k, v);
                 });
 
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                logger.error("\tError parsing JSON body {}" , e.getMessage());
+            }
         }
 
         logger.info("**************************************************************");

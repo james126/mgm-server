@@ -8,14 +8,27 @@
         </encoder>
     </appender>
 
-    <!-- SQL logging -->
-    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/spring.log</file>
+    <appender name="ANGULAR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/angular.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/spring.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/angular.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>1</maxHistory>
-            <totalSizeCap>2000KB</totalSizeCap>
+            <maxSizeCap>2000KB</maxSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/all.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/all.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>1</maxHistory>
+            <maxSizeCap>2000KB</maxSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
@@ -24,12 +37,19 @@
     </appender>
 
     <Logger name="Security" level="ERROR">
-<!--        <appender-ref ref="ROLLING_FILE"/>-->
-<!--        <appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="SPRING"/>
     </Logger>
 
-    <root level="ERROR">
-        <appender-ref ref="CONSOLE"/>
+    <Logger name="Angular" level="ERROR" additivity="true">
+        <appender-ref ref="ANGULAR"/>
+    </Logger>
+
+    <Logger name="Spring" level="ERROR" additivity="true">
+        <appender-ref ref="SPRING"/>
+    </Logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>

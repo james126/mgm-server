@@ -32,6 +32,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Value("${authenticate.path[1]}")
     private String path1;
 
+    @Value("${authenticate.path[2]}")
+    private String path2;
+
     @Autowired
     private JwtUtility jwtUtility;
 
@@ -47,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
 
         if (cachePaths == null){
-            cachePaths = new HashSet<>(Arrays.asList(path0, path1));
+            cachePaths = new HashSet<>(Arrays.asList(path0, path1, path2));
         }
 
         if (cachePaths.stream().noneMatch(path -> request.getRequestURI().endsWith(path))){

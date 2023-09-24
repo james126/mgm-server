@@ -30,7 +30,7 @@ public class AdminController {
         ResponseCookie jwt = jwtUtility.generateCookie(token);
         Optional<Contact> result = contactService.getNextContactForm(id);
 
-        return ResponseEntity.ok().
+        return ResponseEntity.status(200).
                 header(HttpHeaders.SET_COOKIE, jwt.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(result.orElse(null));
@@ -45,7 +45,6 @@ public class AdminController {
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, jwt.toString())
-                .contentType(MediaType.APPLICATION_JSON)
                 .body(result.orElse(null));
     }
 }

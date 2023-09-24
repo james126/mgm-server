@@ -59,10 +59,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/", "/index", "/form", "invalid").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
-                    request.requestMatchers("/entity/Contact").permitAll();
-                    request.requestMatchers("/admin/view-next", "/admin/delete").hasRole("ADMIN");
+                    request.requestMatchers("/entity/Contact", "/client-logging").permitAll();
                     request.requestMatchers("/login").authenticated();
-                    request.requestMatchers("/admin/logout").permitAll();
+                    request.requestMatchers("/admin/view-next", "/admin/delete", "/admin/logout").hasRole("ADMIN");
                 })
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and().build();

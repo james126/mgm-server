@@ -1,24 +1,17 @@
 package mgm.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.micrometer.core.instrument.util.IOUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import mgm.model.entity.Contact;
 import mgm.service.ContactServiceImpl;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.http.*;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Controller
@@ -34,12 +27,12 @@ public class IndexController {
     public ResponseEntity<String> submitContactForm(HttpServletRequest request) {
         HttpStatusCode code = HttpStatusCode.valueOf(200);
 
-            try {
-                Contact contact = parseRequest(request);
-                contactService.insertContact(contact);
-            } catch (IOException | NullPointerException ex) {
-                code = HttpStatusCode.valueOf(500);
-            }
+        try {
+            Contact contact = parseRequest(request);
+            contactService.insertContact(contact);
+        } catch (IOException | NullPointerException ex) {
+            code = HttpStatusCode.valueOf(500);
+        }
 
         return new ResponseEntity<>(code);
     }
