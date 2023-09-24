@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Component
 @ConfigurationProperties("client.domain")
-public class CustomCorsFilter extends OncePerRequestFilter {
+public class CustomHeaderFilter extends OncePerRequestFilter {
     @Value("${client.domain}")
     private String clientDomain;
 

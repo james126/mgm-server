@@ -16,14 +16,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.ExceptionTranslationFilter;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.session.DisableEncodeUrlFilter;
 
@@ -50,7 +44,7 @@ public class SecurityConfiguration {
     CustomUsernamePasswordFilter customUsernamePasswordFilter;
 
     @Autowired
-    CustomCorsFilter customCorsFilter;
+    CustomHeaderFilter customHeaderFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -58,7 +52,7 @@ public class SecurityConfiguration {
         return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
                 .addFilterBefore(cachingFilter, DisableEncodeUrlFilter.class)
                 .addFilterAfter(printRequestsFilter, DisableEncodeUrlFilter.class)
-                .addFilterBefore(customCorsFilter, WebAsyncManagerIntegrationFilter.class)
+                .addFilterBefore(customHeaderFilter, WebAsyncManagerIntegrationFilter.class)
                 .addFilterAfter(new CustomUsernamePasswordFilter(customAuthenticationManager), SecurityContextHolderFilter.class)
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
@@ -66,8 +60,9 @@ public class SecurityConfiguration {
                     request.requestMatchers("/", "/index", "/form", "invalid").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
                     request.requestMatchers("/entity/Contact").permitAll();
-                    request.requestMatchers("admin/view-next", "/admin/delete").hasRole("ADMIN");
+                    request.requestMatchers("/admin/view-next", "/admin/delete").hasRole("ADMIN");
                     request.requestMatchers("/login").authenticated();
+                    request.requestMatchers("/admin/logout").permitAll();
                 })
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and().build();
