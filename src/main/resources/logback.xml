@@ -36,7 +36,7 @@
         </encoder>
     </appender>
 
-    <Logger name="Security" level="ERROR">
+    <Logger name="Security" level="INFO">
         <appender-ref ref="SPRING"/>
     </Logger>
 

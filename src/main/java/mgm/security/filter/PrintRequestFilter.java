@@ -1,10 +1,12 @@
 package mgm.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -61,8 +64,10 @@ public class PrintRequestFilter extends OncePerRequestFilter {
                 requestMap.forEach((k,v) -> {
                     logger.info("\t {} : {}", k, v);
                 });
-
-            } catch (Exception e) {
+            } catch (MismatchedInputException e) {
+                String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+                logger.info("\t {}", result);
+            } catch (Exception e){
                 logger.error("\tError parsing JSON body {}" , e.getMessage());
             }
         }

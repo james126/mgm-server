@@ -14,10 +14,6 @@ spring:
     init:
       mode: always
 
-  thymeleaf:
-    servlet:
-      produce-partial-output-while-processing: false
-
 logging.level:
   org.springframework.security: trace
 
@@ -29,7 +25,13 @@ date:
   zone: 'Pacific/Auckland'
 
 client:
-  domain: 'http://localhost:4200/'
+  domain: 'http://localhost:4201/'
+
+authenticate:
+    path:
+      - "/admin/view-next"
+      - "/admin/delete"
+      - "/admin/logout"
 
 app:
   jwt:

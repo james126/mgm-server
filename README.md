@@ -28,6 +28,6 @@
 ## Backlog
 - [x] Added CustomHeader filter which sets headers required by Angular
 - [x] Added logout endpoint which sends an unauthenticated JWT token, which angular uses to replace the previous authenticated token
-- [ ] Unit test new endpoints and HTTP requests to database
+- [x] Unit test new endpoints and HTTP requests to database
 
   <br/>

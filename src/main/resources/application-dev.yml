@@ -11,12 +11,6 @@ spring:
 #        username: sa
 #        password: password
 
-
-  thymeleaf:
-      check-template-location: false
-      servlet:
-        produce-partial-output-while-processing: false
-
   jpa:
       open-in-view: false
 
@@ -24,15 +18,8 @@ spring:
       init:
         mode: always
 
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
-
-#logging.level:
-#    org.springframework.security: info
+logging.level:
+    org.springframework.security: trace
 
 logging:
     file:

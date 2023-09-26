@@ -2,6 +2,7 @@ package mgm.security.provider;
 
 import mgm.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,9 +21,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
-        String password = authentication.getCredentials().toString();
-        UserDetails user = customUserDetails.loadUserByUsername(username);
+        String username;
+        String password;
+        UserDetails user;
+        try {
+            username = authentication.getName();
+            password = authentication.getCredentials().toString();
+            user = customUserDetails.loadUserByUsername(username);
+        } catch (RuntimeException e){
+            throw new AccessDeniedException(e.getMessage());
+        }
 
         if (passwordEncoder.matches(password, user.getPassword())){
             return UsernamePasswordAuthenticationToken.authenticated(

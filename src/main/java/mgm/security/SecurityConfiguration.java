@@ -1,7 +1,6 @@
 package mgm.security;
 
 import mgm.security.filter.*;
-import mgm.security.handler.CustomAccessDeniedHandler;
 import mgm.security.provider.CustomAuthenticationProvider;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,14 +56,12 @@ public class SecurityConfiguration {
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/", "/index", "/form", "invalid").permitAll();
+                    request.requestMatchers("/", "/index", "/form", "error").permitAll();
                     request.requestMatchers("/css/**", "/js/**", "/lib/**", "/image/**").permitAll();
                     request.requestMatchers("/entity/Contact", "/client-logging").permitAll();
                     request.requestMatchers("/login").authenticated();
                     request.requestMatchers("/admin/view-next", "/admin/delete", "/admin/logout").hasRole("ADMIN");
-                })
-                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and().build();
+                }).build();
     }
 
     @Bean
