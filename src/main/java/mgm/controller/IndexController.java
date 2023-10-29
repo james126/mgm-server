@@ -23,7 +23,7 @@ public class IndexController {
         this.contactService = enquiryService;
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/form", method = RequestMethod.POST)
     public ResponseEntity<String> submitContactForm(HttpServletRequest request) {
         HttpStatusCode code = HttpStatusCode.valueOf(200);
 

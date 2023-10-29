@@ -44,6 +44,6 @@ public class CustomUsernamePasswordFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !request.getRequestURI().endsWith("/login") || CorsUtils.isPreFlightRequest(request);
+        return !request.getRequestURI().endsWith("/api/login") || CorsUtils.isPreFlightRequest(request);
     }
 }

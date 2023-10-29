@@ -9,10 +9,10 @@
     </appender>
 
     <appender name="ANGULAR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/angular.log</file>
+        <file>/opt/tomcat/apache-tomcat-10.1.8/logs/angular.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/angular.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/opt/tomcat/apache-tomcat-10.1.8/logs/angular.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>1</maxHistory>
             <maxSizeCap>2000KB</maxSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
@@ -23,10 +23,10 @@
     </appender>
 
     <appender name="SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/all.log</file>
+        <file>/opt/tomcat/apache-tomcat-10.1.8/logs/all.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/all.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/opt/tomcat/apache-tomcat-10.1.8/logs/all.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>1</maxHistory>
             <maxSizeCap>2000KB</maxSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>

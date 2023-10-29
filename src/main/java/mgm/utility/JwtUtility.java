@@ -44,10 +44,11 @@ public class JwtUtility {
         return token;
     }
 
-    public ResponseCookie generateCookie(String jwtString){
+    public ResponseCookie generateCookie(String jwtString, String requestUrl){
         ResponseCookie cookie = ResponseCookie.from("Bearer", jwtString)
                 .httpOnly(true)
-                .secure(false) // Cookie transmitted only over https
+                .domain(requestUrl)
+                .secure(true) // Cookie transmitted only over https then set to true
                 .maxAge(Duration.ofHours(1))
                 .sameSite("Lax")  // SameSite=Lax, secure cookies have to be sent over HTTPS
                 .path("/")
