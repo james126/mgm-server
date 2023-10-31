@@ -1,6 +1,8 @@
-securityreferrence/
+chain.pem
+fullchain.pem
+keystore.p12
+privkey.pem
 logs/
-src/main/resources/application-prod.yml
 application-prod.yml
 
 ### SSL ###
