@@ -1,6 +1,5 @@
 package mgm.security.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseServiceClient;
 import com.google.recaptchaenterprise.v1.Assessment;
 import com.google.recaptchaenterprise.v1.CreateAssessmentRequest;
@@ -11,18 +10,20 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
 
+@Component
 public class CaptchaFilter extends OncePerRequestFilter {
-    // TO-DO: Replace the token and reCAPTCHA action variables before running the sample.
     String projectID = "mr-grass-master";
-    String recaptchaSiteKey = "6Ld7EvcoAAAAAHBucylwxA6hxMhWdcv0UfsOaUBH";
+    String recaptchaSiteKey = "6LcEd_soAAAAADd0IusI1vMlLeLdwXQp7XH8W-80";
     String token = "";
     Logger logger = LoggerFactory.getLogger("Security");
 
@@ -30,12 +31,11 @@ public class CaptchaFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Create the reCAPTCHA client.
-        // TODO: Cache the client generation code (recommended) or call client.close() before exiting the method.
+        RecaptchaEnterpriseServiceClient client = null;
         try  {
-            RecaptchaEnterpriseServiceClient client = RecaptchaEnterpriseServiceClient.create();
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, String> map = mapper.readValue(request.getInputStream(), Map.class);
-            token = map.getOrDefault("recaptcha", "");
+            client = RecaptchaEnterpriseServiceClient.create();
+
+            token = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
 
             // Set the properties of the event to be tracked.
             Event event = Event.newBuilder().setSiteKey(recaptchaSiteKey ).setToken(token).build();
@@ -55,21 +55,21 @@ public class CaptchaFilter extends OncePerRequestFilter {
             }
 
             // Get the risk score and the reason(s).
-            // For more information on interpreting the assessment, see:
-            // https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment
             for (ClassificationReason reason : result.getRiskAnalysis().getReasonsList()) {
                 logger.trace(String.valueOf(reason));
             }
 
             float score = result.getRiskAnalysis().getScore();
             client.close();
-            logger.info("The reCAPTCHA score is: " + result.getRiskAnalysis().getScore());
+            logger.trace("The reCAPTCHA score is: " + result.getRiskAnalysis().getScore());
+
             if (score < 0.7){
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.getOutputStream().flush();
                 return;
             }
         } catch (IOException e) {
+            if (client != null ) client.close();
             logger.error(String.valueOf(e));
             filterChain.doFilter(request, response);
         }
@@ -79,6 +79,6 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return  CorsUtils.isPreFlightRequest(request) || request.getRequestURI().endsWith("/api/recaptcha");
+        return  CorsUtils.isPreFlightRequest(request) || !request.getRequestURI().endsWith("/api/recaptcha");
     }
 }

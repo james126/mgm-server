@@ -32,7 +32,7 @@ public class LoginController {
     public ResponseEntity<Contact> login(Authentication authentication) {
         String username = authentication.getName();
         String token = jwtUtility.generateToken(username);
-        ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getLoginRequestUrl());
+        ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
         Optional<Contact> result = contactService.findByMinId();
 
         return ResponseEntity.ok().
@@ -51,7 +51,7 @@ public class LoginController {
     @RequestMapping(value = "/admin/logout", method  = { RequestMethod.GET })
     public ResponseEntity<String> logout() {
         String token = jwtUtility.generateToken(generateRandomString());
-        ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getLogoutRequestUrl());
+        ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, cookie.toString())

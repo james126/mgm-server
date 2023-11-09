@@ -33,7 +33,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/view-next", method = RequestMethod.POST)
     public ResponseEntity<Contact> viewNextContactForm(@RequestBody Integer id, Authentication authentication) {
         String token = jwtUtility.generateToken(authentication.getName());
-        ResponseCookie jwt = jwtUtility.generateCookie(token, configProperties.getViewNextRequestUrl());
+        ResponseCookie jwt = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
         Optional<Contact> result = contactService.getNextContactForm(id);
 
         return ResponseEntity.status(200).
@@ -45,7 +45,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
     public ResponseEntity<Contact> deleteContactForm(@RequestBody Integer id, Authentication authentication) {
         String token = jwtUtility.generateToken(authentication.getName());
-        ResponseCookie jwt = jwtUtility.generateCookie(token, configProperties.getDeleteRequestUrl());
+        ResponseCookie jwt = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
         contactService.deleteById(id);
         Optional<Contact> result = contactService.getNextContactForm(id);
 

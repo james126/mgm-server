@@ -11,15 +11,6 @@ import org.springframework.stereotype.Component;
 @Setter
 @ConfigurationProperties("client")
 public class ConfigProperties {
-    @Value("client.login-request-url")
-    private String loginRequestUrl;
-
-    @Value("client.view-next-request-url")
-    private String viewNextRequestUrl;
-
-    @Value("client.delete-request-url")
-    private String deleteRequestUrl;
-
-    @Value("client.logout-request-url")
-    private String logoutRequestUrl;
+    @Value("client.request-url")
+    private String requestUrl;
 }

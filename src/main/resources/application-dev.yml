@@ -27,6 +27,10 @@ spring:
       init:
         mode: always
 
+  jackson:
+    parser:
+      allow-numeric-leading-zeros: true
+
 logging.level:
     org.springframework.security: trace
 
@@ -50,7 +54,4 @@ app:
 
 client:
   domain: 'http://localhost'
-  login-request-url: 'localhost'
-  view-next-request-url: 'localhost'
-  delete-request-url: 'localhost'
-  logout-request-url: 'localhost'
+  request-url: 'localhost'

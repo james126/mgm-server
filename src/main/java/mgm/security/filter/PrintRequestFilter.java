@@ -68,7 +68,13 @@ public class PrintRequestFilter extends OncePerRequestFilter {
                 String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
                 logger.info("\t {}", result);
             } catch (Exception e){
-                logger.error("\tError parsing JSON body {}" , e.getMessage());
+                try{
+                //print recaptcha
+                String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+                logger.info("\t {}", result);
+                } catch (Exception ex){
+                    logger.error("\tError parsing JSON body {}" , ex.getMessage());
+                }
             }
         }
 

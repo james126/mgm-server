@@ -45,6 +45,9 @@ public class SecurityConfiguration {
     @Autowired
     CustomHeaderFilter customHeaderFilter;
 
+    @Autowired
+    CaptchaFilter captchaFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //Filter order org.springframework.security.config.annotation.web.builders.FilterOrderRegistration
@@ -54,6 +57,7 @@ public class SecurityConfiguration {
                 .addFilterAfter(printRequestsFilter, DisableEncodeUrlFilter.class)
                 .addFilterBefore(customHeaderFilter, WebAsyncManagerIntegrationFilter.class)
                 .addFilterAfter(new CustomUsernamePasswordFilter(customAuthenticationManager), SecurityContextHolderFilter.class)
+                .addFilterBefore(captchaFilter, HeaderWriterFilter.class)
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
