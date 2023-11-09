@@ -49,9 +49,8 @@ app:
     expiration-milliseconds: 604800000
 
 client:
-  domain: 'http://localhost:4200'
+  domain: 'http://localhost'
   login-request-url: 'localhost'
   view-next-request-url: 'localhost'
   delete-request-url: 'localhost'
   logout-request-url: 'localhost'
-

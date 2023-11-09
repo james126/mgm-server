@@ -37,6 +37,11 @@ public class IndexController {
         return new ResponseEntity<>(code);
     }
 
+    @RequestMapping(value = "/api/recaptcha", method = RequestMethod.POST)
+    public ResponseEntity<String> recaptcha() {
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+    }
+
     public Contact parseRequest(HttpServletRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> map = mapper.readValue(request.getInputStream(), Map.class);

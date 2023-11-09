@@ -47,6 +47,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        //Filter order org.springframework.security.config.annotation.web.builders.FilterOrderRegistration
 
         return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
                 .addFilterBefore(cachingFilter, DisableEncodeUrlFilter.class)
@@ -56,7 +57,7 @@ public class SecurityConfiguration {
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/api/form", "error").permitAll();
+                    request.requestMatchers("/api/form", "api/recaptcha", "error").permitAll();
                     request.requestMatchers("/entity/Contact", "/client-logging").permitAll();
                     request.requestMatchers("/api/login").authenticated();
                     request.requestMatchers("/admin/view-next", "/admin/delete", "/admin/logout").hasRole("ADMIN");
