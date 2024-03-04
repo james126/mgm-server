@@ -52,7 +52,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //Filter order org.springframework.security.config.annotation.web.builders.FilterOrderRegistration
 
-        return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
+        return http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(csrf -> csrf.disable())
                 .addFilterBefore(cachingFilter, DisableEncodeUrlFilter.class)
                 .addFilterAfter(printRequestsFilter, DisableEncodeUrlFilter.class)
                 .addFilterBefore(customHeaderFilter, WebAsyncManagerIntegrationFilter.class)
