@@ -57,7 +57,7 @@ public class LoginControllerRestTest {
         map.put("password", "password");
 
         assertThrows(AccessDeniedException.class, () ->
-        mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/login")
+        mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new JSONObject(map).toString())));
     }
@@ -68,7 +68,7 @@ public class LoginControllerRestTest {
         map.put("username", "user1");
         map.put("password", "password");
 
-        mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/login")
+        mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new JSONObject(map).toString()))
                 .andExpect(status().is(HttpStatus.SC_OK));

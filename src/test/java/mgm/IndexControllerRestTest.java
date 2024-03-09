@@ -47,7 +47,7 @@ public class IndexControllerRestTest {
         int id = expected.getId();
         expected.setUpdate_datetime(null);
 
-        mvc.perform(post("http://localhost:8080/form")
+        mvc.perform(post("http://localhost:8080/api/form")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contactParser.toJsonString(expected)))
                 .andExpect(status().isOk());
