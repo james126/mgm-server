@@ -17,8 +17,8 @@ import java.util.Map;
  */
 @Controller
 public class LoggingController {
-    private Logger angularLogger = LoggerFactory.getLogger("Angular");
-    private Logger springLogger = LoggerFactory.getLogger("Spring");
+    private final Logger angularLogger = LoggerFactory.getLogger("Angular");
+    private final Logger springLogger = LoggerFactory.getLogger("Spring");
 
     @RequestMapping(value = "/client-logging", method = RequestMethod.POST)
     public ResponseEntity<String> unauthenticatedLogging(HttpServletRequest request) {
@@ -32,6 +32,16 @@ public class LoggingController {
             angularLogger.error("Angular Logger message {}", new JSONObject(requestMap));
         } catch (Exception e) {
             springLogger.error("Error logging angular message {}" , e.toString());
+        }
+    }
+
+    public void logException(HttpServletRequest request, Exception exception){
+        try {
+            Map<String, Object> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+            angularLogger.error("Angular Logger message {}", new JSONObject(requestMap));
+            springLogger.error("Error logging angular message {}" , exception.toString());
+        } catch (Exception e) {
+            springLogger.error("Error logging exception {}" , e.toString());
         }
     }
 }

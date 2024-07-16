@@ -1,5 +1,5 @@
 server:
-    port: 8080
+  port: 8080
 
 management:
   info:
@@ -12,34 +12,34 @@ management:
 
 spring:
   datasource:
-        url: jdbc:postgresql://localhost:5432/postgres
-        username: postgres
-        password: password
-#        url: jdbc:h2:mem:test;
-#        driverClassName: org.h2.Driver
-#        username: sa
-#        password: password
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: postgres
+#    password: password
+          url: jdbc:h2:mem:test;
+          driverClassName: org.h2.Driver
+          username: sa
+          password: password
 
   jpa:
-      open-in-view: false
+    open-in-view: false
 
   sql:
-      init:
-        mode: always
+    init:
+      mode: always
 
   jackson:
     parser:
       allow-numeric-leading-zeros: true
 
 logging.level:
-    org.springframework.security: trace
+  org.springframework.security: trace
 
 logging:
-    file:
-        path: "src/logs"
+  file:
+    path: "src/logs"
 
 date:
-    zone: 'Pacific/Auckland'
+  zone: "Pacific/Auckland"
 
 authenticate:
   path:
@@ -53,5 +53,13 @@ app:
     expiration-milliseconds: 604800000
 
 client:
-  domain: 'http://localhost'
+  domain: "http://localhost"
   request-url: 'localhost'
+
+recaptcha:
+  path: "/recaptcha"
+  projectID: "mr-grass-master-v3"
+  key:
+    login: "6LdYASEqAAAAAGS0xlyDWNlHa9FRxrFNMcmejVTb"
+    contactForm: "6LdYASEqAAAAAGS0xlyDWNlHa9FRxrFNMcmejVTb"
+

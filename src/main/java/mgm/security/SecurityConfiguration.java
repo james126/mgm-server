@@ -46,7 +46,7 @@ public class SecurityConfiguration {
     CustomHeaderFilter customHeaderFilter;
 
     @Autowired
-    CaptchaFilter captchaFilter;
+    ReCaptchaFilter reCaptchaFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -58,14 +58,15 @@ public class SecurityConfiguration {
                 .addFilterAfter(printRequestsFilter, DisableEncodeUrlFilter.class)
                 .addFilterBefore(customHeaderFilter, WebAsyncManagerIntegrationFilter.class)
                 .addFilterAfter(new CustomUsernamePasswordFilter(customAuthenticationManager), SecurityContextHolderFilter.class)
-                .addFilterBefore(captchaFilter, HeaderWriterFilter.class)
+                .addFilterBefore(reCaptchaFilter, HeaderWriterFilter.class)
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/api/form", "api/recaptcha", "error").permitAll();
+                    request.requestMatchers("/contact-form", "recaptcha", "error").permitAll();
+                    request.requestMatchers("/forgot-pass").permitAll();
                     request.requestMatchers("/entity/Contact", "/client-logging").permitAll();
-                    request.requestMatchers("/api/login").authenticated();
-                    request.requestMatchers("/admin/view-next", "/admin/delete", "/admin/logout").hasRole("ADMIN");
+                    request.requestMatchers("/login").authenticated();
+                    request.requestMatchers("/admin/logout").hasRole("ADMIN");
                     request.requestMatchers("/actuator/**").permitAll();
                 }).build();
     }

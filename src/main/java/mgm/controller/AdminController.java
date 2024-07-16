@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Optional;
 
+@Deprecated()
 @Controller
 public class AdminController {
     private final ContactServiceImpl contactService;

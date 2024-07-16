@@ -42,6 +42,7 @@
 <!-- Contents start-->
 
 ## Contents
+- [Backlog](#backlog)
 - [Description](#desc)
 - [Demo](#demo)
 - [Spring Boot](#spring_boot)
@@ -50,14 +51,29 @@
 
 <!-- Contents end-->
 
+<a name="desc"></a>
+## Backlog
+- [ ] Add new endpoints
+- [ ] Remove redundant endpoints
+- [ ] Update readme
+- [ ] Deploy
 
 <a name="desc"></a>
 ## Description
-My first attempt at creating an application with client server architecture as a learning project<br>
+My first attempt at creating an application with client server architecture<br>
 <ul>
 	<li>Client uses Angular</li>
+		<ul>
+			<li>mgm-client</li>
+			<li>mrgrassmaster.com</li>
+		</ul>
 	<li>Server uses Spring Boot</li>
- 	<li>Both are hosted on separate ubuntu virtual instances</li>
+		<ul>
+			<li>mgm-server</li>
+			<li>server.mrgrassmaster.com</li>
+            <li>local postgres database</li>
+		</ul>
+ 	<li>Hosting AWS</li>
 </ul>
 
 
@@ -65,33 +81,14 @@ My first attempt at creating an application with client server architecture as a
 
 ## Demo
 
-NB: Cookies must be enabled for JWT authentication<br>
-[https://mrgrassmaster.com](https://mrgrassmaster.com)
+[//]: # (NB: Cookies must be enabled for JWT authentication<br>)
 
-<ul>
-	<li><b>Front-end</b></li>
-		<ul>
-			<li>mgm-client</li>
-			<li>mrgrassmaster.com</li>
-		</ul>
-</ul>
-<ul>
-	<li><b>Back-end</b></li>
-		<ul>
-			<li>mgm-server</li>
-			<li>server.mrgrassmaster.com</li>
-		</ul>
-<br>
-	<li>The back-end has a postgres database installed locally</li>
-</ul>
-
-
+[//]: # ([https://mrgrassmaster.com]&#40;https://mrgrassmaster.com&#41;)
 
 <a name="spring_boot"></a>
 ## Spring Boot details
 
-This application handles http requests received from mgm-client
-The application is stateless - user details are stored on a database
+Application is stateless - user details stored on a database
 
 - Custom Authentication
     - `CustomUserDetailsFilter` extracts username/password from HTTP request body
@@ -143,7 +140,7 @@ The application is stateless - user details are stored on a database
 
 
 <a name="hosting"></a>
-## Hosting details
+## Hosting
 
 App is served from AWS ec2 virtual instance<br/>
 AWS Route53 routes requests for server.mrgrassmaster.com to the instance
@@ -151,8 +148,6 @@ AWS Route53 routes requests for server.mrgrassmaster.com to the instance
 - **ec2 details**
     - instance type t3a.micro
         - `ubuntu`
-        - 1BG memory
-        - 8GB HDD
           <br><br>
 - **Install packages**
     - `openjdk-17-jdk`, `tomcat`, certbot
@@ -175,8 +170,8 @@ AWS Route53 routes requests for server.mrgrassmaster.com to the instance
 
 - **Uses `logback`<br/>**
     - Spring Boot (mgm-server) to all.log  
-      - logs exceptions, HTTP-requests, login attempts
-    - Angular (mgm-client) to angular.log sent via client HTTP request
+      - log exceptions, HTTP-requests, login attempts
+    - Angular (mgm-client) to angular.log sent via HTTP request
 <br><br>
 <div align="center">
     <picture>

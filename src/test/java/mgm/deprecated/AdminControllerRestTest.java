@@ -1,6 +1,7 @@
-package mgm;
+package mgm.deprecated;
 
 import jakarta.servlet.http.Cookie;
+import mgm.Main;
 import mgm.controller.AdminController;
 import mgm.service.ContactServiceImpl;
 import mgm.utilities.ContactBuilder;
@@ -9,6 +10,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +31,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Disabled - these end points no longer used
+ */
+@Disabled
+@Deprecated(forRemoval = true)
 @WebAppConfiguration
 @SpringBootTest(classes = {Main.class, AdminController.class})
 @Import(ContactBuilder.class)

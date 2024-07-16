@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     username VARCHAR(128) PRIMARY KEY,
     password VARCHAR(128) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     enabled BOOLEAN NOT NULL
 );
 
@@ -37,8 +38,3 @@ ALTER TABLE authorities DROP CONSTRAINT IF EXISTS authorities_fk1;
 ALTER TABLE authorities ADD CONSTRAINT authorities_unique UNIQUE (username, authority);
 ALTER TABLE authorities ADD CONSTRAINT authorities_fk1 FOREIGN KEY (username) REFERENCES users (username);
 
-
-INSERT INTO users VALUES ('user1', '$2a$10$wUtdYp0GXHF5xXdICpmgDuP5kdxCILDTE9X1MJoUAFjZWsco5LeEm', true);
-INSERT INTO users VALUES ('user2', '$2a$10$wUtdYp0GXHF5xXdICpmgDuP5kdxCILDTE9X1MJoUAFjZWsco5LeEm', true);
-INSERT INTO authorities VALUES ('user1', 'ROLE_ADMIN');
-INSERT INTO authorities VALUES ('user2', 'ROLE_USER');

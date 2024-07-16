@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.Random;
 
 @Controller
@@ -28,17 +27,18 @@ public class LoginController {
         this.configProperties = configProperties;
     }
 
-    @RequestMapping(value = "/api/login", method  = { RequestMethod.POST, RequestMethod.GET })
+    @RequestMapping(value = "/login", method  = { RequestMethod.POST, RequestMethod.GET })
     public ResponseEntity<Contact> login(Authentication authentication) {
         String username = authentication.getName();
         String token = jwtUtility.generateToken(username);
         ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
-        Optional<Contact> result = contactService.findByMinId();
+//        Optional<Contact> result = contactService.findByMinId();
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(result.orElse(null));
+//                .body(result.orElse(null));
+                .body(null);
     }
 
     @RequestMapping(value = "/error", method  = { RequestMethod.POST })

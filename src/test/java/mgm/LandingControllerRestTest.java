@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 @Import(ContactBuilder.class)
-public class IndexControllerRestTest {
+public class LandingControllerRestTest {
     @Autowired
     private ContactParser contactParser;
 
@@ -47,7 +47,7 @@ public class IndexControllerRestTest {
         int id = expected.getId();
         expected.setUpdate_datetime(null);
 
-        mvc.perform(post("http://localhost:8080/api/form")
+        mvc.perform(post("http://localhost:8080/contact-form")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contactParser.toJsonString(expected)))
                 .andExpect(status().isOk());

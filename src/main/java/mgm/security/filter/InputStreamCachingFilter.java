@@ -12,7 +12,6 @@ import java.io.IOException;
 
 @Component
 public class InputStreamCachingFilter extends OncePerRequestFilter {
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -23,6 +22,6 @@ public class InputStreamCachingFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !"application/json".equals(request.getContentType());
+        return (!"application/json".equals(request.getContentType())) && (!"text/plain".equals(request.getContentType()));
     }
 }

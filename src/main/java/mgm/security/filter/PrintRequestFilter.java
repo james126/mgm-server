@@ -17,7 +17,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.Map;
@@ -74,6 +76,15 @@ public class PrintRequestFilter extends OncePerRequestFilter {
                 logger.info("\t {}", result);
                 } catch (Exception ex){
                     logger.error("\tError parsing JSON body {}" , ex.getMessage());
+                }
+            }
+        }
+
+        if ("text/plain".equals(request.getContentType())){
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    logger.info(line);
                 }
             }
         }
