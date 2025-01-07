@@ -33,7 +33,7 @@ authenticate:
     path:
       - "/admin/view-next"
       - "/admin/delete"
-      - "/admin/logout"
+      - "/custom-logout"
 
 app:
   jwt:

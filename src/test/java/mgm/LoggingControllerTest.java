@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 @Import(ContactBuilder.class)
-public class LoggingControllerRestTest {
+public class LoggingControllerTest {
     private static String messageFilePath = "src/test/resources/logging_message.json";
     private static String errorMessage = "";
 

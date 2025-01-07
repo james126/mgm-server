@@ -1,8 +1,7 @@
 package mgm.controller;
 
 import mgm.controller.utility.ConfigProperties;
-import mgm.model.entity.Contact;
-import mgm.service.ContactServiceImpl;
+import mgm.model.dto.Result;
 import mgm.utility.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,29 +15,25 @@ import java.util.Random;
 
 @Controller
 public class LoginController {
-    private final ContactServiceImpl contactService;
     private final JwtUtility jwtUtility;
     private final ConfigProperties configProperties;
 
     @Autowired
-    public LoginController(ContactServiceImpl contactService, JwtUtility jwtUtility, ConfigProperties configProperties) {
-        this.contactService = contactService;
+    public LoginController(JwtUtility jwtUtility, ConfigProperties configProperties) {
         this.jwtUtility = jwtUtility;
         this.configProperties = configProperties;
     }
 
     @RequestMapping(value = "/login", method  = { RequestMethod.POST, RequestMethod.GET })
-    public ResponseEntity<Contact> login(Authentication authentication) {
+    public ResponseEntity<Result> login(Authentication authentication) {
         String username = authentication.getName();
         String token = jwtUtility.generateToken(username);
         ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
-//        Optional<Contact> result = contactService.findByMinId();
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .contentType(MediaType.APPLICATION_JSON)
-//                .body(result.orElse(null));
-                .body(null);
+                .body(new Result(true));
     }
 
     @RequestMapping(value = "/error", method  = { RequestMethod.POST })
@@ -48,14 +43,17 @@ public class LoginController {
                 .body(null);
     }
 
-    @RequestMapping(value = "/admin/logout", method  = { RequestMethod.GET })
-    public ResponseEntity<String> logout() {
+    /*
+     * Use endpoint /custom-logout as /logout triggers default logout filter
+     */
+    @RequestMapping(value = "/custom-logout", method  = { RequestMethod.GET })
+    public ResponseEntity<Result> logout() {
         String token = jwtUtility.generateToken(generateRandomString());
         ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(null);
+                .body(new Result(true));
     }
 
     public String generateRandomString(){

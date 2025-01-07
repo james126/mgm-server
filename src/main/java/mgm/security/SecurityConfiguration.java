@@ -62,11 +62,11 @@ public class SecurityConfiguration {
                 .addFilterAfter(jwtAuthenticationFilter, HeaderWriterFilter.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/contact-form", "recaptcha", "error").permitAll();
-                    request.requestMatchers("/forgot-pass").permitAll();
-                    request.requestMatchers("/entity/Contact", "/client-logging").permitAll();
+                    request.requestMatchers("/contact-form", "/recaptcha", "error").permitAll();
+                    request.requestMatchers("/signup", "/username-taken", "/email-taken").permitAll();
+                    request.requestMatchers("/client-logging").permitAll();
                     request.requestMatchers("/login").authenticated();
-                    request.requestMatchers("/admin/logout").hasRole("ADMIN");
+                    request.requestMatchers("/custom-logout").hasRole("ADMIN");
                     request.requestMatchers("/actuator/**").permitAll();
                 }).build();
     }
