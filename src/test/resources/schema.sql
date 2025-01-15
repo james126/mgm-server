@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     username VARCHAR(128) PRIMARY KEY,
     password VARCHAR(128) NOT NULL,
+    temporary_password BOOLEAN NOT NULL,
     email VARCHAR(50) NOT NULL,
     enabled BOOLEAN NOT NULL
 );

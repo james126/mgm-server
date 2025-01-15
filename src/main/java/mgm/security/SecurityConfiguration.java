@@ -64,10 +64,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/contact-form", "/recaptcha", "error").permitAll();
                     request.requestMatchers("/signup", "/username-taken", "/email-taken").permitAll();
-                    request.requestMatchers("/client-logging").permitAll();
+                    request.requestMatchers("/forgot-pass", "/new-pass").permitAll();
+                    request.requestMatchers("/client-logging", "/actuator/**").permitAll();
                     request.requestMatchers("/login").authenticated();
                     request.requestMatchers("/custom-logout").hasRole("ADMIN");
-                    request.requestMatchers("/actuator/**").permitAll();
                 }).build();
     }
 

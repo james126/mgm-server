@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = Main.class)
 @Import(ContactBuilder.class)
 public class DatabaseTest {
+
+    @Autowired
+    private WebApplicationContext context;
 
     @Autowired
     private ContactServiceImpl contactService;

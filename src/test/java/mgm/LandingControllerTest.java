@@ -3,7 +3,6 @@ package mgm;
 import mgm.controller.utility.ContactParser;
 import mgm.model.entity.Contact;
 import mgm.repository.ContactRepository;
-import mgm.service.ContactServiceImpl;
 import mgm.utilities.ContactBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +37,11 @@ public class LandingControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    ContactServiceImpl service;
-
-    @Autowired
     ContactRepository repository;
 
     @Test
     void testSubmitContactFormJSON() throws Exception {
         Contact expected = getContact();
-        int id = expected.getId();
         expected.setUpdate_datetime(null);
 
         mvc.perform(post("http://localhost:8080/contact-form")
@@ -54,8 +49,7 @@ public class LandingControllerTest {
                         .content(contactParser.toJsonString(expected)))
                 .andExpect(status().isOk());
 
-        repository.findById(id);
-        Optional<Contact> retrieved = repository.findById(id);
+        Optional<Contact> retrieved = repository.findAll().stream().findFirst();
         assertTrue(retrieved.isPresent());
         Contact actual = retrieved.get();
 

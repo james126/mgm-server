@@ -44,46 +44,35 @@
 ## Contents
 - [Backlog](#backlog)
 - [Description](#desc)
-- [Demo](#demo)
 - [Spring Boot](#spring_boot)
 - [Hosting](#hosting)
 - [Logging](#screenshots)
+- [Testing](#testing)
 
 <!-- Contents end-->
 
 <a name="desc"></a>
 ## Backlog
-- [ ] Add new endpoints
-- [ ] Remove redundant endpoints
-- [ ] Update readme
+- [x] Add new endpoints
+- [x] Remove redundant endpoints
+- [x] Unit testing
 - [ ] Deploy
 
 <a name="desc"></a>
 ## Description
-My first attempt at creating an application with client server architecture<br>
+First attempt at client server architecture - been developing it on/off since 2022.<br>
 <ul>
 	<li>Client uses Angular</li>
 		<ul>
 			<li>mgm-client</li>
-			<li>mrgrassmaster.com</li>
 		</ul>
 	<li>Server uses Spring Boot</li>
 		<ul>
 			<li>mgm-server</li>
-			<li>server.mrgrassmaster.com</li>
             <li>local postgres database</li>
 		</ul>
- 	<li>Hosting AWS</li>
+ 	<li>Previous hosted on AWS</li>
 </ul>
-
-
-<a name="demo"></a>
-
-## Demo
-
-[//]: # (NB: Cookies must be enabled for JWT authentication<br>)
-
-[//]: # ([https://mrgrassmaster.com]&#40;https://mrgrassmaster.com&#41;)
 
 <a name="spring_boot"></a>
 ## Spring Boot details
@@ -96,13 +85,13 @@ Application is stateless - user details stored on a database
     - `CustomAuthenticationProvider` authenticates user and adds user authorities/priviledges
     <br></br>
 
-- Login Authorization
+- **Login Authorization**
   - Handled by Spring Security
       - Requires user authority role ADMIN
       - HTTP response contains a JWT cookie
       <br></br>
     
-- Custom Authorization
+- **Custom Authorization**
     - Verifies user details extracted from JWT cookie 
       - `CustomJwtUtility` validates the cookie and extracts user details
       - Proceeds with custom authentication
@@ -142,7 +131,7 @@ Application is stateless - user details stored on a database
 <a name="hosting"></a>
 ## Hosting
 
-App is served from AWS ec2 virtual instance<br/>
+Previously hosted on AWS ec2 - no longer<br/>
 AWS Route53 routes requests for server.mrgrassmaster.com to the instance
 
 - **ec2 details**
@@ -179,3 +168,13 @@ AWS Route53 routes requests for server.mrgrassmaster.com to the instance
     </picture>
 </div>
 HTTP request from mgm-client
+
+
+<a name="testing"></a>
+## Testing
+- **Unit Tests<br/>**
+<div align="center">
+    <picture>
+        <img src="readme/unit_tests.png" align="center" width="100%" height="100%" alt="">
+    </picture>
+</div>

@@ -1,6 +1,7 @@
 package mgm.utility;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultClock;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -31,14 +34,16 @@ public class JwtUtility {
 
     // generate JWT token
     public String generateToken(String username){
-        Date currentDate = new Date();
-
-        Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
+//        Date currentDate = new Date();
+//        Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
+        Clock clock = DefaultClock.INSTANCE;
+        Instant currentDate = clock.now().toInstant();
+        Instant expireDate = currentDate.plus(1, ChronoUnit.HOURS);
 
         String token = Jwts.builder()
                 .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(expireDate)
+                .setIssuedAt(Date.from(currentDate))
+                .setExpiration(Date.from(expireDate))
                 .signWith(key())
                 .compact();
         return token;

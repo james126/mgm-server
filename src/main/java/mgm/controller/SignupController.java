@@ -28,8 +28,7 @@ public class SignupController {
     }
 
     @RequestMapping(value="/signup", method = { RequestMethod.POST })
-    public Object signup(HttpServletRequest request){
-        Result result = new Result(true);
+    public ResponseEntity<Result> signup(HttpServletRequest request){
         try {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> map = mapper.readValue(request.getInputStream(), Map.class);
@@ -42,40 +41,46 @@ public class SignupController {
             user.setUsername(username);
             user.setEmail(email);
             user.setPassword(password);
+            user.setTemporaryPassword(false);
             user.setEnabled(true);
 
             signupService.register(user);
         } catch (Exception e) {
-            result.outcome = false;
             logger.logException(request, e);
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(500)
+                    .body(new Result(false,e.getMessage(), false));
         }
-        return  ResponseEntity.ok(result);
+        return ResponseEntity.ok()
+                .body(new Result(true,"", false));
     }
 
     @RequestMapping(value="/username-taken", method = { RequestMethod.GET })
-    public Object usernameTaken(HttpServletRequest request){
-        Result result = new Result(true);
+    public ResponseEntity<Result> usernameTaken(HttpServletRequest request){
+        boolean outcome;
         try {
             String username = request.getParameter("username");
-            result.outcome = signupService.usernameTaken(username);
+            outcome = signupService.usernameTaken(username);
         } catch (Exception e) {
             logger.logException(request, e);
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(500)
+                    .body(new Result(false, e.getMessage(), false));
         }
-        return  ResponseEntity.ok(result);
+        return ResponseEntity.ok()
+                .body(new Result(outcome, "", false));
     }
 
     @RequestMapping(value="/email-taken", method = { RequestMethod.GET })
-    public Object emailTaken(HttpServletRequest request){
-        Result result = new Result(true);
+    public ResponseEntity<Result> emailTaken(HttpServletRequest request){
+        boolean outcome;
         try {
             String email = request.getParameter("email");
-            result.outcome = signupService.emailTaken(email);
+            outcome = signupService.emailTaken(email);
         } catch (Exception e) {
             logger.logException(request, e);
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(500)
+                    .body(new Result(false, e.getMessage(), false));
         }
-        return  ResponseEntity.ok(result);
+        return ResponseEntity.status(500)
+                .body(new Result(outcome, "", false));
     }
 }

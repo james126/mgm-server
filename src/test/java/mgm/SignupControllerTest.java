@@ -64,7 +64,7 @@ public class SignupControllerTest {
         map.put("email", String.valueOf(data.getEmail()));
         map.put("password", String.valueOf(data.getPassword()));
 
-        String expected = "{\"outcome\":true}";
+        String expected = "{\"outcome\":true,\"error\":\"\",\"temporaryPassword\":false}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/signup")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class SignupControllerTest {
 
     @Test
     public void testUsernameTaken() throws Exception {
-        String expected = "{\"outcome\":true}";
+        String expected = "{\"outcome\":true,\"error\":\"\",\"temporaryPassword\":false}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/username-taken")
                 .param("username", "user1"))
                 .andReturn();
@@ -85,7 +85,7 @@ public class SignupControllerTest {
 
     @Test
     public void testUsernameNotTaken() throws Exception {
-        String expected = "{\"outcome\":false}";
+        String expected = "{\"outcome\":false,\"error\":\"\",\"temporaryPassword\":false}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/username-taken")
                         .param("username", "user9"))
                 .andReturn();
@@ -101,7 +101,7 @@ public class SignupControllerTest {
 
     @Test
     public void testEmailTaken() throws Exception {
-        String expected = "{\"outcome\":true}";
+        String expected = "{\"outcome\":true,\"error\":\"\",\"temporaryPassword\":false}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/email-taken")
                         .param("email", "test1@test.com"))
                 .andReturn();
@@ -111,7 +111,7 @@ public class SignupControllerTest {
 
     @Test
     public void testEmailNotTaken() throws Exception {
-        String expected = "{\"outcome\":false}";
+        String expected = "{\"outcome\":false,\"error\":\"\",\"temporaryPassword\":false}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/email-taken")
                         .param("email", "test9@test.com"))
                 .andReturn();

@@ -22,6 +22,9 @@ public class Users {
     private String password;
 
     @Column(nullable = false)
+    private Boolean temporaryPassword;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

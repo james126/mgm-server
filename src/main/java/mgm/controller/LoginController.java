@@ -2,6 +2,7 @@ package mgm.controller;
 
 import mgm.controller.utility.ConfigProperties;
 import mgm.model.dto.Result;
+import mgm.service.LoginService;
 import mgm.utility.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -17,23 +18,32 @@ import java.util.Random;
 public class LoginController {
     private final JwtUtility jwtUtility;
     private final ConfigProperties configProperties;
+    private final LoginService loginService;
 
     @Autowired
-    public LoginController(JwtUtility jwtUtility, ConfigProperties configProperties) {
+    public LoginController(JwtUtility jwtUtility, ConfigProperties configProperties, LoginService loginService) {
         this.jwtUtility = jwtUtility;
         this.configProperties = configProperties;
+        this.loginService = loginService;
     }
 
     @RequestMapping(value = "/login", method  = { RequestMethod.POST, RequestMethod.GET })
     public ResponseEntity<Result> login(Authentication authentication) {
         String username = authentication.getName();
-        String token = jwtUtility.generateToken(username);
-        ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
+        boolean isTemporaryPassword = loginService.isTemporaryPassword(username);
 
-        return ResponseEntity.ok().
-                header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new Result(true));
+        if (isTemporaryPassword){
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new Result(true,"",true));
+        } else {
+            String token = jwtUtility.generateToken(username);
+            ResponseCookie cookie = jwtUtility.generateCookie(token, configProperties.getRequestUrl());
+            return ResponseEntity.ok().
+                    header( HttpHeaders.SET_COOKIE, cookie.toString())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new Result(true,"",false));
+        }
     }
 
     @RequestMapping(value = "/error", method  = { RequestMethod.POST })
@@ -53,7 +63,7 @@ public class LoginController {
 
         return ResponseEntity.ok().
                 header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(new Result(true));
+                .body(new Result(true,"", false));
     }
 
     public String generateRandomString(){

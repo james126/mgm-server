@@ -4,6 +4,8 @@ keystore.p12
 privkey.pem
 logs/
 application-prod.yml
+application-test.yml
+application-dev.yml
 
 ### SSL ###
 csr.pem
