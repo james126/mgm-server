@@ -44,10 +44,11 @@
 ## Contents
 - [Backlog](#backlog)
 - [Description](#desc)
+- [Demo](#demo)
 - [Spring Boot](#spring_boot)
-- [Hosting](#hosting)
 - [Logging](#screenshots)
 - [Testing](#testing)
+- [Hosting](#hosting)
 
 <!-- Contents end-->
 
@@ -73,6 +74,73 @@ First attempt at client server architecture - been developing it on/off since 20
 		</ul>
  	<li>Previous hosted on AWS</li>
 </ul>
+
+<a name="demo"></a>
+## Demo
+#### Development user testing on localhost
+
+<ul>
+    <li>server port 8080</li>
+    <li>Postgres port 5432</li>
+    <li>client port 80</li>
+</ul>
+
+## `Landing page`
+[<img src="readme/demo/landing.jpeg" style="width:50%"/>](readme/demo/landing.jpeg)
+<br/>
+
+#### `Contact form validation`
+[<img src="readme/demo/contact-validation.png" style="width:50%"/>](readme/demo/contact-validation.png)
+
+#### `Error submitting contact form`
+[<img src="readme/demo/contact-error.png" style="width:50%"/>](readme/demo/contact-error.png)
+
+#### `Successfully submission`
+[<img src="readme/demo/contact-success.png" style="width:50%"/>](readme/demo/contact-success.png)
+
+#### `Server writes record to database`
+[<img src="readme/demo/http-contact.png" style="width:100%"/>](readme/demo/http-contact.png)
+[<img src="readme/demo/database-contact.png" style="width:100%"/>](readme/demo/database-contact.png)
+
+<hr>
+
+## `Signup form`
+#### `Form validation`
+[<img src="readme/demo/register-validation.png" style="width:50%"/>](readme/demo/register-validation.png)
+
+#### `Request to check if username is taken`
+[<img src="readme/demo/http-username.png" style="width:100%"/>](readme/demo/http-username.png)
+
+#### `Unsuccessful submission`
+[<img src="readme/demo/register-error.png" style="width:50%"/>](readme/demo/register-error.png)
+
+#### `Successful submission`
+[<img src="readme/demo/register-success.png" style="width:50%"/>](readme/demo/register-success.png)
+
+#### `Record written to database`
+[<img src="readme/demo/database-register.png" style="width:100%"/>](readme/demo/database-register.png)
+
+<hr>
+
+## `Forgot Password`
+#### `Enter email to receive one-time password`
+[<img src="readme/demo/forgot-password-email.png" style="width:50%"/>](readme/demo/forgot-password-email.png)
+
+#### `Password received`
+[<img src="readme/demo/temporary-password.png" style="width:50%"/>](readme/demo/temporary-password.png)
+
+#### `Sets accounts temporary attribute true (indicates password is temporary)`
+[<img src="readme/demo/database-temporary-true.png" style="width:100%"/>](readme/demo/database-temporary-true.png)
+
+#### `Attempting to login with one-time password prompts user to change it`
+[<img src="readme/demo/new-password.png" style="width:100%"/>](readme/demo/new-password.png)
+
+#### `Resetting password sets temporary false (indicates password is not temporary)`
+[<img src="readme/demo/database-temporary-false.png" style="width:100%"/>](readme/demo/database-temporary-false.png)
+
+#### `Successfully logged into a dashboard`
+[<img src="readme/demo/dashboard.png" style="width:50%"/>](readme/demo/dashboard.png)
+
 
 <a name="spring_boot"></a>
 ## Spring Boot details
