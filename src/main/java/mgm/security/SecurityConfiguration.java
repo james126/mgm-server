@@ -63,7 +63,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(customAuthenticationProvider)
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/contact-form", "/recaptcha", "error").permitAll();
-                    request.requestMatchers("/signup", "/username-taken", "/email-taken").permitAll();
+                    request.requestMatchers("/sign-up", "/username-taken", "/email-taken").permitAll();
                     request.requestMatchers("/forgot-pass", "/new-pass").permitAll();
                     request.requestMatchers("/client-logging", "/actuator/**").permitAll();
                     request.requestMatchers("/login").authenticated();

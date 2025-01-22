@@ -3,6 +3,7 @@ package mgm.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import mgm.model.dto.Result;
+import mgm.model.entity.Authorities;
 import mgm.model.entity.Users;
 import mgm.service.SignupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class SignupController {
         this.logger = logger;
     }
 
-    @RequestMapping(value="/signup", method = { RequestMethod.POST })
+    @RequestMapping(value="/sign-up", method = { RequestMethod.POST })
     public ResponseEntity<Result> signup(HttpServletRequest request){
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +45,11 @@ public class SignupController {
             user.setTemporaryPassword(false);
             user.setEnabled(true);
 
-            signupService.register(user);
+            Authorities authorities = new Authorities();
+            authorities.setUsername(username);
+            authorities.setAuthority("ROLE_USER");
+
+            signupService.register(user, authorities);
         } catch (Exception e) {
             logger.logException(request, e);
             return ResponseEntity.status(500)
@@ -80,7 +85,7 @@ public class SignupController {
             return ResponseEntity.status(500)
                     .body(new Result(false, e.getMessage(), false));
         }
-        return ResponseEntity.status(500)
+        return ResponseEntity.ok()
                 .body(new Result(outcome, "", false));
     }
 }

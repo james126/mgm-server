@@ -66,7 +66,7 @@ public class SignupControllerTest {
 
         String expected = "{\"outcome\":true,\"error\":\"\",\"temporaryPassword\":false}";
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/signup")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new JSONObject(map).toString())).andReturn();
         String responseBody = mvcResult.getResponse().getContentAsString();

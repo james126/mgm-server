@@ -23,13 +23,15 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class PrintRequestFilter extends OncePerRequestFilter {
 
     Logger logger = LoggerFactory.getLogger("Security");
 
-    @Override protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         logger.info("**************************************************************");
@@ -57,30 +59,35 @@ public class PrintRequestFilter extends OncePerRequestFilter {
                     logger.info("\t {} = {}", k, v);
                 });
             }
+        } else if (Objects.equals(request.getMethod(), "GET")) {
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            parameterMap.forEach((k, v) -> {
+                logger.info("\t {} = {}", k, v);
+            });
         }
 
         if ("application/json".equals(request.getContentType())) {
             try {
                 //JSON BODY
                 Map<String, Object> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
-                requestMap.forEach((k,v) -> {
+                requestMap.forEach((k, v) -> {
                     logger.info("\t {} : {}", k, v);
                 });
             } catch (MismatchedInputException e) {
                 String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
                 logger.info("\t {}", result);
-            } catch (Exception e){
-                try{
-                //print recaptcha
-                String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
-                logger.info("\t {}", result);
-                } catch (Exception ex){
-                    logger.error("\tError parsing JSON body {}" , ex.getMessage());
+            } catch (Exception e) {
+                try {
+                    //print recaptcha
+                    String result = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+                    logger.info("\t {}", result);
+                } catch (Exception ex) {
+                    logger.error("\tError parsing JSON body {}", ex.getMessage());
                 }
             }
         }
 
-        if ("text/plain".equals(request.getContentType())){
+        if ("text/plain".equals(request.getContentType())) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
