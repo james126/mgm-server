@@ -130,7 +130,7 @@ First attempt at client server architecture - been developing it on/off since 20
 [<img src="readme/demo/database-temporary-true.png" style="width:100%"/>](readme/demo/database-temporary-true.png)
 
 #### `Attempting to login with one-time password prompts user to change it`
-[<img src="readme/demo/new-password.png" style="width:100%"/>](readme/demo/new-password.png)
+[<img src="readme/demo/new-password.png" style="width:50%"/>](readme/demo/new-password.png)
 
 #### `Resetting password sets temporary false (indicates password is not temporary)`
 [<img src="readme/demo/database-temporary-false.png" style="width:100%"/>](readme/demo/database-temporary-false.png)
