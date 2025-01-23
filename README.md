@@ -89,9 +89,6 @@ First attempt at client server architecture - been developing it on/off since 20
 [<img src="readme/demo/landing.jpeg" style="width:50%"/>](readme/demo/landing.jpeg)
 <br/>
 
-#### `Contact form validation`
-[<img src="readme/demo/contact-validation.png" style="width:50%"/>](readme/demo/contact-validation.png)
-
 #### `Error submitting contact form`
 [<img src="readme/demo/contact-error.png" style="width:50%"/>](readme/demo/contact-error.png)
 
