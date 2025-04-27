@@ -26,7 +26,6 @@ public class LandingController {
         this.logger = logger;
     }
 
-
     @RequestMapping(value = "/contact-form", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Boolean>> submitContactForm(HttpServletRequest request) {
         Map<String, Boolean> response = new HashMap<>();

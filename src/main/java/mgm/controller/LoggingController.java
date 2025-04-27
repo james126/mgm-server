@@ -29,19 +29,27 @@ public class LoggingController {
     public void logMessage(HttpServletRequest request){
         try {
             Map<String, Object> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
-            angularLogger.error("Angular Logger message {}", new JSONObject(requestMap));
+            angularLogger(requestMap);
         } catch (Exception e) {
-            springLogger.error("Error logging angular message {}" , e.toString());
+            springLogger(e);
         }
     }
 
     public void logException(HttpServletRequest request, Exception exception){
         try {
             Map<String, Object> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
-            angularLogger.error("Angular Logger message {}", new JSONObject(requestMap));
-            springLogger.error("Error logging angular message {}" , exception.toString());
+            angularLogger(requestMap);
+            springLogger(exception);
         } catch (Exception e) {
-            springLogger.error("Error logging exception {}" , e.toString());
+            springLogger(e);
         }
+    }
+
+    public  void angularLogger(Map<String, Object> requestMap){
+        angularLogger.error("Angular Logger message {}", new JSONObject(requestMap));
+    }
+
+    public  void springLogger(Exception e){
+        springLogger.error("Error logging angular message {}" , e.toString());
     }
 }
